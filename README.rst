@@ -12,6 +12,7 @@ Testing OpenStack_ installations is complex:
 * There is almost 50 official `OpenStack projects`_
 * There is over 1000 source and binary packages provided by the official RDO
   repositories
+* These packages are bundled and integrated into many different installers
 * There are countless deployment use cases from simple private clouds to large
   scale complex and highly available public clouds
 
@@ -20,6 +21,8 @@ works well is a hard problem to solve.
 
 WeIRDO is an attempt to leverage the effort the community puts towards their
 own CI initiative to improve the coverage that upstream RDO provides.
+This is about testing as many ways of installing, configuring and integrating
+OpenStack as possible without re-inventing the wheel.
 
 We're taking your jobs outside the gate to test what we ship before our
 packages even make it to your CI.
