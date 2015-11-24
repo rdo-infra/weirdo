@@ -1,4 +1,5 @@
 [defaults]
 # Attempt to load cico Ansible module whether it's installed system-wide or from a virtual environment
 library = /usr/lib/python2.7/site-packages/cicoclient/ansible:$VIRTUAL_ENV/lib/python2.7/site-packages/cicoclient/ansible
+callback_plugins = playbooks/library
 host_key_checking = False
