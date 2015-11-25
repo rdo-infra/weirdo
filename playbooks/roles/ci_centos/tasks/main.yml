@@ -17,4 +17,4 @@
 - include: provision.yml
   when: action == "provision"
 - include: release.yml
-  when: action == "release"
+  when: action == "release" and disable_release is not defined
