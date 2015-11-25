@@ -16,8 +16,7 @@
 
 repository: "https://github.com/openstack/kolla.git"
 clone_path: "/tmp/kolla"
-# Pin to specific hash, there is a lot of movement around CI and gate coming
-version: "4d69166e57b756f9dacdb33b304180de2ae333d5"
+version: "master"
 
 loopback_device: loop1
 
