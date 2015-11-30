@@ -30,7 +30,7 @@ While the `syntax and unit`_ checks are supplied by each respective puppet
 module, the integration tests are provided through the
 puppet-openstack-integration_ project.
 Ultimately, these are all configured to run by Jenkins through project-config_
-and are triggered by Gerrit.
+and are triggered when a patchset is submitted to Gerrit.
 
 The integration tests are of particular interest since the puppet modules will
 install OpenStack libraries, clients and services with the packages provided
