@@ -1,5 +1,5 @@
-puppet-openstack-integration
-============================
+puppet-openstack
+================
 This role provides an implementation of the
 puppet-openstack-integration_ gate jobs.
 

@@ -26,7 +26,7 @@
   user: root
   roles:
     - role: "openstack_server"
-    - role: "puppet-openstack-integration"
+    - role: "puppet-openstack"
       test: "scenario001"
 
 - name: "Release the provisioned ci.centos.org node"
