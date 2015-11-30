@@ -54,9 +54,9 @@ This is what the WeIRDO implementation looks like for puppet-openstack:
       b  [shape = polygon, sides = 4,label = <Install dependencies<br/><FONT POINT-SIZE='12'>(ruby-devel, rubygems, etc.)</FONT><br/><FONT POINT-SIZE='10'><I>playbooks/roles/puppet-openstack/tasks/packages</I></FONT>>]
       c  [shape = polygon, sides = 4,label = <Clone puppet-openstack-integration<br/><FONT POINT-SIZE='10'><I>playbooks/roles/puppet-openstack/tasks/setup</I></FONT>>]
       d  [shape = polygon, sides = 4,label = <Execute run_tests.sh<br/><FONT POINT-SIZE='12'>(with scenario001, scenario002, etc.)</FONT><br/><FONT POINT-SIZE='10'><I>playbooks/roles/puppet-openstack/tasks/run</I></FONT>>]
-      e  [shape = polygon, sides = 4,label = "Install puppet, puppet modules"]
-      f  [shape = polygon, sides = 4,label = "Deploy OpenStack"]
-      g  [shape = polygon, sides = 4,label = "Run Tempest smoke"]
+      e  [shape = polygon, sides = 4,label = <Install puppet, puppet modules<br/><FONT POINT-SIZE='10'><I>run_tests.sh</I></FONT>>]
+      f  [shape = polygon, sides = 4,label = <Deploy OpenStack<br/><FONT POINT-SIZE='10'><I>run_tests.sh: puppet apply fixtures/scenario00X.pp</I></FONT>>]
+      g  [shape = polygon, sides = 4,label = <Run Tempest smoke<br/><FONT POINT-SIZE='10'><I>run_tests.sh: cd tempest; tox -eall -- --concurrency=2 smoke dashboard</I></FONT>>]
       h  [shape = polygon, sides = 4,label = <Destroy test node<br/><FONT POINT-SIZE='10'><I>playbooks/roles/ci_centos/tasks/release</I></FONT>>]
 
       subgraph cluster_0 {
