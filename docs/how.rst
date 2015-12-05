@@ -6,15 +6,22 @@ WeIRDO is a collection of Ansible_ roles and playbooks.
 
 WeIRDO, through Ansible, will:
 
-- Create an ephemeral node on which the CI job is run
+- Create an ephemeral node on which the CI job will be run
 - Generate a similar environment to the gate (setup configuration, packages,
   dependencies)
-- Run the gate job (i.e, ``./run_tests.sh`` or ``tox`` provided by the upstream
+- Run the gate job (i.e, ``run_tests.sh`` or ``tox`` provided by the upstream
   project)
 - Destroy the ephemeral environment
 
-Combined with Jenkins_, WeIRDO can run these tasks and report on either success
-or failure.
+This is not unlike what the Openstack Infra team is already doing with Jenkins
+and NodePool_ - and with good reason. We don’t want to be too different than
+the gate to involve as little implementation effort as possible.
+
+WeIRDO, by itself, doesn’t use or require Jenkins. When run inside a job,
+however, it will be able to report success or failure.
+
+.. _Ansible: http://www.ansible.com/
+.. _NodePool: http://docs.openstack.org/infra/system-config/nodepool.html
 
 Puppet-Openstack
 ~~~~~~~~~~~~~~~~
@@ -87,7 +94,7 @@ like this::
     source jobenv/bin/activate
     # Install WeIRDO
     pip install -e git+https://github.com/dmsimard/weirdo.git@master#egg=weirdo
-    # Need features from Ansible 2 which is not yet release
+    # Need features from Ansible 2 which is not yet released
     pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
 
     pushd jobenv/src/weirdo
@@ -102,7 +109,6 @@ like this::
 
     exit $result
 
-.. _Ansible: http://www.ansible.com/
 .. _Jenkins: #jenkins-integration
 .. _Puppet-Openstack: https://wiki.openstack.org/wiki/Puppet
 .. _puppet-openstack-integration: https://github.com/openstack/puppet-openstack-integration
