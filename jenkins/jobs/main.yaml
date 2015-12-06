@@ -1,0 +1,19 @@
+- project:
+    name: weirdo-gate-jobs
+    playbook:
+        - 'puppet-openstack-scenario001'
+        - 'puppet-openstack-scenario002'
+        - 'kolla-build-centos-binary'
+        - 'kolla-deploy-centos-binary'
+    jobs:
+        - weirdo-gate-{playbook}
+
+- project:
+    name: weirdo-periodic-jobs
+    playbook:
+        - 'puppet-openstack-scenario001'
+        - 'puppet-openstack-scenario002'
+        - 'kolla-build-centos-binary'
+        - 'kolla-deploy-centos-binary'
+    jobs:
+        - weirdo-periodic-{playbook}
