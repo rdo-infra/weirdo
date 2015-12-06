@@ -21,7 +21,6 @@
     state: "latest"
   retries: "3"
   delay: "20"
-  register: updated_packages
 
 - name: "Install base packages"
   yum:
@@ -30,7 +29,6 @@
   with_items: base_packages
   retries: "3"
   delay: "20"
-  register: installed_base_packages
 
 - name: "Install debug packages"
   yum:
@@ -39,4 +37,3 @@
   with_items: debug_packages
   retries: "3"
   delay: "20"
-  register: installed_debug_packages

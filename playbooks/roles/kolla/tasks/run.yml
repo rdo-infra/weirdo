@@ -18,4 +18,3 @@
   command: "tox -e {{ test }}"
   args:
     chdir: "{{ clone_path }}"
-  register: run_output

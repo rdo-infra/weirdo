@@ -21,7 +21,6 @@
   with_items: required_packages
   retries: "3"
   delay: "20"
-  register: installed_required_packages
 
 - name: "Install required ruby gems"
   gem:
@@ -30,4 +29,3 @@
   with_items: gem_packages
   retries: "3"
   delay: "20"
-  register: installed_gem_packages

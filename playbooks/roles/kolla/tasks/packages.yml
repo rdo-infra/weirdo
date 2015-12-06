@@ -21,7 +21,6 @@
   with_items: required_packages
   retries: "3"
   delay: "20"
-  register: installed_required_packages
 
 - name: "Install pip"
   command: easy_install pip
@@ -33,4 +32,3 @@
   with_items: base_pip_packages
   retries: "3"
   delay: "20"
-  register: installed_pip_packages

@@ -18,4 +18,3 @@
   shell: "export SCENARIO='{{ test }}'; ./run_tests.sh"
   args:
     chdir: "{{ clone_path }}"
-  register: run_output
