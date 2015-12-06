@@ -20,7 +20,7 @@ the gate to involve as little implementation effort as possible.
 WeIRDO, by itself, doesn’t use or require Jenkins. When run inside a job,
 however, it will be able to report success or failure.
 
-Details on how the Jenkins jobs are documented here_.
+Details on how the Jenkins jobs are configured is available here_.
 
 .. _roles: http://weirdo.readthedocs.org/en/latest/roles.html
 .. _playbooks: http://weirdo.readthedocs.org/en/latest/playbooks.html
