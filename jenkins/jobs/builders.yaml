@@ -1,0 +1,56 @@
+- builder:
+    name: weirdo-gate-builder
+    builders:
+        - shining-panda:
+            build-environment: virtualenv
+            python-version: default-python
+            nature: shell
+            clear: false
+            use-distribute: true
+            system-site-packages: false
+            ignore-exit-code: false
+            command: |
+              # Install WeIRDO from provided jenkins scm gerrit commit ref
+              pushd weirdo
+              python setup.py install
+              popd
+
+              # Need features from Ansible 2 which is not yet released
+              pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
+
+              # Setup ansible config and run the playbook
+              pushd $VIRTUAL_ENV/usr/local/share/weirdo
+              mv ansible.cfg.example ansible.cfg
+              ansible-playbook -vv playbooks/{playbook}.yml
+              result=$?
+
+              exit $result
+
+- builder:
+    name: weirdo-periodic-builder
+    builders:
+        - shining-panda:
+            build-environment: virtualenv
+            python-version: default-python
+            nature: shell
+            clear: false
+            use-distribute: true
+            system-site-packages: false
+            ignore-exit-code: false
+            command: |
+              # Install WeIRDO
+              pip install -e git+https://github.com/redhat-openstack/weirdo.git@master#egg=weirdo
+              pushd $VIRTUAL_ENV/src/weirdo
+              python setup.py install
+              popd
+
+              # Need features from Ansible 2 which is not yet released
+              pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
+
+              # Setup ansible config and run the playbook
+              pushd $VIRTUAL_ENV/usr/local/share/weirdo
+              mv ansible.cfg.example ansible.cfg
+              ansible-playbook -vv playbooks/{playbook}.yml
+              result=$?
+
+              exit $result
