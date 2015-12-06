@@ -1,9 +1,9 @@
 Supported CI jobs
------------------
+=================
 WeIRDO currently provides an implementation for the following gate jobs:
 
 Puppet-OpenStack
-~~~~~~~~~~~~~~~~
+----------------
 About Puppet-OpenStack_::
 
     The Puppet modules for OpenStack bring scalable and reliable IT automation
@@ -17,7 +17,7 @@ Supported Puppet-OpenStack gate jobs:
 .. _Puppet-OpenStack: https://wiki.openstack.org/wiki/Puppet
 
 Kolla
-~~~~~
+-----
 About Kolla_::
 
     Kolla provides production-ready containers and deployment tools for
