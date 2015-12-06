@@ -14,7 +14,7 @@ limitation to run these jobs truly anywhere.
 
 Using Jenkins Job Builder
 -------------------------
-Jenkins job builder makes it easier to maintain and version Jenkins job.
+Jenkins job builder makes it easier to develop, maintain and version jobs.
 
 To install it::
 
