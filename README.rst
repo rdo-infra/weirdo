@@ -32,6 +32,13 @@ Let's work together to make RDO better.
 .. _OpenStack: http://www.openstack.org/
 .. _OpenStack projects: http://governance.openstack.org/reference/projects/index.html
 
+Where can I find the WeIRDO CI Jobs ?
+-------------------------------------
+All RDO CI jobs are publicly available and WeIRDO is no exception.
+
+You can find the jobs on https://ci.centos.org/view/rdo/ under the label
+WeIRDO.
+
 Documentation
 -------------
 Documentation on what WeIRDO is, how it works and what it supports is available

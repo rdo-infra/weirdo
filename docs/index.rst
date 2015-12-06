@@ -32,6 +32,13 @@ Let's work together to make RDO better.
 .. _OpenStack: http://www.openstack.org/
 .. _OpenStack projects: http://governance.openstack.org/reference/projects/index.html
 
+Where can I find the WeIRDO CI Jobs ?
+-------------------------------------
+All RDO CI jobs are publicly available and WeIRDO is no exception.
+
+You can find the jobs on https://ci.centos.org/view/rdo/ under the label
+WeIRDO.
+
 Table of Contents
 =================
 
@@ -39,4 +46,5 @@ Table of Contents
     :maxdepth: 2
 
     How it works <how>
-    Supported gate jobs <jobs>
+    Supported gate jobs <supported-jobs>
+    Jenkins Job Configuration <jenkins-job-configuration>
