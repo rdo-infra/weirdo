@@ -18,14 +18,14 @@
   hosts: localhost
   sudo: no
   roles:
-    - role: "ci_centos"
+    - role: "ci-centos"
       action: "provision"
 
 - name: "Run kolla build tests"
   hosts: openstack_nodes
   user: root
   roles:
-    - role: "openstack_server"
+    - role: "openstack-server"
     - role: "kolla"
       test: "build-centos-binary"
 
@@ -33,5 +33,5 @@
   hosts: localhost
   sudo: no
   roles:
-    - role: "ci_centos"
+    - role: "ci-centos"
       action: "release"

@@ -1,5 +1,5 @@
 kolla
-=====
+-----
 This role provides an implementation of the Kolla_ gate jobs.
 
 .. _Kolla: https://github.com/openstack/kolla

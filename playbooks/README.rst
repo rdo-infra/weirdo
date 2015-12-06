@@ -1,6 +1,5 @@
-WeIRDO Playbooks
-================
-
+Ansible Playbooks
+=================
 Summary of the playbooks:
 
 * **kolla-build-centos-binary**: Runs tox -e build-centos-binary on a

@@ -2,9 +2,9 @@ How does it work ?
 ==================
 In a nutshell
 ~~~~~~~~~~~~~
-WeIRDO is a collection of Ansible_ roles and playbooks.
+WeIRDO is a collection of Ansible roles_ and playbooks_.
 
-WeIRDO, through Ansible, will:
+WeIRDO, through Ansible_, will:
 
 - Create an ephemeral node on which the CI job will be run
 - Generate a similar environment to the gate (setup configuration, packages,
@@ -20,8 +20,13 @@ the gate to involve as little implementation effort as possible.
 WeIRDO, by itself, doesn’t use or require Jenkins. When run inside a job,
 however, it will be able to report success or failure.
 
+Details on how the Jenkins jobs are documented here_.
+
+.. _roles: http://weirdo.readthedocs.org/en/latest/roles.html
+.. _playbooks: http://weirdo.readthedocs.org/en/latest/playbooks.html
 .. _Ansible: http://www.ansible.com/
 .. _NodePool: http://docs.openstack.org/infra/system-config/nodepool.html
+.. _here: http://weirdo.readthedocs.org/en/latest/jenkins-job-configuration.html
 
 Puppet-Openstack
 ~~~~~~~~~~~~~~~~
@@ -85,31 +90,6 @@ This is what the WeIRDO implementation looks like for puppet-openstack:
       }
     }
 
-Jenkins integration
--------------------
-Integration in Jenkins is made with a simple Shell provisioner and it looks
-like this::
-
-    virtualenv jobenv
-    source jobenv/bin/activate
-    # Install WeIRDO
-    pip install -e git+https://github.com/dmsimard/weirdo.git@master#egg=weirdo
-    # Need features from Ansible 2 which is not yet released
-    pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
-
-    pushd jobenv/src/weirdo
-    python setup.py install
-    popd
-
-    pushd jobenv/usr/local/share/weirdo
-    mv ansible.cfg.example ansible.cfg
-
-    ansible-playbook -vv playbooks/puppet-openstack-scenario001.yml
-    result=$?
-
-    exit $result
-
-.. _Jenkins: #jenkins-integration
 .. _Puppet-Openstack: https://wiki.openstack.org/wiki/Puppet
 .. _puppet-openstack-integration: https://github.com/openstack/puppet-openstack-integration
 .. _syntax and unit: https://github.com/openstack/puppet-nova/blob/master/Rakefile

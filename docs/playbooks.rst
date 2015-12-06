@@ -1,0 +1,1 @@
+.. include:: ../playbooks/README.rst

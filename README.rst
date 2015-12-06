@@ -34,7 +34,8 @@ Let's work together to make RDO better.
 
 Where can I find the WeIRDO CI Jobs ?
 -------------------------------------
-All RDO CI jobs are publicly available and WeIRDO is no exception.
+All RDO CI jobs are publicly available and the ones from WeIRDO are no
+exception.
 
 You can find the jobs on https://ci.centos.org/view/rdo/ under the label
 WeIRDO.
