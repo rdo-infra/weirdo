@@ -1,0 +1,80 @@
+- job-template:
+    name: 'weirdo-gate-{playbook}'
+    defaults: 'weirdo-defaults'
+    description: |
+        <p>Managed by Jenkins Job Builder. Do not edit via web.</p>
+        <br>
+        <p>This job gates against commits done to <a href="https://github.com/redhat-openstack/weirdo" target="_blank">WeIRDO</a>.</p>
+        <p>It runs the playbook <a href="https://github.com/redhat-openstack/weirdo/blob/master/playbooks/{playbook}.yml" target="_blank">{playbook}.yml</a></p>
+        <br>
+        This is what this job runs:
+        <pre>
+        # Install WeIRDO from provided jenkins scm gerrit commit ref
+        pushd weirdo
+        python setup.py install
+        popd
+
+        # Need features from Ansible 2 which is not yet released
+        pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
+
+        # Setup ansible config and run the playbook
+        pushd $VIRTUALN_ENV/usr/local/share/weirdo
+        mv ansible.cfg.example ansible.cfg
+        ansible-playbook -vv playbooks/{playbook}.yml
+        result=$?
+
+        exit $result
+        </pre>
+
+    triggers:
+          - weirdo-gate-trigger
+    scm:
+        - weirdo-gate-repository
+    builders:
+        - weirdo-gate-builder:
+            playbook: '{playbook}'
+    properties:
+        - ownership:
+            owner: dms@redhat.com
+    publishers:
+        - email-cores
+
+- job-template:
+    name: 'weirdo-periodic-{playbook}'
+    defaults: 'weirdo-defaults'
+    description: |
+        <p>Managed by Jenkins Job Builder. Do not edit via web.</p>
+        <br>
+        <p>This job periodically runs <a href="https://github.com/redhat-openstack/weirdo" target="_blank">WeIRDO</a>.</p>
+        <p>It runs the playbook <a href="https://github.com/redhat-openstack/weirdo/blob/master/playbooks/{playbook}.yml" target="_blank">{playbook}.yml</a></p>
+        <br>
+        This is what this job runs:
+        <pre>
+        # Install WeIRDO
+        pip install -e git+https://github.com/redhat-openstack/weirdo.git@master#egg=weirdo
+        pushd $VIRTUAL_ENV/src/weirdo
+        python setup.py install
+        popd
+
+        # Need features from Ansible 2 which is not yet released
+        pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
+
+        # Setup ansible config and run the playbook
+        pushd $VIRTUAL_ENV/usr/local/share/weirdo
+        mv ansible.cfg.example ansible.cfg
+        ansible-playbook -vv playbooks/{playbook}.yml
+        result=$?
+
+        exit $result
+        </pre>
+
+    triggers:
+          - weirdo-periodic-trigger
+    builders:
+        - weirdo-periodic-builder:
+            playbook: '{playbook}'
+    properties:
+        - ownership:
+            owner: dms@redhat.com
+    publishers:
+        - email-cores

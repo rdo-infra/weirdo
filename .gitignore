@@ -10,3 +10,4 @@ dist
 build
 eggs
 .tox/
+jenkins/config.ini

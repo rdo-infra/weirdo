@@ -39,4 +39,5 @@ Table of Contents
     :maxdepth: 2
 
     How it works <how>
-    Supported gate jobs <jobs>
+    Supported gate jobs <supported-jobs>
+    Jenkins Job Configuration <jenkins-job-configuration>
