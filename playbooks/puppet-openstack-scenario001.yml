@@ -16,7 +16,6 @@
 
 - name: "Provision a ci.centos.org node"
   hosts: localhost
-  sudo: no
   roles:
     - role: "ci-centos"
       action: "provision"
@@ -31,7 +30,6 @@
 
 - name: "Release the provisioned ci.centos.org node"
   hosts: localhost
-  sudo: no
   roles:
     - role: "ci-centos"
       action: "release"
