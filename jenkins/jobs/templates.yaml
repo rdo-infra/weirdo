@@ -1,5 +1,5 @@
 - job-template:
-    name: 'weirdo-gate-{playbook}'
+    name: 'weirdo-gate-ansible-{playbook}'
     defaults: 'weirdo-defaults'
     description: |
         <p>Managed by Jenkins Job Builder. Do not edit via web.</p>
@@ -18,7 +18,7 @@
         pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
 
         # Setup ansible config and run the playbook
-        pushd $VIRTUALN_ENV/usr/local/share/weirdo
+        pushd $VIRTUAL_ENV/usr/local/share/weirdo
         mv ansible.cfg.example ansible.cfg
         ansible-playbook -vv playbooks/{playbook}.yml
         result=$?
@@ -31,13 +31,45 @@
     scm:
         - weirdo-gate-repository
     builders:
-        - weirdo-gate-builder:
+        - weirdo-gate-ansible:
             playbook: '{playbook}'
     properties:
         - ownership:
             owner: dms@redhat.com
     publishers:
         - email-cores
+
+- job-template:
+    name: 'weirdo-gate-tox-{test}'
+    defaults: 'weirdo-defaults'
+    description: |
+        <p>Managed by Jenkins Job Builder. Do not edit via web.</p>
+        <br>
+        <p>This job gates against commits done to <a href="https://github.com/redhat-openstack/weirdo" target="_blank">WeIRDO</a>.</p>
+        <p>It leverages tox for testing.</p>
+        <br>
+        This is what this job runs:
+        <pre>
+        # Run {test} from provided jenkins scm gerrit commit ref
+        pushd weirdo
+        tox -e {test}
+        result=$?
+        exit $result
+        </pre>
+
+    triggers:
+          - weirdo-gate-trigger
+    scm:
+        - weirdo-gate-repository
+    builders:
+        - weirdo-gate-tox:
+            test: '{test}'
+    properties:
+        - ownership:
+            owner: dms@redhat.com
+    publishers:
+        - email-cores
+
 
 - job-template:
     name: 'weirdo-periodic-{playbook}'

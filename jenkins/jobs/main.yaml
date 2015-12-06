@@ -1,12 +1,20 @@
 - project:
-    name: 'weirdo-gate-jobs'
+    name: 'weirdo-gate-ansible-jobs'
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
         - 'kolla-build-centos-binary'
         - 'kolla-deploy-centos-binary'
     jobs:
-        - weirdo-gate-{playbook}
+        - weirdo-gate-ansible-{playbook}
+
+- project:
+    name: 'weirdo-gate-tox-jobs'
+    test:
+        - 'ansible-lint'
+        - 'docs'
+    jobs:
+        - weirdo-gate-tox-{test}
 
 - project:
     name: 'weirdo-periodic-jobs'
