@@ -1,5 +1,5 @@
 - builder:
-    name: 'weirdo-gate-builder'
+    name: 'weirdo-gate-ansible'
     builders:
         - shining-panda:
             build-environment: 'virtualenv'
@@ -24,6 +24,27 @@
               ansible-playbook -vv playbooks/{playbook}.yml
               result=$?
 
+              exit $result
+
+- builder:
+    name: 'weirdo-gate-tox'
+    builders:
+        - shining-panda:
+            build-environment: 'virtualenv'
+            python-version: 'system-CPython-2.7'
+            nature: 'shell'
+            clear: true
+            use-distribute: false
+            system-site-packages: false
+            ignore-exit-code: false
+            command: |
+              # Ensure tox is installed
+              pip install tox
+
+              # Run {test} from provided jenkins scm gerrit commit ref
+              pushd weirdo
+              tox -e {test}
+              result=$?
               exit $result
 
 - builder:

@@ -3,3 +3,4 @@ sphinx-rtd-theme
 ansible
 ansible-lint
 graphviz
+jenkins-job-builder
