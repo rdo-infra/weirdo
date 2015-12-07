@@ -46,6 +46,7 @@ Table of Contents
 .. toctree::
     :maxdepth: 2
 
+    Contributing <contributing>
     How it works <how>
     Ansible playbooks <playbooks>
     Ansible roles <roles>

@@ -51,7 +51,11 @@ Collaborators
 =============
 See the list of collaborators on GitHub_.
 
+We highly appreciate any feedback and contributions ! There are instructions
+on how to contribute available in the documentation_.
+
 .. _GitHub: https://github.com/redhat-openstack/weirdo/graphs/contributors
+.. _documentation: http://weirdo.readthedocs.org/en/latest/contributing.html
 
 Copyright
 =========
