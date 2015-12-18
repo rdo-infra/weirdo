@@ -15,6 +15,10 @@
 #
 
 - include: provision.yml
-  when: action == "provision"
+  when: action is defined and action == "provision"
 - include: release.yml
-  when: action == "release" and disable_release is not defined
+  when: action is defined and action == "release"
+
+- debug:
+    msg: "{{ role_path }} included without any actions"
+    when: action is not defined

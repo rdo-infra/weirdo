@@ -14,7 +14,19 @@
 #   under the License.
 #
 
-- name: "Run kolla integration tests - {{ test }}"
-  command: "tox -e {{ test }}"
-  args:
-    chdir: "{{ clone_path }}"
+- block:
+    - name: "Run kolla integration tests - {{ test }}"
+      command: "tox -e {{ test }}"
+      args:
+        chdir: "{{ clone_path }}"
+  rescue:
+    - debug:
+        msg: "Failure occured in {{ role_path }}/tasks/run.yml"
+
+    - command: "/bin/true"
+      notify:
+       - "Ensure ci nodes are released"
+       - "Fail playbook execution"
+
+    - name: "Flush Handlers"
+      meta: flush_handlers

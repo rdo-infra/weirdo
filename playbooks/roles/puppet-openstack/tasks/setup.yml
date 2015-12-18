@@ -14,8 +14,20 @@
 #   under the License.
 #
 
-- name: Clone upstream puppet-openstack-integration repository
-  git:
-    repo: "{{ repository }}"
-    dest: "{{ clone_path }}"
-    version: "{{ version }}"
+- block:
+    - name: Clone upstream puppet-openstack-integration repository
+      git:
+        repo: "{{ repository }}"
+        dest: "{{ clone_path }}"
+        version: "{{ version }}"
+  rescue:
+    - debug:
+        msg: "Failure occured in {{ role_path }}/tasks/setup.yml"
+
+    - command: "/bin/true"
+      notify:
+       - "Ensure ci nodes are released"
+       - "Fail playbook execution"
+
+    - name: "Flush Handlers"
+      meta: flush_handlers

@@ -14,18 +14,30 @@
 #   under the License.
 #
 
-- name: "Install required packages"
-  yum:
-    name: "{{ item }}"
-    state: "latest"
-  with_items: required_packages
-  retries: "3"
-  delay: "20"
+- block:
+    - name: "Install required packages"
+      yum:
+        name: "{{ item }}"
+        state: "latest"
+      with_items: required_packages
+      retries: "3"
+      delay: "20"
 
-- name: "Install required ruby gems"
-  gem:
-    name: "{{ item }}"
-    state: present
-  with_items: gem_packages
-  retries: "3"
-  delay: "20"
+    - name: "Install required ruby gems"
+      gem:
+        name: "{{ item }}"
+        state: present
+      with_items: gem_packages
+      retries: "3"
+      delay: "20"
+  rescue:
+    - debug:
+        msg: "Failure occured in {{ role_path }}/tasks/packages.yml"
+
+    - command: "/bin/true"
+      notify:
+       - "Ensure ci nodes are released"
+       - "Fail playbook execution"
+
+    - name: "Flush Handlers"
+      meta: flush_handlers

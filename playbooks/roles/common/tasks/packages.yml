@@ -14,26 +14,38 @@
 #   under the License.
 #
 
-- name: Update all packages
-  yum:
-    update_cache: "yes"
-    name: "*"
-    state: "latest"
-  retries: "3"
-  delay: "20"
+- block:
+    - name: Update all packages
+      yum:
+        update_cache: "yes"
+        name: "*"
+        state: "latest"
+      retries: "3"
+      delay: "20"
 
-- name: "Install base packages"
-  yum:
-    name: "{{ item }}"
-    state: "present"
-  with_items: base_packages
-  retries: "3"
-  delay: "20"
+    - name: "Install base packages"
+      yum:
+        name: "{{ item }}"
+        state: "present"
+      with_items: base_packages
+      retries: "3"
+      delay: "20"
 
-- name: "Install debug packages"
-  yum:
-    name: "{{ item }}"
-    state: "present"
-  with_items: debug_packages
-  retries: "3"
-  delay: "20"
+    - name: "Install debug packages"
+      yum:
+        name: "{{ item }}"
+        state: "present"
+      with_items: debug_packages
+      retries: "3"
+      delay: "20"
+  rescue:
+    - debug:
+        msg: "Failure occured in {{ role_path }}/tasks/packages.yml"
+
+    - command: "/bin/true"
+      notify:
+       - "Ensure ci nodes are released"
+       - "Fail playbook execution"
+
+    - name: "Flush Handlers"
+      meta: flush_handlers

@@ -14,15 +14,6 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
-
-- name: "Run kolla build tests"
-  hosts: openstack_nodes
-  user: root
-  force_handlers: True
-  roles:
-    - role: "common"
-    - role: "kolla"
-      test: "build-centos-binary"
-
-- include: release-ci-centos.yml
+- name: "Fail playbook execution"
+  fail:
+    msg: "A task notified that the playbook execution should be failed"

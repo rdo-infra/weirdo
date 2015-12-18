@@ -14,21 +14,33 @@
 #   under the License.
 #
 
-- name: "Install required packages"
-  yum:
-    name: "{{ item }}"
-    state: "present"
-  with_items: required_packages
-  retries: "3"
-  delay: "20"
+- block:
+    - name: "Install required packages"
+      yum:
+        name: "{{ item }}"
+        state: "present"
+      with_items: required_packages
+      retries: "3"
+      delay: "20"
 
-- name: "Install pip"
-  command: easy_install pip
+    - name: "Install pip"
+      command: easy_install pip
 
-- name: "Install required pip packages"
-  pip:
-    name: "{{ item }}"
-    state: "latest"
-  with_items: base_pip_packages
-  retries: "3"
-  delay: "20"
+    - name: "Install required pip packages"
+      pip:
+        name: "{{ item }}"
+        state: "latest"
+      with_items: base_pip_packages
+      retries: "3"
+      delay: "20"
+  rescue:
+    - debug:
+        msg: "Failure occured in {{ role_path }}/tasks/packages.yml"
+
+    - command: "/bin/true"
+      notify:
+       - "Ensure ci nodes are released"
+       - "Fail playbook execution"
+
+    - name: "Flush Handlers"
+      meta: flush_handlers

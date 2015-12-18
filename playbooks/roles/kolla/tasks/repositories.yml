@@ -14,7 +14,19 @@
 #   under the License.
 #
 
-- name: Setup docker repository
-  copy:
-    src: "docker.repo"
-    dest: "/etc/yum.repos.d/docker.repo"
+- block:
+    - name: Setup docker repository
+      copy:
+        src: "docker.repo"
+        dest: "/etc/yum.repos.d/docker.repo"
+  rescue:
+    - debug:
+        msg: "Failure occured in {{ role_path }}/tasks/repositories.yml"
+
+    - command: "/bin/true"
+      notify:
+       - "Ensure ci nodes are released"
+       - "Fail playbook execution"
+
+    - name: "Flush Handlers"
+      meta: flush_handlers

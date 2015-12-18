@@ -14,7 +14,13 @@
 #   under the License.
 #
 
-- cico:
+- name: "Release nodes for SSID {{ cico_data.ssid }}"
+  cico:
     action: "done"
     api_key: "{{ api_key }}"
     ssid: "{{ cico_data.ssid }}"
+  when: disable_release is not defined
+
+- debug:
+    msg: "Node release is disabled with the disable_release parameter"
+  when: disable_release is defined
