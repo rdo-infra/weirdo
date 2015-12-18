@@ -14,14 +14,8 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
-
-- name: "Run kolla build tests"
-  hosts: openstack_nodes
-  user: root
+- name: "Provision a ci.centos.org node"
+  hosts: localhost
   roles:
-    - role: "openstack-server"
-    - role: "kolla"
-      test: "build-centos-binary"
-
-- include: release-ci-centos.yml
+    - role: "ci-centos"
+      action: "provision"

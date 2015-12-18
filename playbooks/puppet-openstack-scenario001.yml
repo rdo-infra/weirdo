@@ -14,11 +14,7 @@
 #   under the License.
 #
 
-- name: "Provision a ci.centos.org node"
-  hosts: localhost
-  roles:
-    - role: "ci-centos"
-      action: "provision"
+- include: provision-ci-centos.yml
 
 - name: "Run puppet-openstack-integration scenario001 tests"
   hosts: openstack_nodes
@@ -28,8 +24,4 @@
     - role: "puppet-openstack"
       test: "scenario001"
 
-- name: "Release the provisioned ci.centos.org node"
-  hosts: localhost
-  roles:
-    - role: "ci-centos"
-      action: "release"
+- include: release-ci-centos.yml
