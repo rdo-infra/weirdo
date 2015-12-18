@@ -1,6 +1,8 @@
 sphinx
 sphinx-rtd-theme
+# Should be -e git+https://github.com/ansible/ansible.git@v2.0.0-0.7.rc2#egg=ansible
 ansible
+# Should be -e git+https://github.com/dmsimard/ansible-lint.git@ansible2#egg=ansible-lint
 ansible-lint
 graphviz
 jenkins-job-builder
