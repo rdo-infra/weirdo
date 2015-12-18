@@ -20,7 +20,7 @@
   hosts: openstack_nodes
   user: root
   roles:
-    - role: "openstack-server"
+    - role: "common"
     - role: "puppet-openstack"
       test: "scenario002"
 

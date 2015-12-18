@@ -1,5 +1,5 @@
-openstack-server
-----------------
+common
+------
 This is a basic role for setting up the common basics of a server.
 
 Included tasks
