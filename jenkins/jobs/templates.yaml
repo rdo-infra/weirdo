@@ -15,7 +15,7 @@
         popd
 
         # Need features from Ansible 2 which is not yet released
-        pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
+        pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.7.rc2#egg=ansible
 
         # Setup ansible config and run the playbook
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
@@ -89,7 +89,7 @@
         popd
 
         # Need features from Ansible 2 which is not yet released
-        pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.6.rc1#egg=ansible
+        pip install -e git+https://github.com/ansible/ansible.git@v2.0.0-0.7.rc2#egg=ansible
 
         # Setup ansible config and run the playbook
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
