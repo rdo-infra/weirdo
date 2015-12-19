@@ -18,6 +18,7 @@ base_packages:
   - deltarpm
   - "@Development tools"
   - git
+  - python-setuptools
   - wget
 
 debug_packages:
