@@ -25,13 +25,13 @@
 
 - name: "Add requested nodes to hosts file"
   add_host:
-    name: "{{ cico_data.hosts[item].hostname }}"
+    name: "{{ cico_data.results.hosts[item].hostname }}"
     groups: "openstack_nodes"
-    ansible_fqdn: "{{ cico_data.hosts[item].hostname }}"
+    ansible_fqdn: "{{ cico_data.results.hosts[item].hostname }}"
     ansible_ssh_user: "root"
     ansible_ssh_private_key_file: "{{ private_key }}"
-    ansible_ssh_host: "{{ cico_data.hosts[item].ip_address }}"
-  with_items: cico_data.hosts
+    ansible_ssh_host: "{{ cico_data.results.hosts[item].ip_address }}"
+  with_items: cico_data.results.hosts
 
 - name: "Setup custom facts directory"
   file:
