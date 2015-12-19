@@ -2,7 +2,7 @@
     name: 'weirdo-defaults'
     description: |
         Managed by Jenkins Job Builder. Do not edit via web.
-    concurrent: true
+    concurrent: false
     node: 'rdo'
     logrotate:
         artifactDaysToKeep: 31
