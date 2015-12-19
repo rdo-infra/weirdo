@@ -10,7 +10,9 @@
         This is what this job runs:
         <pre>
         # Install WeIRDO from provided jenkins scm gerrit commit ref
+        pip install -e weirdo
         pushd weirdo
+        git log -n 5 --oneline
         python setup.py install
         popd
 
@@ -20,6 +22,7 @@
         # Setup ansible config and run the playbook
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
         mv ansible.cfg.example ansible.cfg
+        ansible --version
         ansible-playbook -vv playbooks/{playbook}.yml
         result=$?
 
@@ -52,6 +55,7 @@
         <pre>
         # Run {test} from provided jenkins scm gerrit commit ref
         pushd weirdo
+        git log -n 5 --oneline
         tox -e {test}
         result=$?
         exit $result
@@ -85,6 +89,7 @@
         # Install WeIRDO
         pip install -e git+https://github.com/redhat-openstack/weirdo.git@master#egg=weirdo
         pushd $VIRTUAL_ENV/src/weirdo
+        git log -n 5 --oneline
         python setup.py install
         popd
 
@@ -94,6 +99,7 @@
         # Setup ansible config and run the playbook
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
         mv ansible.cfg.example ansible.cfg
+        ansible --version
         ansible-playbook -vv playbooks/{playbook}.yml
         result=$?
 
