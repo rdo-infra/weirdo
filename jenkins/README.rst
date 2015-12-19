@@ -89,7 +89,7 @@ GerritHub, you need to configure one.
 This is done in ``Manage Jenkins`` -> ``Manage Credentials`` ->
 ``Add Credentials`` -> ``SSH username with private key``::
 
-    name: rdo-ci-hudson # This name is used in the JJB files, it's important.
+    name: rdo-ci-centos # This name is used in the JJB files, it's important.
     private key: <your private key as file, text, etc>
 
     ADVANCED:

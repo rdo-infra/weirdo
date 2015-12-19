@@ -50,7 +50,7 @@
     scm:
         - git:
             basedir: 'weirdo'
-            url: 'ssh://rdo-ci-hudson@review.gerrithub.io:29418/redhat-openstack/weirdo.git'
+            url: 'ssh://rdo-ci-centos@review.gerrithub.io:29418/redhat-openstack/weirdo.git'
             branches:
                 - "$GERRIT_BRANCH"
             credentials-id: 'aeb3af4f-6985-4c8f-8261-ec37cacad10b'
