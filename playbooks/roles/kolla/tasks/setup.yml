@@ -78,6 +78,11 @@
         dest: "{{ clone_path }}"
         version: "{{ version }}"
 
+    - name: "Copy default configuration to filesystem"
+      command: "cp -a etc/kolla /etc/"
+      args:
+        chdir: "{{ clone_path }}"
+
     - name: "Install requirements globally"
       pip:
         requirements: "{{ clone_path }}/requirements.txt"
