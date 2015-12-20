@@ -92,14 +92,8 @@
       pip:
         requirements: "{{ clone_path }}/test-requirements.txt"
         state: "present"
+  vars:
+    - task: 'tasks/setup.yml'
   rescue:
-    - debug:
-        msg: "Failure occured in {{ role_path }}/tasks/setup.yml"
-
-    - command: "/bin/true"
-      notify:
-       - "Ensure ci nodes are released"
-       - "Fail playbook execution"
-
-    - name: "Flush Handlers"
-      meta: flush_handlers
+    - name: "Failure occurred, executing rescue"
+      include: roles/common/tasks/rescue.yml
