@@ -30,14 +30,8 @@
       with_items: gem_packages
       retries: "3"
       delay: "20"
+  vars:
+    - task: 'tasks/packages.yml'
   rescue:
-    - debug:
-        msg: "Failure occured in {{ role_path }}/tasks/packages.yml"
-
-    - command: "/bin/true"
-      notify:
-       - "Ensure ci nodes are released"
-       - "Fail playbook execution"
-
-    - name: "Flush Handlers"
-      meta: flush_handlers
+    - name: "Failure occurred, executing rescue"
+      include: roles/common/tasks/rescue.yml

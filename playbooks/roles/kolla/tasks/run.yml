@@ -19,14 +19,8 @@
       command: "tox -e {{ test }}"
       args:
         chdir: "{{ clone_path }}"
+  vars:
+    - task: 'tasks/run.yml'
   rescue:
-    - debug:
-        msg: "Failure occured in {{ role_path }}/tasks/run.yml"
-
-    - command: "/bin/true"
-      notify:
-       - "Ensure ci nodes are released"
-       - "Fail playbook execution"
-
-    - name: "Flush Handlers"
-      meta: flush_handlers
+    - name: "Failure occurred, executing rescue"
+      include: roles/common/tasks/rescue.yml
