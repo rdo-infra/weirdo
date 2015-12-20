@@ -21,4 +21,4 @@
 
 - debug:
     msg: "{{ role_path }} included without any actions"
-    when: action is not defined
+  when: action is not defined
