@@ -21,7 +21,7 @@ version: "master"
 loopback_device: loop1
 
 required_packages:
-  - docker-selinux
+  - docker-engine-selinux
   - docker-engine-1.8.2
   - libffi-devel
   - lvm2
