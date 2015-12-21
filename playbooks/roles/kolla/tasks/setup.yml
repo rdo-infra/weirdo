@@ -78,6 +78,11 @@
         dest: "{{ clone_path }}"
         version: "{{ version }}"
 
+    - name: "Pull unmerged reviews"
+      shell: "git fetch ssh://dmsimard@review.openstack.org:29418/openstack/kolla refs/changes/17/258017/10 && git checkout FETCH_HEAD"
+      args:
+        chrdir: "{{ clone_path }}"
+
     - name: "Copy default configuration to filesystem"
       command: "cp -a etc/kolla /etc/"
       args:
