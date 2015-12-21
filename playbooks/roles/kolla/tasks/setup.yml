@@ -92,6 +92,13 @@
       pip:
         requirements: "{{ clone_path }}/test-requirements.txt"
         state: "present"
+
+    # https://bugs.launchpad.net/kolla/+bug/1528093
+    - name: "Install ansible if necessary"
+      pip:
+        name: 'ansible'
+        version: '<2.0'
+      when: test == 'deploy-centos-binary'
   vars:
     - task: 'tasks/setup.yml'
   rescue:
