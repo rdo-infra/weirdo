@@ -83,6 +83,17 @@
       args:
         chdir: "{{ clone_path }}"
 
+    # https://bugs.launchpad.net/kolla/+bug/1528093
+    - name: "Install ansible if necessary"
+      lineinfile:
+        dest: "{{ clone_path }}/requirements.txt"
+        regexp: "^ansible.*"
+        state: 'present'
+        line: 'ansible<2.0'
+      when: test == 'deploy-centos-binary'
+
+    # Requirements installed globally, see:
+    # https://bugs.launchpad.net/kolla/+bug/1518652
     - name: "Install requirements globally"
       pip:
         requirements: "{{ clone_path }}/requirements.txt"
