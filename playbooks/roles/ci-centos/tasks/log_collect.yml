@@ -1,0 +1,85 @@
+---
+#   Copyright Red Hat, Inc. All Rights Reserved.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License"); you may
+#   not use this file except in compliance with the License. You may obtain
+#   a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#   WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#   License for the specific language governing permissions and limitations
+#   under the License.
+#
+
+- name: 'Run global debug commands and capture output'
+  shell: "{{ item.command }} > {{ log_destination }}/{{ item.key }}.txt"
+  with_dict: debug_commands
+  ignore_errors: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
+- name: 'Copy existing logs to central folder'
+  command: "rsync -azr {{ item }} {{ log_destination }}/"
+  with_items: log_paths
+  ignore_errors: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
+- name: 'Capture facts for output to file'
+  setup:
+  register: ansible_facts
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
+- name: 'Output facts to file'
+  copy:
+    content: "{{ ansible_facts }}"
+    dest: "{{ log_destination }}/ansible_facts.txt"
+  ignore_errors: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
+- name: 'Convert log and conf files to .txt (web mime type)'
+  shell: |
+    for file in $(find {{ log_destination }} -name '*.{{ item }}'); do
+      mv $file ${file/.{{ item }}/.txt}
+    done
+  with_items:
+    - log
+    - conf
+  ignore_errors: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
+- name: 'Compress all files'
+  shell: |
+    find {{ log_destination }} -type f -name '*.txt' -execdir gzip -9 {} \+
+  ignore_errors: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
+- name: "Generate HTML redirection to build artifacts"
+  template:
+    src: logs.html.j2
+    dest: "{{ lookup('env', 'WORKSPACE')}}/logs.html"
+  ignore_errors: true
+
+- name: 'Fetch and gzip the console log'
+  shell: |
+    URL="{{ lookup('env', 'BUILD_URL') }}/consoleText";
+    curl $URL | gzip > {{ log_destination }}/console.txt.gz
+  ignore_errors: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
+- name: 'Upload logs to the artifact server'
+  shell: |
+    # rsync password is the first 13 characters of the API key
+    RSYNC_PASSWORD="{{ api_key | regex_replace('^(.{13}).*', '\\1') }}";
+    rsync -av {{ log_destination }} {{ rsync_server }}/$BUILD_TAG
+  ignore_errors: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"

@@ -14,13 +14,8 @@
 #   under the License.
 #
 
-- name: "Ensure logs are recovered"
-  include: roles/ci-centos/tasks/log_rescue.yml
+# This task can be called from a rescue block by other roles, ensure we try to
+# setup and collect logs.
 
-- name: "Ensure ci nodes are released"
-  cico:
-    action: "done"
-    api_key: "{{ api_key }}"
-    ssid: "{{ ansible_local.weirdo.ci.session }}"
-  delegate_to: localhost
-  when: disable_release is not defined
+- include: roles/ci-centos/tasks/log_setup.yml
+- include: roles/ci-centos/tasks/log_collect.yml
