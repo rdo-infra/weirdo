@@ -14,17 +14,21 @@
 #   under the License.
 #
 
-base_packages:
-  - deltarpm
-  - "@Development tools"
-  - git
-  - python-setuptools
-  - wget
-  - libselinux-python
+- name: "Create log folder to centralize logs in"
+  file:
+    path: "{{ log_destination }}"
+    state: 'directory'
+  ignore_errors: true
 
-debug_packages:
-  - net-tools
-  - lsof
-  - tcpdump
-  - dstat
-  - psmisc
+- name: "Configure dstat for tracing resource consumption"
+  shell: |
+    # Spawn the nohup command in a subshell to avoid ansible terminating it
+    command=$(nohup dstat \
+      -tcmndrylpg \
+      --top-cpu-adv \
+      --top-io-adv \
+      --nocolor | tee --append \
+        {{ log_destination }}/dstat.log > /dev/null &)
+  args:
+    creates: "{{ log_destination }}/dstat.log"
+  ignore_errors: true

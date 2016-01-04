@@ -16,6 +16,10 @@
 
 - include: provision.yml
   when: action is defined and action == "provision"
+
+- include: logs.yml
+  when: action is defined and action == "logs"
+
 - include: release.yml
   when: action is defined and action == "release"
 

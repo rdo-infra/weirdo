@@ -14,6 +14,9 @@
 #   under the License.
 #
 
+- name: "Ensure logs are recovered"
+  include: roles/ci-centos/tasks/logs.yml
+
 - name: "Ensure ci nodes are released"
   cico:
     action: "done"
