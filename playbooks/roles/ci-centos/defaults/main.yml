@@ -21,3 +21,54 @@ arch: "x86_64"
 release: "7"
 count: "1"
 ci_environment: "ci-centos"
+rsync_server: "rdo@artifacts.ci.centos.org::rdo"
+rsync_password: "{{ api_key | regex_replace('^(.{13}).*', '\\1') }}"
+artifact_url: "https://ci.centos.org/artifacts/rdo"
+job_name: "{{ lookup('env', 'JOB_NAME') }}"
+build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
+
+log_root: /var/log/weirdo
+log_destination: "{{ log_root }}/{{ job_name }}/{{ build_number }}"
+log_paths:
+  - /var/log/audit
+  - /etc/ansible
+
+debug_commands:
+  cpuinfo:
+    command: 'cat /proc/cpuinfo'
+  df:
+    command: 'df -h'
+  dmesg:
+    command: 'dmesg -T'
+  fdisk:
+    command: 'fdisk -l'
+  getenforce:
+    command: 'getenforce'
+  iptables:
+    command: 'iptables -vnL'
+  iptables_nat:
+    command: 'iptables -vnL -t nat'
+  iptables_mangle:
+    command: 'iptables -vnL -t mangle'
+  journalctl:
+    command: 'journalctl --no-pager'
+  lsmod:
+    command: 'lsmod'
+  lsof:
+    command: 'lsof -P'
+  lsof_network:
+    command: 'lsof -Pni'
+  meminfo:
+    command: 'cat /proc/meminfo'
+  mounts:
+    command: 'cat /proc/mounts'
+  netstat:
+    command: 'netstat -ntlp'
+  pstree:
+    command: 'pstree -p'
+  sysctl:
+    command: 'sysctl -a'
+  repolist:
+    command: 'yum repolist -v'
+  rpm_packages:
+    command: 'rpm -qa'
