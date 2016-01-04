@@ -17,6 +17,8 @@
 - debug:
     msg: "Failure occured in {{ role_path }}/{{ task }}"
 
+- include: logs.yml
+
 - command: "/bin/true"
   notify:
     - "Ensure ci nodes are released"

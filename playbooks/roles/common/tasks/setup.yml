@@ -14,18 +14,22 @@
 #   under the License.
 #
 
-- name: "Ensure ci nodes are released"
-  cico:
-    action: "done"
-    api_key: "{{ api_key }}"
-    ssid: "{{ ansible_local.weirdo.ci.session }}"
-  delegate_to: localhost
-  when: disable_release is not defined
+- block:
+    - name: "Create log folder to centralize logs in"
+      file:
+        path: "{{ log_destination }}"
+        state: 'directory'
 
-- name: 'Upload logs to the artifact server'
-  shell: |
-    # rsync password is the first 13 characters of the API key
-    RSYNC_PASSWORD="{{ api_key | regex_replace('^(.{13}).*', '\\1') }}";
-    rsync -av {{ log_destination }} {{ rsync_server }}/$BUILD_TAG
-  ignore_errors: true
-  when: lookup('env', 'JENKINS_URL')|default('') != ''
+    - name: "Configure dstat for tracing resource consumption"
+      shell: |
+        nohup dstat \
+          -tcmndrylpg \
+          --top-cpu-adv \
+          --top-io-adv \
+          --nocolor | tee --append \
+            {{ log_destination }}/dstat.log > /dev/null &
+  vars:
+    - task: 'tasks/setup.yml'
+  rescue:
+    - name: "Failure occurred, executing rescue"
+      include: rescue.yml
