@@ -17,3 +17,5 @@
 - include: packages.yml
 - include: setup.yml
 - include: run.yml
+- name: "Running log collection"
+  include: roles/common/tasks/logs.yml
