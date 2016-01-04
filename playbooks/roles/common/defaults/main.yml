@@ -21,8 +21,65 @@ base_packages:
   - python-setuptools
   - wget
   - redhat-lsb-core
+  - libselinux-python
 
 debug_packages:
   - net-tools
   - lsof
   - tcpdump
+  - sysstat
+  - psmisc
+
+# Jenkins environment vars used in tasks/templates
+jenkins_url: "{{ lookup('env', 'JENKINS_URL')|default('') }}"
+build_url: "{{ lookup('env', 'BUILD_URL')|default('') }}"
+job_name: "{{ lookup('env', 'JOB_NAME')|default('') }}"
+build_number: "{{ lookup('env', 'BUILD_NUMBER')|default('') }}"
+
+log_root: /var/log/weirdo
+log_destination: "{{ log_root }}/{{ job_name }}/{{ build_number }}"
+log_paths:
+  - /var/log/audit
+  - /etc/ansible
+
+debug_commands:
+  cpuinfo:
+    command: 'cat /proc/cpuinfo'
+  df:
+    command: 'df -h'
+  dmesg:
+    command: 'dmesg -T'
+  fdisk:
+    command: 'fdisk -l'
+  getenforce:
+    command: 'getenforce'
+  iptables:
+    command: 'iptables -vnL'
+  iptables_nat:
+    command: 'iptables -vnL -t nat'
+  iptables_mangle:
+    command: 'iptables -vnL -t mangle'
+  journalctl:
+    command: 'journalctl --no-pager'
+  lsmod:
+    command: 'lsmod'
+  lsof:
+    command: 'lsof -P'
+  lsof_network:
+    command: 'lsof -Pni'
+  meminfo:
+    command: 'cat /proc/meminfo'
+  mounts:
+    command: 'cat /proc/mounts |column -t'
+  netstat:
+    command: 'netstat -ntlp'
+  pstree:
+    command: 'pstree -p'
+  sysstat:
+    command: 'sar -A -f /var/log/sa/*'
+  sysctl:
+    command: 'sysctl -a'
+  repolist:
+    command: 'yum repolist -v'
+  rpm_packages:
+    command: 'rpm -qa'

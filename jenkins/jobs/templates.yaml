@@ -38,6 +38,7 @@
             owner: dms@redhat.com
     publishers:
         - email-cores
+        - archive-logs
 
 - job-template:
     name: 'weirdo-gate-tox-{test}'
@@ -70,7 +71,6 @@
             owner: dms@redhat.com
     publishers:
         - email-cores
-
 
 - job-template:
     name: 'weirdo-periodic-{playbook}'

@@ -25,3 +25,15 @@
   rescue:
     - name: "Failure occurred, executing rescue"
       include: roles/common/tasks/rescue.yml
+  always:
+    - name: Download script for retrieving logs
+      get_url:
+        url: "{{ copy_puppet_logs_url }}"
+        dest: "{{ clone_path }}/copy_puppet_logs.sh"
+        mode: "0755"
+
+    - name: Create directory where puppet-openstack logs will be stored
+      file:
+        path: "{{ puppet_workspace }}"
+        state: directory
+        recurse: yes

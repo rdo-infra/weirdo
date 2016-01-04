@@ -15,3 +15,10 @@
 #
 
 - include: packages.yml
+  when: action is not defined
+
+- include: setup.yml
+  when: action is not defined
+
+- include: logs.yml
+  when: action is defined and action == "logs"

@@ -14,9 +14,20 @@
 #   under the License.
 #
 
-- name: "Ensure logs are recovered"
-  include: roles/common/tasks/logs.yml
+- name: Create log folder to centralize logs in
+  file:
+    path: "{{ log_destination }}"
+    state: directory
+    recurse: yes
 
-- name: "Fail playbook execution"
-  fail:
-    msg: "A task notified that the playbook execution should be failed"
+- name: Enable sysstat
+  service:
+    name: sysstat
+    enabled: yes
+    state: started
+
+- name: Run sysstat every minute instead of every 10 minutes
+  replace:
+    dest: /etc/cron.d/sysstat
+    regexp: '^\*\/10.*sa1 1 1'
+    replace: '* * * * * root /usr/lib64/sa/sa1 1 1'
