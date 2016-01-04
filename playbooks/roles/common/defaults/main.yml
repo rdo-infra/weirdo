@@ -25,3 +25,51 @@ debug_packages:
   - net-tools
   - lsof
   - tcpdump
+  - dstat
+  - htop
+  - psmisc
+
+log_destination: /var/log/weirdo
+log_paths:
+  - /var/log/audit
+  - /etc/ansible
+
+debug_commands:
+  cpuinfo:
+    command: 'cat /proc/cpuinfo'
+  df:
+    command: 'df -h'
+  dmesg:
+    command: 'dmesg -T'
+  fdisk:
+    command: 'fdisk -l'
+  getenforce:
+    command: 'getenforce'
+  iptables:
+    command: 'iptables -vnL'
+  iptables_nat:
+    command: 'iptables -vnL -t nat'
+  iptables_mangle:
+    command: 'iptables -vnL -t mangle'
+  journalctl:
+    command: 'journalctl --no-pager'
+  lsmod:
+    command: 'lsmod'
+  lsof:
+    command: 'lsof -P'
+  lsof_network:
+    command: 'lsof -Pni'
+  meminfo:
+    command: 'cat /proc/meminfo'
+  mounts:
+    command: 'cat /proc/mounts'
+  netstat:
+    command: 'netstat -ntlp'
+  pstree:
+    command: 'pstree -p'
+  sysctl:
+    command: 'sysctl -a'
+  repolist:
+    command: 'repolist -v'
+  rpm_packages:
+    command: 'rpm -qa'
