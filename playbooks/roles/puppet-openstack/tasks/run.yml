@@ -24,3 +24,13 @@
   rescue:
     - name: "Failure occurred, executing rescue"
       include: roles/common/tasks/rescue.yml
+  always:
+    # the copy_puppet_logs script uses $WORKSPACE as root for the logs, we
+    # actually want it to log to the standard log directory so hack that a bit
+    - name: "Recover puppet integration test logs"
+      command: "./copy_puppet_logs.sh"
+      environment:
+        WORKSPACE: "{{ workspace }}"
+      args:
+        chdir: "{{ clone_path }}"
+      creates: "{{ workspace }}/logs"
