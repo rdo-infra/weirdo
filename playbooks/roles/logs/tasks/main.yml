@@ -14,19 +14,14 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
+# Note: Errors are ignored in this role since it can be called from rescue
+# blocks.
 
-- name: "Run kolla deploy tests"
-  hosts: openstack_nodes
-  user: root
-  force_handlers: True
-  roles:
-    - role: "common"
-    - role: "logs"
-      action: "setup"
-    - role: "kolla"
-      test: "deploy-centos-binary"
-    - role: "logs"
-      action: "collect"
+- include: setup.yml
+  when: action is defined and action == "setup"
+- include: collect.yml
+  when: action is defined and action == "collect"
 
-- include: release-ci-centos.yml
+- debug:
+    msg: "{{ role_path }} included without any actions"
+  when: action is not defined

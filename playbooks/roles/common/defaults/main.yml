@@ -25,3 +25,5 @@ debug_packages:
   - net-tools
   - lsof
   - tcpdump
+  - dstat
+  - psmisc

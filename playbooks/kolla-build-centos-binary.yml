@@ -22,7 +22,11 @@
   force_handlers: True
   roles:
     - role: "common"
+    - role: "logs"
+      action: "setup"
     - role: "kolla"
       test: "build-centos-binary"
+    - role: "logs"
+      action: "collect"
 
 - include: release-ci-centos.yml

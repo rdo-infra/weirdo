@@ -14,19 +14,9 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
+# Include vars and handlers from the ci environment provisioner.
+# Roles from ci environment provisioners do not do anything unless an action
+# is passed as a parameter.
 
-- name: "Run kolla deploy tests"
-  hosts: openstack_nodes
-  user: root
-  force_handlers: True
-  roles:
-    - role: "common"
-    - role: "logs"
-      action: "setup"
-    - role: "kolla"
-      test: "deploy-centos-binary"
-    - role: "logs"
-      action: "collect"
-
-- include: release-ci-centos.yml
+dependencies:
+  - { role: 'ci-centos', when: ansible_local.weirdo.ci.environment == 'ci-centos' }

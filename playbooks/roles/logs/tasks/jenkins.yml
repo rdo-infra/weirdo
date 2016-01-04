@@ -14,19 +14,23 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
+- name: "Generate HTML redirection to build artifacts"
+  template:
+    src: logs.html.j2
+    dest: "{{ lookup('env', 'WORKSPACE')}}/logs.html"
+  ignore_errors: true
+  delegate_to: localhost
 
-- name: "Run kolla deploy tests"
-  hosts: openstack_nodes
-  user: root
-  force_handlers: True
-  roles:
-    - role: "common"
-    - role: "logs"
-      action: "setup"
-    - role: "kolla"
-      test: "deploy-centos-binary"
-    - role: "logs"
-      action: "collect"
+- name: 'Fetch and gzip the console log'
+  shell: |
+    URL="{{ lookup('env', 'BUILD_URL') }}/consoleText";
+    curl $URL | gzip > {{ log_destination }}/console.txt.gz
+  ignore_errors: true
 
-- include: release-ci-centos.yml
+# The upload logs handler is handled by the provisioner (i.e ci-centos)
+- command: "/bin/true"
+  notify:
+    - 'Upload logs to the artifact server'
+
+- name: 'Flush Handlers'
+  meta: flush_handlers
