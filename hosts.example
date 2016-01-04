@@ -1,0 +1,2 @@
+# To work around behavior described in https://github.com/ansible/ansible/issues/13773
+localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python
