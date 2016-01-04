@@ -19,4 +19,4 @@
 # is passed as a parameter.
 
 dependencies:
-  - { role: 'ci-centos', when: ansible_local.weirdo.ci.environment == 'ci-centos' }
+  - { role: 'ci-centos' }
