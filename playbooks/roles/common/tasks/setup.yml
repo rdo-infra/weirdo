@@ -14,8 +14,22 @@
 #   under the License.
 #
 
-- include: repositories.yml
-- include: packages.yml
-- include: setup.yml
-- include: run.yml
-- include: ../../common/tasks/logs.yml
+- block:
+    - name: "Create log folder to centralize logs in"
+      file:
+        path: "{{ log_destination }}"
+        state: 'directory'
+
+    - name: "Configure dstat for tracing resource consumption"
+      shell: |
+        nohup dstat \
+          -tcmndrylpg \
+          --top-cpu-adv \
+          --top-io-adv \
+          --nocolor | tee --append \
+            {{ log_destination }}/dstat.log > /dev/null &
+  vars:
+    - task: 'tasks/setup.yml'
+  rescue:
+    - name: "Failure occurred, executing rescue"
+      include: rescue.yml
