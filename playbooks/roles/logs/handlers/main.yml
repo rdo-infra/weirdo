@@ -14,19 +14,5 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
-
-- name: "Run kolla deploy tests"
-  hosts: openstack_nodes
-  user: root
-  force_handlers: True
-  roles:
-    - role: "common"
-    - role: "logs"
-      action: "setup"
-    - role: "kolla"
-      test: "deploy-centos-binary"
-    - role: "logs"
-      action: "collect"
-
-- include: release-ci-centos.yml
+- name: "Ensure logs are recovered"
+  include: tasks/rescue.yml

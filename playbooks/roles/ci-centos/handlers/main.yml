@@ -21,3 +21,11 @@
     ssid: "{{ ansible_local.weirdo.ci.session }}"
   delegate_to: localhost
   when: disable_release is not defined
+
+- name: 'Upload logs to the artifact server'
+  shell: |
+    # rsync password is the first 13 characters of the API key
+    RSYNC_PASSWORD="{{ api_key | regex_replace('^(.{13}).*', '\\1') }}";
+    rsync -av {{ log_destination }} {{ rsync_server }}/$BUILD_TAG
+  ignore_errors: true
+  when: lookup('env', 'JENKINS_URL')|default('') != ''

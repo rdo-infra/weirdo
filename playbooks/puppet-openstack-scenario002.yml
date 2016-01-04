@@ -22,7 +22,11 @@
   force_handlers: True
   roles:
     - role: "common"
+    - role: "logs"
+      action: "setup"
     - role: "puppet-openstack"
       test: "scenario002"
+    - role: "logs"
+      action: "collect"
 
 - include: release-ci-centos.yml

@@ -14,19 +14,20 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
+- name: "Create log folder to centralize logs in"
+  file:
+    path: "{{ log_destination }}"
+    state: 'directory'
+  ignore_errors: true
 
-- name: "Run kolla deploy tests"
-  hosts: openstack_nodes
-  user: root
-  force_handlers: True
-  roles:
-    - role: "common"
-    - role: "logs"
-      action: "setup"
-    - role: "kolla"
-      test: "deploy-centos-binary"
-    - role: "logs"
-      action: "collect"
-
-- include: release-ci-centos.yml
+- name: "Configure dstat for tracing resource consumption"
+  shell: |
+    nohup dstat \
+      -tcmndrylpg \
+      --top-cpu-adv \
+      --top-io-adv \
+      --nocolor | tee --append \
+        {{ log_destination }}/dstat.log > /dev/null &
+  args:
+    creates: "{{ log_destination }}/dstat.log"
+  ignore_errors: true
