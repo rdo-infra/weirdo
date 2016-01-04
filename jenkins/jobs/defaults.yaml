@@ -8,6 +8,7 @@
         artifactDaysToKeep: 31
     publishers:
         - email-cores
+        - archive-logs
     wrappers:
         - ansicolor
         - timestamps
@@ -71,3 +72,10 @@
     publishers:
         - email:
             recipients: 'dms@redhat.com'
+
+- publisher:
+    name: 'archive-logs'
+    publishers:
+        - archive:
+            artifacts: 'logs.html'
+            allow-empty: true
