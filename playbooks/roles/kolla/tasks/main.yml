@@ -18,3 +18,4 @@
 - include: packages.yml
 - include: setup.yml
 - include: run.yml
+- include: roles/common/tasks/logs.yml
