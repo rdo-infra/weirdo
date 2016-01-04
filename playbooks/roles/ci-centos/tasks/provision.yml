@@ -33,6 +33,14 @@
     ansible_ssh_host: "{{ cico_data.results.hosts[item].ip_address }}"
   with_items: cico_data.results.hosts
 
+- name: "Create log folder to centralize logs in"
+  file:
+    path: "{{ log_destination }}"
+    state: 'directory'
+    recurse: yes
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
 - name: "Setup custom facts directory"
   file:
     state: "directory"
