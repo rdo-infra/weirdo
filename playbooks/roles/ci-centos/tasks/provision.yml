@@ -33,6 +33,11 @@
     ansible_ssh_host: "{{ cico_data.results.hosts[item].ip_address }}"
   with_items: cico_data.results.hosts
 
+- name: "Ensure libselinux-python is installed"
+  package:
+    name: 'libselinux-python'
+    state: 'present'
+
 - name: "Setup custom facts directory"
   file:
     state: "directory"
