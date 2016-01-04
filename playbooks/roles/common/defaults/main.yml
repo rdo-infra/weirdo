@@ -21,8 +21,15 @@ base_packages:
   - python-setuptools
   - wget
   - redhat-lsb-core
+  - libselinux-python
 
 debug_packages:
   - net-tools
   - lsof
   - tcpdump
+  - dstat
+  - psmisc
+
+job_name: "{{ lookup('env', 'JOB_NAME') }}"
+build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
+log_destination: "{{ log_root }}/{{ job_name }}/{{ build_number }}"

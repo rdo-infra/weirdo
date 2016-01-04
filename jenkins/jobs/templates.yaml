@@ -18,11 +18,11 @@
 
         # Need features from Ansible 2 which is not yet released
         pip install -e git+https://github.com/ansible/ansible.git@devel#egg=ansible
+        ansible --version
 
         # Setup ansible config and run the playbook
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
         mv ansible.cfg.example ansible.cfg
-        ansible --version
         ansible-playbook -vv playbooks/{playbook}.yml
         result=$?
 
@@ -41,6 +41,7 @@
             owner: dms@redhat.com
     publishers:
         - email-cores
+        - archive-logs
 
 - job-template:
     name: 'weirdo-gate-tox-{test}'
@@ -74,7 +75,6 @@
     publishers:
         - email-cores
 
-
 - job-template:
     name: 'weirdo-periodic-{playbook}'
     defaults: 'weirdo-defaults'
@@ -95,11 +95,11 @@
 
         # Need features from Ansible 2 which is not yet released
         pip install -e git+https://github.com/ansible/ansible.git@devel#egg=ansible
+        ansible --version
 
         # Setup ansible config and run the playbook
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
         mv ansible.cfg.example ansible.cfg
-        ansible --version
         ansible-playbook -vv playbooks/{playbook}.yml
         result=$?
 
@@ -116,3 +116,4 @@
             owner: dms@redhat.com
     publishers:
         - email-cores
+        - archive-logs
