@@ -12,7 +12,13 @@
         - ansicolor
         - timestamps
         - workspace-cleanup
-
+        - timeout:
+            type: elastic
+            elastic-percentage: 200
+            elastic-default-timeout: 240
+            elastic-number-builds: 5
+            timeout: 240
+            fail: true
 - trigger:
     name: 'weirdo-periodic-trigger'
     triggers:
