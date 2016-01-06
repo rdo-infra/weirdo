@@ -42,6 +42,9 @@
   with_items: "{{ groups['openstack_nodes'] }}"
 
 - name: "Install ci custom facts for provisioning traceability"
+  vars:
+    - BUILD_URL: "{{ lookup('env', 'BUILD_URL')|default('') }}"
+    - JENKINS_URL: "{{ lookup('env', 'JENKINS_URL')|default('') }}"
   template:
     src: "templates/weirdo.j2"
     dest: "/etc/ansible/facts.d/weirdo.fact"

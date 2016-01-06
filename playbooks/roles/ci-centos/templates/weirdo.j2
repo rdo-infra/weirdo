@@ -1,3 +1,9 @@
 [ci]
 environment={{ ci_environment }}
 session={{ cico_data.results.ssid }}
+{% if BUILD_URL %}
+build_url={{ BUILD_URL }}
+{% endif %}
+{% if JENKINS_URL %}
+jenkins_url={{ JENKINS_URL }}
+{% endif %}
