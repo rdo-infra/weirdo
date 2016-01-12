@@ -20,6 +20,7 @@ base_packages:
   - git
   - python-setuptools
   - wget
+  - redhat-lsb-core
 
 debug_packages:
   - net-tools
