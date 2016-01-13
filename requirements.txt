@@ -1,4 +1,3 @@
 pbr>=1.6
-# Should be -e git+https://github.com/ansible/ansible.git@v2.0.0-0.7.rc2#egg=ansible
-ansible>=1.9
+ansible>=2.0.0.1
 python-cicoclient
