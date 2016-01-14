@@ -33,6 +33,14 @@
     ansible_ssh_host: "{{ cico_data.results.hosts[item].ip_address }}"
   with_items: cico_data.results.hosts
 
+- name: Disable requiretty to support SSH pipelining
+  lineinfile:
+    dest: "/etc/sudoers"
+    regexp: '^Defaults\s+requiretty$'
+    state: "absent"
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['openstack_nodes'] }}"
+
 - name: "Setup custom facts directory"
   file:
     state: "directory"

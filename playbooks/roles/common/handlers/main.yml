@@ -17,6 +17,14 @@
 - name: "Ensure logs are recovered"
   include: roles/common/tasks/logs.yml
 
+- name: Ensure ci nodes are released
+  cico:
+    action: "done"
+    api_key: "{{ api_key }}"
+    ssid: "{{ ansible_local.weirdo.ci.session }}"
+  delegate_to: localhost
+  when: disable_release is not defined
+
 - name: "Fail playbook execution"
   fail:
     msg: "A task notified that the playbook execution should be failed"

@@ -3,3 +3,7 @@
 library = /usr/lib/python2.7/site-packages/cicoclient/ansible:$VIRTUAL_ENV/lib/python2.7/site-packages/cicoclient/ansible
 callback_plugins = playbooks/library
 host_key_checking = False
+
+[ssh_connection]
+# http://docs.ansible.com/ansible/intro_configuration.html#pipelining
+pipelining = True
