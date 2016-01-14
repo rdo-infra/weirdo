@@ -19,4 +19,4 @@
 # is passed as a parameter.
 
 dependencies:
-  - { role: 'ci-centos' }
+  - { role: "ci-centos" }

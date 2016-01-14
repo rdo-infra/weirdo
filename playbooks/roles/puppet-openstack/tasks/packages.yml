@@ -15,23 +15,23 @@
 #
 
 - block:
-    - name: "Install required packages"
+    - name: Install required packages
       yum:
-        name: "{{ item }}"
+        name: "{{ item }}"
         state: "latest"
       with_items: required_packages
       retries: "3"
       delay: "20"
 
-    - name: "Install required ruby gems"
+    - name: Install required ruby gems
       gem:
-        name: "{{ item }}"
-        state: present
+        name: "{{ item }}"
+        state: "present"
       with_items: gem_packages
       retries: "3"
       delay: "20"
   vars:
-    - task: 'tasks/packages.yml'
+    task: "tasks/packages.yml"
   rescue:
-    - name: "Failure occurred, executing rescue"
+    - name: Failure occurred, executing rescue
       include: roles/common/tasks/rescue.yml

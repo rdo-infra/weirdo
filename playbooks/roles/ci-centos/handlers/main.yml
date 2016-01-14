@@ -14,7 +14,7 @@
 #   under the License.
 #
 
-- name: "Ensure ci nodes are released"
+- name: Ensure ci nodes are released
   cico:
     action: "done"
     api_key: "{{ api_key }}"

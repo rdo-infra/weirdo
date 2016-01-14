@@ -18,7 +18,7 @@ repository: "https://github.com/openstack/kolla.git"
 clone_path: "/tmp/kolla"
 version: "master"
 
-loopback_device: loop1
+loopback_device: "loop1"
 
 required_packages:
   - docker-selinux

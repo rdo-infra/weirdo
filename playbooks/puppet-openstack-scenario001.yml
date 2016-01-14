@@ -16,13 +16,12 @@
 
 - include: provision-ci-centos.yml
 
-- name: "Run puppet-openstack-integration scenario001 tests"
+- name: Run puppet-openstack-integration scenario001 tests
   hosts: openstack_nodes
-  user: root
+  user: "root"
   force_handlers: True
   roles:
     - role: "common"
-    - role: "puppet-openstack"
-      test: "scenario001"
+    - { role: "puppet-openstack", test: "scenario001" }
 
 - include: release-ci-centos.yml

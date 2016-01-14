@@ -14,9 +14,12 @@
 #   under the License.
 #
 
-- name: "Ensure logs are recovered"
-  include: roles/common/tasks/logs.yml
+# This handler is used from other roles and thus the path needs to be
+# specified to go back to the roles dir (from the role calling handler) and
+# then back to common.
+- name: Ensure logs are recovered
+  include: ../../common/tasks/logs.yml
 
-- name: "Fail playbook execution"
+- name: Fail playbook execution
   fail:
     msg: "A task notified that the playbook execution should be failed"

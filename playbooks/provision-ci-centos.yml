@@ -14,8 +14,7 @@
 #   under the License.
 #
 
-- name: "Provision a ci.centos.org node"
+- name: Provision a ci.centos.org node
   hosts: localhost
   roles:
-    - role: "ci-centos"
-      action: "provision"
+    - { role: "ci-centos", action: "provision" }

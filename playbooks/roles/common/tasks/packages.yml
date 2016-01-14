@@ -23,23 +23,23 @@
       retries: "3"
       delay: "20"
 
-    - name: "Install base packages"
+    - name: Install base packages
       yum:
-        name: "{{ item }}"
+        name: "{{ item }}"
         state: "present"
       with_items: base_packages
       retries: "3"
       delay: "20"
 
-    - name: "Install debug packages"
+    - name: Install debug packages
       yum:
-        name: "{{ item }}"
+        name: "{{ item }}"
         state: "present"
       with_items: debug_packages
       retries: "3"
       delay: "20"
   vars:
-    - task: 'tasks/packages.yml'
+    task: "tasks/packages.yml"
   rescue:
-    - name: "Failure occurred, executing rescue"
+    - name: Failure occurred, executing rescue
       include: roles/common/tasks/rescue.yml
