@@ -23,5 +23,5 @@
     - "Ensure ci nodes are released"
     - "Fail playbook execution"
 
-- name: "Flush Handlers"
+- name: Flush Handlers
   meta: flush_handlers

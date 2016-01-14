@@ -14,14 +14,12 @@
 #   under the License.
 #
 
-- name: "Collect logs"
+- name: Collect logs
   hosts: openstack_nodes
   roles:
-    - role: "common"
-      action: "logs"
+    - { role: "common", action: "logs" }
 
-- name: "Release the provisioned ci.centos.org node"
+- name: Release the provisioned ci.centos.org node
   hosts: localhost
   roles:
-    - role: "ci-centos"
-      action: "release"
+    - { role: "ci-centos", action: "release" }

@@ -20,7 +20,7 @@
         src: "docker.repo"
         dest: "/etc/yum.repos.d/docker.repo"
   vars:
-    - task: 'tasks/repositories.yml'
+    task: "tasks/repositories.yml"
   rescue:
-    - name: "Failure occurred, executing rescue"
+    - name: Failure occurred, executing rescue
       include: roles/common/tasks/rescue.yml

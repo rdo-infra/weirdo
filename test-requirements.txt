@@ -1,6 +1,6 @@
 sphinx
 sphinx-rtd-theme
 ansible>=2.0.0.1
-# ansible-lint
+ansible-lint>=2.3.0
 graphviz
 jenkins-job-builder
