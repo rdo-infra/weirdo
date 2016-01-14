@@ -36,7 +36,7 @@ build_url: "{{ lookup('env', 'BUILD_URL')|default('') }}"
 job_name: "{{ lookup('env', 'JOB_NAME')|default('') }}"
 build_number: "{{ lookup('env', 'BUILD_NUMBER')|default('') }}"
 
-log_root: /var/log/weirdo
+log_root: "/var/log/weirdo"
 log_destination: "{{ log_root }}/{{ job_name }}/{{ build_number }}"
 log_paths:
   - /var/log/audit
@@ -44,42 +44,42 @@ log_paths:
 
 debug_commands:
   cpuinfo:
-    command: 'cat /proc/cpuinfo'
+    command: "cat /proc/cpuinfo"
   df:
-    command: 'df -h'
+    command: "df -h"
   dmesg:
-    command: 'dmesg -T'
+    command: "dmesg -T"
   fdisk:
-    command: 'fdisk -l'
+    command: "fdisk -l"
   getenforce:
-    command: 'getenforce'
+    command: "getenforce"
   iptables:
-    command: 'iptables -vnL'
+    command: "iptables -vnL"
   iptables_nat:
-    command: 'iptables -vnL -t nat'
+    command: "iptables -vnL -t nat"
   iptables_mangle:
-    command: 'iptables -vnL -t mangle'
+    command: "iptables -vnL -t mangle"
   journalctl:
-    command: 'journalctl --no-pager'
+    command: "journalctl --no-pager"
   lsmod:
-    command: 'lsmod'
+    command: "lsmod"
   lsof:
-    command: 'lsof -P'
+    command: "lsof -P"
   lsof_network:
-    command: 'lsof -Pni'
+    command: "lsof -Pni"
   meminfo:
-    command: 'cat /proc/meminfo'
+    command: "cat /proc/meminfo"
   mounts:
-    command: 'cat /proc/mounts |column -t'
+    command: "cat /proc/mounts |column -t"
   netstat:
-    command: 'netstat -ntlp'
+    command: "netstat -ntlp"
   pstree:
-    command: 'pstree -p'
+    command: "pstree -p"
   sysstat:
-    command: 'sar -A -f /var/log/sa/*'
+    command: "sar -A -f /var/log/sa/*"
   sysctl:
-    command: 'sysctl -a'
+    command: "sysctl -a"
   repolist:
-    command: 'yum repolist -v'
+    command: "yum repolist -v"
   rpm_packages:
-    command: 'rpm -qa'
+    command: "rpm -qa"

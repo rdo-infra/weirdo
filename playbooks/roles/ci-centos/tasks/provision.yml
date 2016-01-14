@@ -14,7 +14,7 @@
 #   under the License.
 #
 
-- name: "Request node(s) from ci.centos.org"
+- name: Request node(s) from ci.centos.org
   cico:
     action: "get"
     api_key: "{{ api_key }}"
@@ -23,7 +23,7 @@
     count: "{{ count }}"
   register: cico_data
 
-- name: "Add requested nodes to hosts file"
+- name: Add requested nodes to hosts file
   add_host:
     name: "{{ cico_data.results.hosts[item].hostname }}"
     groups: "openstack_nodes"
@@ -41,7 +41,7 @@
   delegate_to: "{{ item }}"
   with_items: "{{ groups['openstack_nodes'] }}"
 
-- name: "Setup custom facts directory"
+- name: Setup custom facts directory
   file:
     state: "directory"
     recurse: "yes"
@@ -49,16 +49,16 @@
   delegate_to: "{{ item }}"
   with_items: "{{ groups['openstack_nodes'] }}"
 
-- name: "Install ci custom facts for provisioning traceability"
+- name: Install ci custom facts for provisioning traceability
   vars:
-    - BUILD_URL: "{{ lookup('env', 'BUILD_URL')|default('') }}"
-    - JENKINS_URL: "{{ lookup('env', 'JENKINS_URL')|default('') }}"
+    BUILD_URL: "{{ lookup('env', 'BUILD_URL')|default('') }}"
+    JENKINS_URL: "{{ lookup('env', 'JENKINS_URL')|default('') }}"
   template:
     src: "templates/weirdo.j2"
     dest: "/etc/ansible/facts.d/weirdo.fact"
   delegate_to: "{{ item }}"
   with_items: "{{ groups['openstack_nodes'] }}"
 
-- name: "Refresh facts"
+- name: Refresh facts
   setup:
     filter: "ansible_local"

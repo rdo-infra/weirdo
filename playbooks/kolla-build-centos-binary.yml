@@ -16,13 +16,12 @@
 
 - include: provision-ci-centos.yml
 
-- name: "Run kolla build tests"
+- name: Run kolla build tests
   hosts: openstack_nodes
-  user: root
+  user: "root"
   force_handlers: True
   roles:
     - role: "common"
-    - role: "kolla"
-      test: "build-centos-binary"
+    - { role: "kolla", test: "build-centos-binary" }
 
 - include: release-ci-centos.yml
