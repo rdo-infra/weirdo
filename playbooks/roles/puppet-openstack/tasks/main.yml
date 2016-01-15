@@ -14,6 +14,9 @@
 #   under the License.
 #
 
+- include: repositories.yml
+  when: not manage_repos | bool
+
 - include: packages.yml
 - include: setup.yml
 - include: run.yml

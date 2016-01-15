@@ -15,25 +15,19 @@
 #
 
 - block:
-    - name: "Run puppet integration test - {{ test }}"
-      command: ".//run_tests.sh"
-      args:
-        chdir: "{{ clone_path }}"
-      environment:
-        MANAGE_REPOS: "{{ manage_repos }}"
-        SCENARIO: "{{ test }}"
+    - name: Setup delorean repository
+      get_url:
+        url: "{{ delorean_url }}"
+        dest: "/etc/yum.repos.d/delorean.repo"
+        mode: "0644"
+
+    - name: Setup delorean-deps repository
+      get_url:
+        url: "{{ delorean_deps_url }}"
+        dest: "/etc/yum.repos.d/delorean-deps.repo"
+        mode: "0644"
   vars:
-    task: "tasks/run.yml"
+    task: "tasks/repositories.yml"
   rescue:
     - name: Failure occurred, executing rescue
       include: roles/common/tasks/rescue.yml
-  always:
-    # the copy_puppet_logs script uses $WORKSPACE as root for the logs, we
-    # actually want it to log to the standard log directory so hack that a bit
-    - name: Recover puppet integration test logs
-      command: "./copy_puppet_logs.sh"
-      args:
-        chdir: "{{ clone_path }}"
-        creates: "{{ puppet_workspace }}/logs"
-      environment:
-        WORKSPACE: "{{ puppet_workspace }}"
