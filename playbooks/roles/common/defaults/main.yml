@@ -22,6 +22,7 @@ base_packages:
   - wget
   - redhat-lsb-core
   - libselinux-python
+  - yum-plugin-priorities
 
 debug_packages:
   - net-tools
