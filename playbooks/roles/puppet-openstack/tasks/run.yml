@@ -16,9 +16,10 @@
 
 - block:
     - name: "Run puppet integration test - {{ test }}"
-      shell: "export SCENARIO='{{ test }}'; ./run_tests.sh"
-      args:
-        chdir: "{{ clone_path }}"
+      command: "{{ clone_path }}/run_tests.sh"
+      environment:
+        MANAGE_REPOS: "{{ manage_repos }}"
+        SCENARIO: "{{ test }}"
   vars:
     task: "tasks/run.yml"
   rescue:
@@ -28,9 +29,8 @@
     # the copy_puppet_logs script uses $WORKSPACE as root for the logs, we
     # actually want it to log to the standard log directory so hack that a bit
     - name: Recover puppet integration test logs
-      command: "./copy_puppet_logs.sh"
+      command: "{{ clone_path }}/run_tests.sh"
+      args:
+        creates: "{{ puppet_workspace }}/logs"
       environment:
         WORKSPACE: "{{ puppet_workspace }}"
-      args:
-        chdir: "{{ clone_path }}"
-        creates: "{{ puppet_workspace }}/logs"

@@ -14,9 +14,20 @@
 #   under the License.
 #
 
-- include: repositories.yml
-  when: not manage_repos | bool
+- block:
+    - name: Setup delorean repository
+      get_url:
+        url: "{{ delorean_url }}"
+        dest: "/etc/yum.repos.d/delorean.repo"
+        mode: "0644"
 
-- include: packages.yml
-- include: setup.yml
-- include: run.yml
+    - name: Setup delorean-deps repository
+      get_url:
+        url: "{{ delorean_deps_url }}"
+        dest: "/etc/yum.repos.d/delorean-deps.repo"
+        mode: "0644"
+  vars:
+    task: "tasks/repositories.yml"
+  rescue:
+    - name: Failure occurred, executing rescue
+      include: roles/common/tasks/rescue.yml
