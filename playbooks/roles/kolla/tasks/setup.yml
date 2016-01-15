@@ -84,6 +84,14 @@
         dest: "{{ clone_path }}"
         version: "{{ version }}"
 
+    - name: Set kolla-build to use delorean current repositories
+      ini_file:
+        dest: "{{ clone_path }}/etc/kolla/kolla-build.conf"
+        section: "[kolla-build]"
+        option: "rpm_setup_config"
+        value: "{{ delorean_url }},{{ delorean_deps_url }}"
+        backup: "yes"
+
     - name: Copy default configuration to filesystem
       command: "cp -a etc/kolla /etc/"
       args:

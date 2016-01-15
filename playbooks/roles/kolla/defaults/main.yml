@@ -14,6 +14,9 @@
 #   under the License.
 #
 
+delorean_url: "http://trunk.rdoproject.org/centos7/current/delorean.repo"
+delorean_deps_url: "http://trunk.rdoproject.org/centos7/delorean-deps.repo"
+
 repository: "https://github.com/openstack/kolla.git"
 clone_path: "/tmp/kolla"
 version: "master"
