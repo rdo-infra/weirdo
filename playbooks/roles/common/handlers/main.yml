@@ -14,11 +14,18 @@
 #   under the License.
 #
 
+# Note: Handlers are grouped here to be ordered properly, see
+# http://docs.ansible.com/ansible/glossary.html#notify
+
 # This handler is used from other roles and thus the path needs to be
 # specified to go back to the roles dir (from the role calling handler) and
 # then back to common.
-- name: Ensure logs are recovered
+- name: Ensure global logs are recovered
   include: ../../common/tasks/logs.yml
+
+- name: Ensure puppet-openstack logs are recovered
+  include: ../../puppet-openstack/tasks/logs.yml
+  when: project == "puppet-openstack"
 
 - name: Ensure ci nodes are released
   cico:

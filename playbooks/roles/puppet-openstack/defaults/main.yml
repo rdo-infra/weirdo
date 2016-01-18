@@ -14,6 +14,7 @@
 #   under the License.
 #
 
+project: "puppet-openstack"
 repository: "https://github.com/openstack/puppet-openstack-integration.git"
 clone_path: "/tmp/puppet-openstack"
 version: "master"
