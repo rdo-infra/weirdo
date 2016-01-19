@@ -38,6 +38,7 @@
     dest: "/etc/sudoers"
     regexp: '^Defaults\s+requiretty$'
     state: "absent"
+    validate: "/usr/sbin/visudo -cf %s"
   delegate_to: "{{ item }}"
   with_items: "{{ groups['openstack_nodes'] }}"
 
