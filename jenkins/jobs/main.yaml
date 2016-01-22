@@ -3,6 +3,8 @@
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
+        - 'packstack-scenario001'
+        - 'packstack-scenario002'
         - 'kolla-build-centos-binary'
         - 'kolla-deploy-centos-binary'
     jobs:
@@ -22,6 +24,8 @@
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
+        - 'packstack-scenario001'
+        - 'packstack-scenario002'
         - 'kolla-build-centos-binary'
         - 'kolla-deploy-centos-binary'
     jobs:
