@@ -30,3 +30,12 @@
         - 'kolla-deploy-centos-binary'
     jobs:
         - weirdo-periodic-{playbook}
+
+- project:
+    name: 'weirdo-promote-mitaka-jobs'
+    playbook:
+      - 'puppet-openstack-scenario001'
+      - 'puppet-openstack-scenario002'
+      - 'packstack-scenario001'
+    jobs:
+      - weirdo-promote-mitaka-{playbook}

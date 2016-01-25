@@ -75,3 +75,34 @@
               result=$?
 
               exit $result
+
+- builder:
+    name: 'weirdo-promote-builder'
+    builders:
+        - shining-panda:
+            build-environment: 'virtualenv'
+            python-version: 'system-CPython-2.7'
+            nature: 'shell'
+            clear: true
+            use-distribute: false
+            system-site-packages: false
+            ignore-exit-code: false
+            command: |
+              delorean_hash=${{delorean_current_hash:-current}}
+              delorean_url="http://trunk.rdoproject.org/centos7/${{delorean_hash}}/delorean.repo"
+
+              # Install WeIRDO from master branch
+              pip install -e git+https://github.com/redhat-openstack/weirdo.git@master#egg=weirdo
+              pushd $VIRTUAL_ENV/src/weirdo
+              git log -n 5 --oneline
+              python setup.py install
+              popd
+
+              # Setup ansible config and run the playbook
+              pushd $VIRTUAL_ENV/usr/local/share/weirdo
+              mv ansible.cfg.example ansible.cfg
+              ansible --version
+              ansible-playbook -vv playbooks/{playbook}.yml --extra-vars delorean_url="$delorean_url"
+              result=$?
+
+              exit $result
