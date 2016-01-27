@@ -15,7 +15,7 @@
 #
 
 project: "packstack"
-delorean_url: "http://trunk.rdoproject.org/centos7/current/delorean.repo"
+delorean_url: "http://trunk.rdoproject.org/centos7/current-passed-ci/delorean.repo"
 delorean_deps_url: "http://trunk.rdoproject.org/centos7/delorean-deps.repo"
 repository: "https://github.com/openstack/packstack.git"
 clone_path: "/tmp/packstack"

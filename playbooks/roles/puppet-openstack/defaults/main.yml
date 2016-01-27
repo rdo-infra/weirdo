@@ -20,7 +20,7 @@ repository: "https://github.com/openstack/puppet-openstack-integration.git"
 clone_path: "/tmp/puppet-openstack"
 version: "master"
 
-delorean_url: "http://trunk.rdoproject.org/centos7/current/delorean.repo"
+delorean_url: "http://trunk.rdoproject.org/centos7/current-passed-ci/delorean.repo"
 delorean_deps_url: "http://trunk.rdoproject.org/centos7/delorean-deps.repo"
 copy_puppet_logs_url: "https://raw.githubusercontent.com/openstack-infra/project-config/master/jenkins/scripts/copy_puppet_logs.sh"
 puppet_workspace: "{{ log_destination |default('/var/log/weirdo') }}/puppet-openstack"
