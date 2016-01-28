@@ -46,9 +46,9 @@
                 failed: false
                 unstable: false
                 notbuilt: false
-            failure-message: 'Test failed'
-            successful-message: 'Test ran successfully'
-            unstable-message: 'Test is unstable'
+            failure-message: "FAILED - Logs (if available) at $BUILD_URL/artifact/logs.html"
+            successful-message: "SUCCESS - Logs (if available) at $BUILD_URL/artifact/logs.html"
+            unstable-message: "UNSTABLE - Logs (if available) at $BUILD_URL/artifact/logs.html"
             silent: false
             silent-start: true
 
