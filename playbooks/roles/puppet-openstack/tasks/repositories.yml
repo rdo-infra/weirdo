@@ -26,6 +26,28 @@
         url: "{{ delorean_deps_url }}"
         dest: "/etc/yum.repos.d/delorean-deps.repo"
         mode: "0644"
+
+    # scenario001 installs Ceph with puppet-ceph's ceph::repo
+    # Let's setup the latest release to try and catch problems ahead of them
+    # Ceph also requires EPEL for, amongst other things, leveldb-devel.
+    - name: Enable EPEL
+      yum:
+        name: epel-release
+        state: "present"
+      retries: "3"
+      delay: "20"
+
+    - name: Setup ceph.com signing key
+      rpm_key:
+        state: "present"
+        key: "https://download.ceph.com/keys/release.asc"
+      when: test == "scenario001"
+
+    - name: Setup ceph.com repositories
+      template:
+        src: "templates/ceph.repo.j2"
+        dest: "/etc/yum.repos.d/ceph.repo"
+      when: test == "scenario001"
   vars:
     task: "tasks/repositories.yml"
   rescue:

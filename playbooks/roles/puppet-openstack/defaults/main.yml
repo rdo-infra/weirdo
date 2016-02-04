@@ -19,6 +19,8 @@ project: "puppet-openstack"
 repository: "https://github.com/openstack/puppet-openstack-integration.git"
 clone_path: "/tmp/puppet-openstack"
 version: "master"
+# puppet-openstack-integration doesn't pin so it inherits from default ceph::repo
+ceph_version: "hammer"
 
 delorean_url: "http://trunk.rdoproject.org/centos7/current-passed-ci/delorean.repo"
 delorean_deps_url: "http://trunk.rdoproject.org/centos7/delorean-deps.repo"
