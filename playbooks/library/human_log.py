@@ -23,18 +23,59 @@ try:
 except ImportError:
     import json
 
+import os
+import datetime
+import re
+from json2html import *
+
 # Fields to reformat output for
 FIELDS = ['cmd', 'command', 'start', 'end', 'delta', 'msg', 'stdout',
           'stderr', 'results']
 
+HTML_HEADER = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ansible playbook logs</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <style>
+      td {
+          white-space: pre;
+      }
+  </style>
+</head>
+<body>
+  <h1 class="text-center">Ansible playbook logs</h1>
+  <h2 class="text-center">%s @ %s</h2>
+""".encode('ascii', 'replace')
+
 
 class CallbackModule(CallbackBase):
+    CALLBACK_VERSION = 2.0
+    CALLBACK_TYPE = 'aggregate'
+    CALLBACK_NAME = 'human_log'
+    CALLBACK_NEEDS_WHITELIST = False
+
+    def __init__(self):
+        super(CallbackModule, self).__init__()
+        self.printed_playbook = False
+        self.log_filename = None
+        self.log_path = None
+        self.play = None
+        self.playbook = None
+
     def human_log(self, data):
         if type(data) == dict:
             for field in FIELDS:
                 if field in data.keys() and data[field]:
                     output = self._format_output(data[field])
-                    print("\n{0}: {1}".format(field, output.replace("\\n","\n")))
+                    print("\n{0}: {1}".format(field,
+                                              output.replace("\\n","\n")))
+            self._write_to_log(data.encode('ascii', 'replace'))
 
     def _format_output(self, output):
         # Strip unicode
@@ -80,8 +121,15 @@ class CallbackModule(CallbackBase):
         # Otherwise it's a string, just return it
         return output
 
-    def on_any(self, *args, **kwargs):
-        pass
+    def _write_to_log(self, message):
+        with open(self.log_path, 'a+') as f:
+            f.write(json2html.convert(json=json.dumps(message),
+                                      table_attributes='class="table '
+                                                       'table-bordered '
+                                                       'table-hover '
+                                                       'table-condensed"'))
+            f.write('<hr>')
+        f.close()
 
     def runner_on_failed(self, host, res, ignore_errors=False):
         self.human_log(res)
@@ -89,18 +137,8 @@ class CallbackModule(CallbackBase):
     def runner_on_ok(self, host, res):
         self.human_log(res)
 
-
-    def runner_on_error(self, host, msg):
-        pass
-
-    def runner_on_skipped(self, host, item=None):
-        pass
-
     def runner_on_unreachable(self, host, res):
         self.human_log(res)
-
-    def runner_on_no_hosts(self):
-        pass
 
     def runner_on_async_poll(self, host, res, jid, clock):
         self.human_log(res)
@@ -111,37 +149,30 @@ class CallbackModule(CallbackBase):
     def runner_on_async_failed(self, host, res, jid):
         self.human_log(res)
 
-    def playbook_on_start(self):
-        pass
+    def v2_playbook_on_start(self, playbook):
+        self.playbook = playbook
 
-    def playbook_on_notify(self, host, handler):
-        pass
+    def v2_playbook_on_play_start(self, play):
+        self.play = play
 
-    def playbook_on_no_hosts_matched(self):
-        pass
+        if not self.printed_playbook:
+            playbook_path = self.playbook._basedir
+            log_dir = os.path.join(playbook_path, 'logs')
+            if not os.path.exists(log_dir):
+                os.makedirs(log_dir)
 
-    def playbook_on_no_hosts_remaining(self):
-        pass
+            playbook_file = self.playbook._file_name
+            playbook_file = os.path.basename(playbook_file)
+            playbook_name = re.sub(r"\.(yml|yaml)", '', playbook_file)
+            now = datetime.datetime.now().strftime('%m-%d_%H:%M:%S')
+            friendly_now = datetime.datetime.now().strftime('%c%Z')
 
-    def playbook_on_task_start(self, name, is_conditional):
-        pass
+            log_filename = "{0}_log_{1}.html".format(playbook_name, now)
+            self.log_path = os.path.join(log_dir, log_filename)
+            if not os.path.exists(self.log_path):
+                with open(self.log_path, 'a+') as f:
+                    header = HTML_HEADER % (playbook_file, friendly_now)
+                    f.write(header)
+                f.close()
 
-    def playbook_on_vars_prompt(self, varname, private=True, prompt=None,
-                                encrypt=None, confirm=False, salt_size=None,
-                                salt=None, default=None):
-        pass
-
-    def playbook_on_setup(self):
-        pass
-
-    def playbook_on_import_for_host(self, host, imported_file):
-        pass
-
-    def playbook_on_not_import_for_host(self, host, missing_file):
-        pass
-
-    def playbook_on_play_start(self, pattern):
-        pass
-
-    def playbook_on_stats(self, stats):
-        pass
+            self.printed_playbook = True

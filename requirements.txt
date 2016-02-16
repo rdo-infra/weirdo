@@ -1,3 +1,4 @@
 pbr>=1.6
 ansible>=2.0.0.1
 python-cicoclient
+json2html

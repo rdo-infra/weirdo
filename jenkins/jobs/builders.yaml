@@ -23,6 +23,12 @@
               ansible --version
               ansible-playbook -vv playbooks/{playbook}.yml
               result=$?
+              popd
+
+              # Retrieve html ansible run log
+              if [ -e $VIRTUAL_ENV/usr/local/share/weirdo/playbooks/logs ]; then
+                cp -p $VIRTUAL_ENV/usr/local/share/weirdo/playbooks/logs/* $WORKSPACE/
+              fi
 
               exit $result
 
@@ -73,6 +79,12 @@
               ansible --version
               ansible-playbook -vv playbooks/{playbook}.yml
               result=$?
+              popd
+
+              # Retrieve html ansible run log
+              if [ -e $VIRTUAL_ENV/usr/local/share/weirdo/playbooks/logs ]; then
+                cp -p $VIRTUAL_ENV/usr/local/share/weirdo/playbooks/logs/* $WORKSPACE/
+              fi
 
               exit $result
 
@@ -104,5 +116,11 @@
               ansible --version
               ansible-playbook -vv playbooks/{playbook}.yml --extra-vars delorean_url="$delorean_url"
               result=$?
+              popd
+
+              # Retrieve html ansible run log
+              if [ -e $VIRTUAL_ENV/usr/local/share/weirdo/playbooks/logs ]; then
+                cp -p $VIRTUAL_ENV/usr/local/share/weirdo/playbooks/logs/* $WORKSPACE/
+              fi
 
               exit $result
