@@ -24,6 +24,11 @@
               ansible-playbook -vv playbooks/{playbook}.yml
               result=$?
 
+              # Retrieve html ansible run log
+              if [ -e playbooks/logs ]; then
+                cp -p playbooks/logs/* $WORKSPACE/
+              fi
+
               exit $result
 
 - builder:
@@ -74,6 +79,11 @@
               ansible-playbook -vv playbooks/{playbook}.yml
               result=$?
 
+              # Retrieve html ansible run log
+              if [ -e playbooks/logs ]; then
+                cp -p playbooks/logs/* $WORKSPACE/
+              fi
+
               exit $result
 
 - builder:
@@ -104,5 +114,10 @@
               ansible --version
               ansible-playbook -vv playbooks/{playbook}.yml --extra-vars delorean_url="$delorean_url"
               result=$?
+
+              # Retrieve html ansible run log
+              if [ -e playbooks/logs ]; then
+                cp -p playbooks/logs/* $WORKSPACE/
+              fi
 
               exit $result
