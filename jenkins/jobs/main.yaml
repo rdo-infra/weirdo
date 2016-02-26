@@ -3,6 +3,7 @@
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
+        - 'puppet-openstack-scenario003'
         - 'packstack-scenario001'
         - 'packstack-scenario002'
         - 'kolla-build-centos-binary'
@@ -24,6 +25,7 @@
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
+        - 'puppet-openstack-scenario003'
         - 'packstack-scenario001'
         - 'packstack-scenario002'
         - 'kolla-build-centos-binary'
@@ -36,6 +38,7 @@
     playbook:
       - 'puppet-openstack-scenario001'
       - 'puppet-openstack-scenario002'
+      - 'puppet-openstack-scenario003'
       - 'packstack-scenario001'
     jobs:
       - weirdo-promote-mitaka-{playbook}
