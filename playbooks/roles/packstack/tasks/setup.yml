@@ -25,3 +25,9 @@
   rescue:
     - name: Failure occurred, executing rescue
       include: roles/common/tasks/rescue.yml
+  always:
+    - name: Create directory where packstack logs will be stored
+      file:
+        path: "{{ packstack_workspace }}"
+        state: "directory"
+        recurse: "yes"

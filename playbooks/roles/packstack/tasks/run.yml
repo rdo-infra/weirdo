@@ -14,12 +14,15 @@
 #   under the License.
 #
 
+# Workspace env variable is used by the tools/copy-logs.sh script sourced by
+# run_tests.sh for the log root.
 - block:
     - name: "Run packstack integration test - {{ test }}"
       command: "./run_tests.sh"
       args:
         chdir: "{{ clone_path }}"
       environment:
+        WORKSPACE: "{{ packstack_workspace }}"
         DELOREAN: "{{ delorean_url }}"
         DELOREAN_DEPS: "{{ delorean_deps_url }}"
         SCENARIO: "{{ test }}"
