@@ -25,6 +25,7 @@
         WORKSPACE: "{{ packstack_workspace }}"
         DELOREAN: "{{ delorean_url }}"
         DELOREAN_DEPS: "{{ delorean_deps_url }}"
+        INSTALL_FROM_SOURCE: "{{ install_from_source }}"
         SCENARIO: "{{ test }}"
   vars:
     task: "tasks/run.yml"
