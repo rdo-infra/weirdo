@@ -30,7 +30,7 @@
 
 - name: Output hostvars to file
   copy:
-    content: "{{ hostvars[inventory_hostnane] | to_nice_json }}"
+    content: "{{ hostvars[inventory_hostname] | to_nice_json }}"
     dest: "{{ log_destination }}/ansible_hostvars.txt"
   ignore_errors: True
 
