@@ -15,10 +15,14 @@
 #
 
 project: "packstack"
+# Delorean repository (OpenStack) release
+openstack_release: "master"
+# Version of Packstack cloned
+version: "master"
+
 install_from_source: "false"
-delorean_url: "http://trunk.rdoproject.org/centos7/current-passed-ci/delorean.repo"
-delorean_deps_url: "http://trunk.rdoproject.org/centos7/delorean-deps.repo"
+delorean_url: "http://trunk.rdoproject.org/centos7-{{ openstack_release }}/current-passed-ci/delorean.repo"
+delorean_deps_url: "http://trunk.rdoproject.org/centos7-{{ openstack_release }}/delorean-deps.repo"
 repository: "https://github.com/openstack/packstack.git"
 clone_path: "/tmp/packstack"
-version: "master"
 packstack_workspace: "{{ log_destination |default('/var/log/weirdo') }}/packstack"

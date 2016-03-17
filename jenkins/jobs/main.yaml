@@ -1,5 +1,7 @@
 - project:
     name: 'weirdo-gate-ansible-jobs'
+    openstack_release:
+        - 'mitaka'
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
@@ -10,7 +12,7 @@
         - 'kolla-build-centos-binary'
         - 'kolla-deploy-centos-binary'
     jobs:
-        - weirdo-gate-ansible-{playbook}
+        - weirdo-{openstack_release}-gate-ansible-{playbook}
 
 - project:
     name: 'weirdo-gate-tox-jobs'
@@ -23,6 +25,8 @@
 
 - project:
     name: 'weirdo-periodic-jobs'
+    openstack_release:
+        - 'mitaka'
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
@@ -33,16 +37,18 @@
         - 'kolla-build-centos-binary'
         - 'kolla-deploy-centos-binary'
     jobs:
-        - weirdo-periodic-{playbook}
+        - weirdo-{openstack_release}-periodic-{playbook}
 
 - project:
     name: 'weirdo-promote-mitaka-jobs'
+    openstack_release:
+        - 'mitaka'
     playbook:
-      - 'puppet-openstack-scenario001'
-      - 'puppet-openstack-scenario002'
-      - 'puppet-openstack-scenario003'
-      - 'packstack-scenario001'
-      - 'packstack-scenario002'
-      - 'packstack-scenario003'
+        - 'puppet-openstack-scenario001'
+        - 'puppet-openstack-scenario002'
+        - 'puppet-openstack-scenario003'
+        - 'packstack-scenario001'
+        - 'packstack-scenario002'
+        - 'packstack-scenario003'
     jobs:
-      - weirdo-promote-mitaka-{playbook}
+        - weirdo-{openstack_release}-promote-{playbook}
