@@ -21,7 +21,7 @@
               pushd $VIRTUAL_ENV/usr/local/share/weirdo
               mv ansible.cfg.example ansible.cfg
               ansible --version
-              ansible-playbook -vv playbooks/{playbook}.yml
+              ansible-playbook -vv playbooks/{playbook}.yml --extra-vars openstack_release={openstack_release}
               result=$?
 
               exit $result
@@ -71,7 +71,7 @@
               pushd $VIRTUAL_ENV/usr/local/share/weirdo
               mv ansible.cfg.example ansible.cfg
               ansible --version
-              ansible-playbook -vv playbooks/{playbook}.yml
+              ansible-playbook -vv playbooks/{playbook}.yml --extra-vars openstack_release={openstack_release}
               result=$?
 
               exit $result
@@ -89,9 +89,9 @@
             ignore-exit-code: false
             command: |
               delorean_hash=${{delorean_current_hash:-current}}
-              delorean_url="http://trunk.rdoproject.org/centos7/${{delorean_hash}}/delorean.repo"
+              delorean_url="http://trunk.rdoproject.org/centos7-{openstack_release}/${{delorean_hash}}/delorean.repo"
 
-              # Install WeIRDO from master branch
+              # Install WeIRDO
               pip install -e git+https://github.com/redhat-openstack/weirdo.git@master#egg=weirdo
               pushd $VIRTUAL_ENV/src/weirdo
               git log -n 5 --oneline
@@ -102,7 +102,7 @@
               pushd $VIRTUAL_ENV/usr/local/share/weirdo
               mv ansible.cfg.example ansible.cfg
               ansible --version
-              ansible-playbook -vv playbooks/{playbook}.yml --extra-vars delorean_url="$delorean_url"
+              ansible-playbook -vv playbooks/{playbook}.yml --extra-vars delorean_url="$delorean_url" --extra-vars openstack_release={openstack_release}
               result=$?
 
               exit $result

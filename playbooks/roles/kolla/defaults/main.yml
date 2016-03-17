@@ -15,11 +15,15 @@
 #
 
 project: "kolla"
-delorean_url: "http://trunk.rdoproject.org/centos7/current-passed-ci/delorean.repo"
-delorean_deps_url: "http://trunk.rdoproject.org/centos7/delorean-deps.repo"
+# Delorean repository (OpenStack) release
+openstack_release: "master"
+# Version of Kolla cloned
+version: "master"
+
+delorean_url: "http://trunk.rdoproject.org/centos7-{{ openstack_release }}/current-passed-ci/delorean.repo"
+delorean_deps_url: "http://trunk.rdoproject.org/centos7-{{ openstack_release }}/delorean-deps.repo"
 repository: "https://github.com/openstack/kolla.git"
 clone_path: "/tmp/kolla"
-version: "master"
 
 loopback_device: "loop1"
 

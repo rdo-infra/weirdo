@@ -14,16 +14,20 @@
 #   under the License.
 #
 
-manage_repos: "false"
 project: "puppet-openstack"
+# Delorean repository (OpenStack) release
+openstack_release: "master"
+# Version of puppet-openstack-integration cloned
+version: "master"
+
+manage_repos: "false"
 repository: "https://github.com/openstack/puppet-openstack-integration.git"
 clone_path: "/tmp/puppet-openstack"
-version: "master"
 # puppet-openstack-integration doesn't pin so it inherits from default ceph::repo
 ceph_version: "hammer"
 
-delorean_url: "http://trunk.rdoproject.org/centos7/current-passed-ci/delorean.repo"
-delorean_deps_url: "http://trunk.rdoproject.org/centos7/delorean-deps.repo"
+delorean_url: "http://trunk.rdoproject.org/centos7-{{ openstack_release }}/current-passed-ci/delorean.repo"
+delorean_deps_url: "http://trunk.rdoproject.org/centos7-{{ relopenstack_releaseease }}/delorean-deps.repo"
 copy_puppet_logs_url: "https://raw.githubusercontent.com/openstack-infra/project-config/master/jenkins/scripts/copy_puppet_logs.sh"
 puppet_workspace: "{{ log_destination |default('/var/log/weirdo') }}/puppet-openstack"
 
