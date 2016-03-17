@@ -1,5 +1,5 @@
 - job-template:
-    name: 'weirdo-gate-ansible-{playbook}'
+    name: 'weirdo-{release}-gate-ansible-{playbook}'
     defaults: 'weirdo-defaults'
     description: |
         <p>Managed by Jenkins Job Builder. Do not edit via web.</p>
@@ -20,7 +20,7 @@
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
         mv ansible.cfg.example ansible.cfg
         ansible --version
-        ansible-playbook -vv playbooks/{playbook}.yml
+        ansible-playbook -vv playbooks/{playbook}.yml --extra-vars release={release}
         result=$?
 
         exit $result
@@ -32,6 +32,7 @@
         - weirdo-gate-repository
     builders:
         - weirdo-gate-ansible:
+            release: '{release}'
             playbook: '{playbook}'
     properties:
         - ownership:
@@ -73,7 +74,7 @@
         - email-cores
 
 - job-template:
-    name: 'weirdo-periodic-{playbook}'
+    name: 'weirdo-{release}-periodic-{playbook}'
     defaults: 'weirdo-defaults'
     description: |
         <p>Managed by Jenkins Job Builder. Do not edit via web.</p>
@@ -94,7 +95,7 @@
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
         mv ansible.cfg.example ansible.cfg
         ansible --version
-        ansible-playbook -vv playbooks/{playbook}.yml
+        ansible-playbook -vv playbooks/{playbook}.yml --extra-vars release={release}
         result=$?
 
         exit $result
@@ -104,6 +105,7 @@
           - weirdo-periodic-trigger
     builders:
         - weirdo-periodic-builder:
+            release: '{release}'
             playbook: '{playbook}'
     properties:
         - ownership:
@@ -113,7 +115,7 @@
         - archive-logs
 
 - job-template:
-    name: 'weirdo-promote-mitaka-{playbook}'
+    name: 'weirdo-{release}-promote-{playbook}'
     defaults: 'weirdo-defaults'
     description: |
         <p>Managed by Jenkins Job Builder. Do not edit via web.</p>
@@ -124,7 +126,7 @@
         This is what this job runs:
         <pre>
         delorean_hash=${{delorean_current_hash:-current}}
-        delorean_url="http://trunk.rdoproject.org/centos7/${{delorean_hash}}/delorean.repo"
+        delorean_url="http://trunk.rdoproject.org/centos7-{release}/${{delorean_hash}}/delorean.repo"
 
         # Install WeIRDO
         pip install -e git+https://github.com/redhat-openstack/weirdo.git@master#egg=weirdo
@@ -137,7 +139,7 @@
         pushd $VIRTUAL_ENV/usr/local/share/weirdo
         mv ansible.cfg.example ansible.cfg
         ansible --version
-        ansible-playbook -vv playbooks/{playbook}.yml --extra-vars delorean_url="$delorean_url"
+        ansible-playbook -vv playbooks/{playbook}.yml --extra-vars delorean_url="$delorean_url" --extra-vars release={release}
         result=$?
 
         exit $result
@@ -145,6 +147,7 @@
 
     builders:
         - weirdo-promote-builder:
+            release: '{release}'
             playbook: '{playbook}'
     properties:
         - ownership:
