@@ -52,3 +52,17 @@
         - 'packstack-scenario003'
     jobs:
         - weirdo-{openstack_release}-promote-{playbook}
+
+- project:
+    name: 'weirdo-generic-jobs'
+    delorean_url: 'http://trunk.rdoproject.org/centos7-mitaka/current-passed-ci/delorean.repo'
+    delorean_deps_url: 'http://trunk.rdoproject.org/centos7-mitaka/delorean-deps.repo'
+    playbook:
+        - 'puppet-openstack-scenario001'
+        - 'puppet-openstack-scenario002'
+        - 'puppet-openstack-scenario003'
+        - 'packstack-scenario001'
+        - 'packstack-scenario002'
+        - 'packstack-scenario003'
+    jobs:
+        - weirdo-generic-{playbook}
