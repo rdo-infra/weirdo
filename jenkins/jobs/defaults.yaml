@@ -70,7 +70,7 @@
                         branch-pattern: 'master'
                   file-paths:
                       - compare-type: 'REG_EXP'
-                        pattern: '^playbooks/.*$'
+                        pattern: '^playbooks/(?!.*\.rst).*$'
             skip-vote:
                 successful: false
                 failed: false
