@@ -155,3 +155,53 @@
     publishers:
         - email-cores
         - archive-logs
+
+- job-template:
+    name: 'weirdo-generic-{playbook}'
+    defaults: 'weirdo-defaults'
+    description: |
+        <p>Managed by Jenkins Job Builder. Do not edit via web.</p>
+        <br>
+        <p>This job runs <a href="https://github.com/redhat-openstack/weirdo" target="_blank">WeIRDO</a>.</p>
+        <p>It runs the playbook <a href="https://github.com/redhat-openstack/weirdo/blob/master/playbooks/{playbook}.yml" target="_blank">{playbook}.yml</a></p>
+        <br>
+        This is a <strong>parameterized</strong> job that requires two variables: delorean_url and delorean_deps_url.
+        This is what this job runs:
+        <pre>
+        # Install WeIRDO
+        pip install -e git+https://github.com/redhat-openstack/weirdo.git@master#egg=weirdo
+        pushd $VIRTUAL_ENV/src/weirdo
+        git log -n 5 --oneline
+        python setup.py install
+        popd
+
+        # Setup ansible config and run the playbook
+        pushd $VIRTUAL_ENV/usr/local/share/weirdo
+        mv ansible.cfg.example ansible.cfg
+        ansible --version
+        ansible-playbook -vv playbooks/{playbook}.yml --extra-vars delorean_url="$delorean_url" --extra-vars delorean_deps_url="$delorean_deps_url"
+        result=$?
+
+        exit $result
+        </pre>
+
+    parameters:
+        - string:
+            name: delorean_url
+            default: http://trunk.rdoproject.org/centos7-mitaka/current-passed-ci/delorean.repo
+            description: The URL of the delorean .repo file tested against
+        - string:
+            name: delorean_deps_url
+            default: http://trunk.rdoproject.org/centos7-mitaka/delorean-deps.repo
+            description: The URL of the delorean-deps .repo file tested against
+    builders:
+        - weirdo-generic-builder:
+            playbook: '{playbook}'
+            delorean_url: {delorean_url}
+            delorean_deps_url: {delorean_deps_url}
+    properties:
+        - ownership:
+            owner: dms@redhat.com
+    publishers:
+        - email-cores
+        - archive-logs
