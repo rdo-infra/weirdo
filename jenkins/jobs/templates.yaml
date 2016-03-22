@@ -27,7 +27,7 @@
         </pre>
 
     triggers:
-          - weirdo-gate-trigger
+          - weirdo-gate-integration-trigger
     scm:
         - weirdo-gate-repository
     builders:

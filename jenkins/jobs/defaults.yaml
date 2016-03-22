@@ -52,6 +52,36 @@
             silent: false
             silent-start: true
 
+- trigger:
+    name: 'weirdo-gate-integration-trigger'
+    triggers:
+        - gerrit:
+            server-name: 'rdo-ci-centos'
+            trigger-on:
+                - patchset-created-event
+                - draft-published-event
+                - comment-added-contains-event:
+                    comment-contains-value:  '(?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck)'
+            projects:
+                - project-compare-type: 'PLAIN'
+                  project-pattern: 'redhat-openstack/weirdo'
+                  branches:
+                      - branch-compare-type: 'PLAIN'
+                        branch-pattern: 'master'
+                  file-paths:
+                      - compare-type: 'REG_EXP'
+                        pattern: '^playbooks/.*$'
+            skip-vote:
+                successful: false
+                failed: false
+                unstable: false
+                notbuilt: false
+            failure-message: 'Test failed'
+            successful-message: 'Test ran successfully'
+            unstable-message: 'Test is unstable'
+            silent: false
+            silent-start: true
+
 - scm:
     name: 'weirdo-gate-repository'
     scm:
