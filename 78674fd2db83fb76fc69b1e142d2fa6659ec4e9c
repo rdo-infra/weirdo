@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da9b358b_c4aab085",
+        "filename": "jenkins/jobs/builders.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1006219
+      },
+      "writtenOn": "2016-03-23T00:04:05Z",
+      "side": 1,
+      "message": "lol :) http://shiningpanda.com/shiningpanda-plugin-022.html",
+      "parentUuid": "da9b358b_a4b8cce6",
+      "revId": "78674fd2db83fb76fc69b1e142d2fa6659ec4e9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da9b358b_c4b3d009",
         "filename": "jenkins/jobs/templates.yaml",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-03-22T23:27:47Z",
       "side": 1,
       "message": "Is this description kept in sync with actual builder command manually?",
+      "revId": "78674fd2db83fb76fc69b1e142d2fa6659ec4e9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9b358b_a4afac93",
+        "filename": "jenkins/jobs/templates.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1006219
+      },
+      "writtenOn": "2016-03-23T00:04:05Z",
+      "side": 1,
+      "message": "Until I find a better way, yeah :(",
+      "parentUuid": "da9b358b_c4b3d009",
       "revId": "78674fd2db83fb76fc69b1e142d2fa6659ec4e9c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
