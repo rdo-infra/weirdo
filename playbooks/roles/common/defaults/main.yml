@@ -32,8 +32,6 @@ debug_packages:
   - psmisc
 
 # Jenkins environment vars used in tasks/templates
-jenkins_url: "{{ lookup('env', 'JENKINS_URL')|default('') }}"
-build_url: "{{ lookup('env', 'BUILD_URL')|default('') }}"
 job_name: "{{ lookup('env', 'JOB_NAME')|default('') }}"
 build_number: "{{ lookup('env', 'BUILD_NUMBER')|default('') }}"
 

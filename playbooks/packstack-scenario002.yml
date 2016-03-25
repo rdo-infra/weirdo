@@ -23,5 +23,6 @@
   roles:
     - role: "common"
     - { role: "packstack", test: "scenario002" }
+    - { role: "common", action: "logs" }
 
 - include: release-ci-centos.yml
