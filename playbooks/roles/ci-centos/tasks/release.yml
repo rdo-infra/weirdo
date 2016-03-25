@@ -14,12 +14,15 @@
 #   under the License.
 #
 
-- name: "Release nodes for SSID {{ cico_data.results.ssid }}"
+- include: logs.yml
+
+- name: Release nodes
   cico:
     action: "done"
     api_key: "{{ api_key }}"
-    ssid: "{{ cico_data.results.ssid }}"
+    ssid: "{{ ansible_local.weirdo.ci.session }}"
   when: disable_release is not defined
+  delegate_to: localhost
 
 - debug:
     msg: "Node release is disabled with the disable_release parameter"
