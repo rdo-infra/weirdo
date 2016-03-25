@@ -23,5 +23,6 @@
   roles:
     - role: "common"
     - { role: "puppet-openstack", test: "scenario002" }
+    - { role: "common", action: "logs" }
 
 - include: release-ci-centos.yml

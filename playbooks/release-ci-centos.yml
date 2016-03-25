@@ -14,11 +14,6 @@
 #   under the License.
 #
 
-- name: Collect logs
-  hosts: openstack_nodes
-  roles:
-    - { role: "common", action: "logs" }
-
 - name: Release the provisioned ci.centos.org node
   hosts: localhost
   roles:
