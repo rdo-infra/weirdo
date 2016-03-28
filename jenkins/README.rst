@@ -37,7 +37,7 @@ have for best results and to run these jobs with full functionality, here's a
 list:
 
 **Required**
-
+* Python_: Required - to execute python script files
 * ShiningPanda_: Required - For python helpers, virtual environment, etc.
 * `GIT plugin`_: For cloning repositories and checking out revisions
 * `Gerrit Trigger`_: For watching gerrit reviews patchsets and trigger gate
@@ -46,11 +46,12 @@ list:
 **Nice to have**
 
 * `OWASP Markup Formatter Plugin`_: For HTML markup in job descriptions
-  (Enable "*Safe HTML*" Markup Formatter in Manage Jenkins -> Configure Global
+  (Enable "*Safe HTML*" Markup Formatter in Manage Jenkins -> Configure Global
   security)
 * AnsiColor_: For colorized output in Jenkins console
 * Timestamper_: For timestamps in Jenkins console
 
+.. _Python: https://wiki.jenkins-ci.org/display/JENKINS/Python+Plugin
 .. _ShiningPanda: https://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin
 .. _GIT plugin: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 .. _Gerrit Trigger: https://wiki.jenkins-ci.org/display/JENKINS/Gerrit+Trigger
@@ -68,7 +69,7 @@ Gerrit
 The Gerrit Trigger Plugin requires a Gerrit server to be configured in order to
 allow the Jenkins instance to listen to the GerritHub event stream.
 
-This is done in ``Manage Jenkins`` -> ``Gerrit Trigger`` ->
+This is done in ``Manage Jenkins`` -> ``Gerrit Trigger`` ->
 ``Add new server``::
 
     name: rdo-ci-centos # This name is used in the JJB files, it's important.
@@ -86,7 +87,7 @@ SSH Key
 The Git SCM plugin expects a SSH key to clone the WeIRDO repository from
 GerritHub, you need to configure one.
 
-This is done in ``Manage Jenkins`` -> ``Manage Credentials`` ->
+This is done in ``Manage Jenkins`` -> ``Manage Credentials`` ->
 ``Add Credentials`` -> ``SSH username with private key``::
 
     name: rdo-ci-centos # This name is used in the JJB files, it's important.
@@ -101,7 +102,7 @@ The ShiningPanda plugin expects to have a Python binary called
 ``system-CPython-2.7``. You may need to configure it if it's not there by
 default.
 
-This is done in ``Manage Jenkins`` -> ``Configure System`` ->
+This is done in ``Manage Jenkins`` -> ``Configure System`` ->
 ``Python`` -> ``Python Installations`` -> ``Add Python``::
 
     name: System-CPython-2.7 # This name is used in the JJB files, it's important.
@@ -128,7 +129,7 @@ used when connecting to the nodes as environment variables on your slave
 node(s).
 
 This is done in ``Managed Jenkins`` -> ``Managed Nodes`` -> <*node*> ->
-``Configure`` -> ``Node properties`` -> ``Environment variables`` -> ``Add``::
+``Configure`` -> ``Node properties`` -> ``Environment variables`` -> ``Add``::
 
     name: CICO_API_KEY
     value: <api key>
