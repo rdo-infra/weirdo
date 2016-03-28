@@ -37,7 +37,7 @@ have for best results and to run these jobs with full functionality, here's a
 list:
 
 **Required**
-
+* Python_: Required - to execute python script files
 * ShiningPanda_: Required - For python helpers, virtual environment, etc.
 * `GIT plugin`_: For cloning repositories and checking out revisions
 * `Gerrit Trigger`_: For watching gerrit reviews patchsets and trigger gate
@@ -46,11 +46,12 @@ list:
 **Nice to have**
 
 * `OWASP Markup Formatter Plugin`_: For HTML markup in job descriptions
-  (Enable "*Safe HTML*" Markup Formatter in Manage Jenkins -> Configure Global
+  (Enable "*Safe HTML*" Markup Formatter in Manage Jenkins -> Configure Global
   security)
 * AnsiColor_: For colorized output in Jenkins console
 * Timestamper_: For timestamps in Jenkins console
-
+h
+.. _Python: https://wiki.jenkins-ci.org/display/JENKINS/Python+Plugin
 .. _ShiningPanda: https://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin
 .. _GIT plugin: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 .. _Gerrit Trigger: https://wiki.jenkins-ci.org/display/JENKINS/Gerrit+Trigger
