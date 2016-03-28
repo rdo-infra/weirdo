@@ -31,7 +31,7 @@
     ansible_ssh_user: "root"
     ansible_ssh_private_key_file: "{{ private_key }}"
     ansible_ssh_host: "{{ cico_data.results.hosts[item].ip_address }}"
-  with_items: cico_data.results.hosts
+  with_items: "{{ cico_data.results.hosts }}"
 
 - name: Disable requiretty to support SSH pipelining
   lineinfile:
@@ -55,8 +55,8 @@
     BUILD_URL: "{{ lookup('env', 'BUILD_URL')|default('') }}"
     JENKINS_URL: "{{ lookup('env', 'JENKINS_URL')|default('') }}"
   template:
-    src: "templates/weirdo.j2"
-    dest: "/etc/ansible/facts.d/weirdo.fact"
+    src: "templates/ci.fact.j2"
+    dest: "/etc/ansible/facts.d/ci.fact"
   delegate_to: "{{ item }}"
   with_items: "{{ groups['openstack_nodes'] }}"
 

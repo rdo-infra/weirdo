@@ -27,7 +27,7 @@
       yum:
         name: "{{ item }}"
         state: "present"
-      with_items: base_packages
+      with_items: "{{ base_packages }}"
       retries: "3"
       delay: "20"
 
@@ -35,7 +35,7 @@
       yum:
         name: "{{ item }}"
         state: "present"
-      with_items: debug_packages
+      with_items: "{{ debug_packages }}"
       retries: "3"
       delay: "20"
   vars:

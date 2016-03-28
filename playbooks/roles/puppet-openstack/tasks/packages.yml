@@ -19,7 +19,7 @@
       yum:
         name: "{{ item }}"
         state: "latest"
-      with_items: required_packages
+      with_items: "{{ required_packages }}"
       retries: "3"
       delay: "20"
 
@@ -27,7 +27,7 @@
       gem:
         name: "{{ item }}"
         state: "present"
-      with_items: gem_packages
+      with_items: "{{ gem_packages }}"
       retries: "3"
       delay: "20"
   vars:

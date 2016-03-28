@@ -32,7 +32,7 @@
     # Ceph also requires EPEL for, amongst other things, leveldb-devel.
     - name: Enable EPEL
       yum:
-        name: epel-release
+        name: "epel-release"
         state: "present"
       retries: "3"
       delay: "20"

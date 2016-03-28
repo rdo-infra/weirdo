@@ -17,9 +17,10 @@
 # Note: Handlers are grouped here to be ordered properly, see
 # http://docs.ansible.com/ansible/glossary.html#notify
 
-# This handler is used from other roles and thus the path needs to be
-# specified to go back to the roles dir (from the role calling handler) and
-# then back to common.
+# These handlers are used from other roles and thus the path needs to be
+# specified to go back to the roles dir (from the role calling handler)
+# Doing inter-role includes is a bit wonky.
+# See: https://github.com/ansible/ansible/issues/13818
 - name: Ensure puppet-openstack logs are recovered
   include: ../../puppet-openstack/tasks/logs.yml
   when: project == "puppet-openstack"
@@ -28,12 +29,8 @@
   include: ../../common/tasks/logs.yml
 
 - name: Ensure ci nodes are released
-  cico:
-    action: "done"
-    api_key: "{{ api_key }}"
-    ssid: "{{ ansible_local.weirdo.ci.session }}"
-  delegate_to: localhost
-  when: disable_release is not defined
+  include: ../../ci-centos/tasks/release.yml
+  when: ansible_local.ci.facts.ci_environment is defined and ansible_local.ci.facts.ci_environment == "ci-centos"
 
 - name: Fail playbook execution
   fail:

@@ -18,14 +18,14 @@
   shell: "{{ item.value.command }} >{{ log_destination }}/{{ item.key }}.txt"
   args:
     creates: "{{ log_destination }}/{{ item.key }}.txt"
-  with_dict: debug_commands
+  with_dict: "{{ debug_commands }}"
   ignore_errors: True
 
 - name: Copy existing logs to central folder
   command: "rsync -azr {{ item }} {{ log_destination }}/"
   args:
     creates: "{{ log_destination }}/{{ item }}"
-  with_items: log_paths
+  with_items: "{{ log_paths }}"
   ignore_errors: True
 
 - name: Output hostvars to file

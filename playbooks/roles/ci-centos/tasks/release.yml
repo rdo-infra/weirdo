@@ -20,7 +20,7 @@
   cico:
     action: "done"
     api_key: "{{ api_key }}"
-    ssid: "{{ ansible_local.weirdo.ci.session }}"
+    ssid: "{{ ansible_local.ci.facts.session }}"
   when: disable_release is not defined
   delegate_to: localhost
 
