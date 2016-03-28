@@ -14,18 +14,6 @@
 #   under the License.
 #
 
-# Ansible_python_interpreter set here explicitely to work around behavior
-# described in https://github.com/ansible/ansible/issues/13773
-
-- name: Generate HTML redirection to build artifacts
-  vars:
-    ansible_python_interpreter: "/usr/bin/python"
-  template:
-    src: "templates/logs.html.j2"
-    dest: "{{ lookup('env', 'WORKSPACE')}}/logs.html"
-  ignore_errors: True
-  delegate_to: localhost
-
 - name: Fetch and gzip the console log
   shell: |
     URL="{{ lookup('env', 'BUILD_URL') }}/consoleText";

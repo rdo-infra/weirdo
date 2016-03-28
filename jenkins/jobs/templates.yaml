@@ -31,6 +31,7 @@
     scm:
         - weirdo-gate-repository
     builders:
+        - generate-log-redirection
         - weirdo-gate-ansible:
             openstack_release: '{openstack_release}'
             playbook: '{playbook}'
@@ -104,6 +105,7 @@
     triggers:
           - weirdo-periodic-trigger
     builders:
+        - generate-log-redirection
         - weirdo-periodic-builder:
             openstack_release: '{openstack_release}'
             playbook: '{playbook}'
@@ -146,6 +148,7 @@
         </pre>
 
     builders:
+        - generate-log-redirection
         - weirdo-promote-builder:
             openstack_release: '{openstack_release}'
             playbook: '{playbook}'
@@ -195,6 +198,7 @@
             default: http://trunk.rdoproject.org/centos7-mitaka/delorean-deps.repo
             description: The URL of the delorean-deps .repo file tested against
     builders:
+        - generate-log-redirection
         - weirdo-generic-builder:
             playbook: '{playbook}'
     properties:

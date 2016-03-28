@@ -24,7 +24,6 @@ ci_environment: "ci-centos"
 
 rsync_server: "rdo@artifacts.ci.centos.org::rdo"
 rsync_password: "{{ api_key | regex_replace('^(.{13}).*', '\\1') }}"
-artifact_url: "https://ci.centos.org/artifacts/rdo"
 
 jenkins_url: "{{ lookup('env', 'JENKINS_URL')|default('') }}"
 build_url: "{{ lookup('env', 'BUILD_URL')|default('') }}"
