@@ -20,6 +20,7 @@
             elastic-number-builds: 5
             timeout: 240
             fail: true
+
 - trigger:
     name: 'weirdo-periodic-trigger'
     triggers:
@@ -96,6 +97,15 @@
             refspec: '$GERRIT_REFSPEC'
             choosing-strategy: gerrit
             skip-tag: true
+
+- scm:
+    name: 'weirdo-master-repository'
+    scm:
+        - git:
+            basedir: 'weirdo'
+            url: 'https://github.com/redhat-openstack/weirdo.git'
+            branches:
+                - 'master'
 
 - publisher:
     name: 'email-cores'

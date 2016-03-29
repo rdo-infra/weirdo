@@ -10,4 +10,7 @@ dist
 build
 eggs
 .tox/
+*.retry
 jenkins/config.ini
+playbooks/roles/*
+playbooks/tmp/*
