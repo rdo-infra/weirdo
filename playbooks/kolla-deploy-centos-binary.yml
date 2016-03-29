@@ -21,7 +21,6 @@
   user: "root"
   force_handlers: True
   roles:
-    - role: "common"
     - { role: "kolla", test: "deploy-centos-binary" }
 
 - include: release-ci-centos.yml

@@ -21,7 +21,6 @@
   user: "root"
   force_handlers: True
   roles:
-    - role: "common"
     - { role: "packstack", test: "scenario002" }
     - { role: "common", action: "logs" }
 
