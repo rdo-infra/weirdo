@@ -18,7 +18,6 @@
 
 - name: Run packstack scenario003 tests
   hosts: openstack_nodes
-  user: "root"
   force_handlers: True
   roles:
     - { role: "packstack", test: "scenario003" }

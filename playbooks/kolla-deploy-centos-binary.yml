@@ -18,7 +18,6 @@
 
 - name: Run kolla deploy tests
   hosts: openstack_nodes
-  user: "root"
   force_handlers: True
   roles:
     - { role: "kolla", test: "deploy-centos-binary" }
