@@ -10,4 +10,11 @@ dist
 build
 eggs
 .tox/
+*.retry
 jenkins/config.ini
+roles/common
+roles/ci-centos
+roles/packstack
+roles/puppet-openstack
+roles/kolla
+*tmp/
