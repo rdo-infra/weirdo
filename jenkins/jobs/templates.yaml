@@ -13,7 +13,7 @@
         cd weirdo
         git log -n 5 --oneline
 
-        tox -e ansible-playbook -- -vv playbooks/{playbook}.yml --extra-vars openstack_release={openstack_release}
+        tox -e ansible-playbook -- -vv playbooks/{playbook}.yml -e ci_environment=ci-centos -e openstack_release={openstack_release}
         </pre>
 
     triggers:
@@ -77,7 +77,7 @@
         cd weirdo
         git log -n 5 --oneline
 
-        tox -e ansible-playbook -- -vv playbooks/{playbook}.yml --extra-vars openstack_release={openstack_release}
+        tox -e ansible-playbook -- -vv playbooks/{playbook}.yml -e ci_environment=ci-centos -e openstack_release={openstack_release}
         </pre>
 
     triggers:
@@ -115,7 +115,7 @@
         cd weirdo
         git log -n 5 --oneline
 
-        tox -e ansible-playbook -- -vv playbooks/{playbook}.yml --extra-vars delorean_url=$delorean_url --extra-vars openstack_release={openstack_release}
+        tox -e ansible-playbook -- -vv playbooks/{playbook}.yml -e ci_environment=ci-centos -e delorean_url=$delorean_url -e openstack_release={openstack_release}
         </pre>
 
     scm:
@@ -148,7 +148,7 @@
         cd weirdo
         git log -n 5 --oneline
 
-        tox -e ansible-playbook -- -vv playbooks/{playbook}.yml --extra-vars delorean_url=${{delorean_url}} --extra-vars delorean_deps_url=${{delorean_deps_url}}
+        tox -e ansible-playbook -- -vv playbooks/{playbook}.yml -e ci_environment=ci-centos -e delorean_url=${{delorean_url}} -e delorean_deps_url=${{delorean_deps_url}}
         </pre>
 
     parameters:

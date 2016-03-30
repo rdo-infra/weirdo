@@ -14,7 +14,7 @@
 #   under the License.
 #
 
-- name: Release the provisioned ci.centos.org nodes
+- name: Release the provisioned ci.centos.org nodes if necessary
   hosts: openstack_nodes
   roles:
-    - { role: "ci-centos", action: "release" }
+    - { role: "ci-centos", action: "release", when: ci_environment is defined and ci_environment == "ci-centos" }
