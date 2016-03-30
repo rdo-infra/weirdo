@@ -15,6 +15,7 @@
 #
 
 - include: provision-ci-centos.yml
+  when: ci_environment is defined and ci_environment == "ci-centos"
 
 - name: Run kolla deploy tests
   hosts: openstack_nodes
@@ -23,3 +24,4 @@
     - { role: "kolla", test: "deploy-centos-binary" }
 
 - include: release-ci-centos.yml
+  when: ci_environment is defined and ci_environment == "ci-centos"

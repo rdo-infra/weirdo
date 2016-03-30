@@ -17,4 +17,4 @@
 - name: Provision a ci.centos.org node if necessary
   hosts: localhost
   roles:
-    - { role: "ci-centos", action: "provision", when: ci_environment is defined and ci_environment == "ci-centos" }
+    - { role: "ci-centos", action: "provision" }
