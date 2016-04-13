@@ -2,6 +2,7 @@
     name: 'weirdo-gate-ansible-jobs'
     openstack_release:
         - 'mitaka'
+        - 'master'
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
@@ -27,6 +28,7 @@
     name: 'weirdo-periodic-jobs'
     openstack_release:
         - 'mitaka'
+        - 'master'
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
@@ -40,9 +42,10 @@
         - weirdo-{openstack_release}-periodic-{playbook}
 
 - project:
-    name: 'weirdo-promote-mitaka-jobs'
+    name: 'weirdo-promote-jobs'
     openstack_release:
         - 'mitaka'
+        - 'master'
     playbook:
         - 'puppet-openstack-scenario001'
         - 'puppet-openstack-scenario002'
