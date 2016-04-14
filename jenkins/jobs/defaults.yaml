@@ -42,6 +42,31 @@
                   branches:
                       - branch-compare-type: 'PLAIN'
                         branch-pattern: 'master'
+                - project-compare-type: 'PLAIN'
+                  project-pattern: 'redhat-openstack/ansible-role-ci-centos'
+                  branches:
+                      - branch-compare-type: 'PLAIN'
+                        branch-pattern: 'master'
+                - project-compare-type: 'PLAIN'
+                  project-pattern: 'redhat-openstack/ansible-role-weirdo-common'
+                  branches:
+                      - branch-compare-type: 'PLAIN'
+                        branch-pattern: 'master'
+                - project-compare-type: 'PLAIN'
+                  project-pattern: 'redhat-openstack/ansible-role-weirdo-packstack'
+                  branches:
+                      - branch-compare-type: 'PLAIN'
+                        branch-pattern: 'master'
+                - project-compare-type: 'PLAIN'
+                  project-pattern: 'redhat-openstack/ansible-role-weirdo-puppet-openstack'
+                  branches:
+                      - branch-compare-type: 'PLAIN'
+                        branch-pattern: 'master'
+                - project-compare-type: 'PLAIN'
+                  project-pattern: 'redhat-openstack/ansible-role-weirdo-kolla'
+                  branches:
+                      - branch-compare-type: 'PLAIN'
+                        branch-pattern: 'master'
             skip-vote:
                 successful: false
                 failed: false
