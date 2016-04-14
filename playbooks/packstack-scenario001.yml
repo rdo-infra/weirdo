@@ -26,3 +26,5 @@
 
 - include: release-ci-centos.yml
   when: ci_environment is defined and ci_environment == "ci-centos"
+
+# Test commit
