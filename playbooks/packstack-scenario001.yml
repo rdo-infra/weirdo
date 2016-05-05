@@ -14,9 +14,6 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
-  when: ci_environment is defined and ci_environment == "ci-centos"
-
 - name: Run packstack scenario001 tests
   hosts: openstack_nodes
   force_handlers: True
@@ -24,5 +21,5 @@
     - { role: "packstack", test: "scenario001" }
     - { role: "common", action: "logs" }
 
-- include: release-ci-centos.yml
+- include: logs-ci-centos.yml
   when: ci_environment is defined and ci_environment == "ci-centos"

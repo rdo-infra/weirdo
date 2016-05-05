@@ -1,7 +1,3 @@
-- name: ci-centos
-  src: https://github.com/redhat-openstack/ansible-role-ci-centos
-  scm: git
-  version: master
 - name: packstack
   src: https://github.com/redhat-openstack/ansible-role-weirdo-packstack
   scm: git

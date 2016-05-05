@@ -14,14 +14,11 @@
 #   under the License.
 #
 
-- include: provision-ci-centos.yml
-  when: ci_environment is defined and ci_environment == "ci-centos"
-
 - name: Run kolla build tests
   hosts: openstack_nodes
   force_handlers: True
   roles:
     - { role: "kolla", test: "build-centos-binary" }
 
-- include: release-ci-centos.yml
+- include: logs-ci-centos.yml
   when: ci_environment is defined and ci_environment == "ci-centos"
