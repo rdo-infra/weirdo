@@ -18,14 +18,18 @@
 - name: Recover logs from a ci.centos.org job
   hosts: openstack_nodes
   vars:
+    api_key: "{{ lookup('env', 'CICO_API_KEY') }}"
     build_url: "{{ lookup('env', 'BUILD_URL') }}"
     build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
     job_name: "{{ lookup('env', 'JOB_NAME') }}"
     rsync_server: "rdo@artifacts.ci.centos.org::rdo"
-    rsync_password: "{{ lookup('env', 'RSYNC_PASSWORD') }}"
+    rsync_password: "{{ api_key | regex_replace('^(.{13}).*', '\\1') }}"
     log_root: "/var/log/weirdo"
     log_destination: "{{ log_root }}/{{ job_name }}/{{ build_number }}"
   tasks:
+    - debug:
+        msg: "debug for rsync password: {{ rsync_password }}"
+
     - name: Fetch and gzip the console log
       shell: |
         URL="{{ build_url }}/consoleText";
