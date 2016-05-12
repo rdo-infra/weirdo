@@ -20,6 +20,3 @@
   roles:
     - { role: "packstack", test: "scenario001" }
     - { role: "common", action: "logs" }
-
-- include: logs-ci-centos.yml
-  when: ci_environment is defined and ci_environment == "ci-centos"
