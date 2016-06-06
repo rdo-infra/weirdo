@@ -1,5 +1,5 @@
 [gerrit]
-host=review.gerrithub.io
+host=review.rdoproject.org
 port=29418
-project=redhat-openstack/weirdo.git
+project=rdo-infra/weirdo
 defaultbranch=master
