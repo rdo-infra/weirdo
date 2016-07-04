@@ -37,8 +37,17 @@ Where can I find the WeIRDO CI Jobs ?
 All RDO CI jobs are publicly available and the ones from WeIRDO are no
 exception.
 
-You can find the jobs on https://ci.centos.org/view/rdo/ under the label
-WeIRDO.
+WeIRDO is currently used in two different implementations:
+
+* `ci.centos.org`_: Periodic jobs to test and promote RDO trunk packages
+* `review.rdoproject.org`_: Gate jobs for WeIRDO itself (and it's roles) and for other projects
+
+For more details on those implementations, see the `jenkins job configuration`_
+documentation.
+
+.. _ci.centos.org: https://ci.centos.org/view/rdo/view/promotion-pipeline/
+.. _review.rdoproject.org: https://review.rdoproject.org
+.. _jenkins job configuration: http://weirdo.readthedocs.io/en/latest/jenkins-job-configuration.html
 
 Table of Contents
 =================
@@ -50,5 +59,4 @@ Table of Contents
     How it works <how>
     Ansible playbooks <playbooks>
     Ansible roles <roles>
-    Supported gate jobs <supported-jobs>
     Jenkins Job Configuration <jenkins-job-configuration>
