@@ -1,139 +1,66 @@
-Jenkins job configuration
+Using WeIRDO with Jenkins
 =========================
-You can set up the WeIRDO jobs on any Jenkins server with the provided
-`Jenkins Job Builder`_ (JJB) configuration files.
+There are currently two different implementations of WeIRDO jobs that are run
+through Jenkins.
 
-**Note**: Right now the only supported deployment target is on the bare metal
-infrastructure provided by `ci.centos.org`_. As such, the jenkins slave on
-which these jobs will run requires privileged network connectivity and
-credentials. As new deployment targets become available, we can remove this
-limitation to run these jobs truly anywhere.
+* Periodic jobs in a pipeline for trunk package testing and promotion on `ci.centos.org`_
+* Gate jobs against WeIRDO itself as well as against other projects on `review.rdoproject.org`_
 
-.. _Jenkins Job Builder: http://ci.openstack.org/jenkins-job-builder/
-.. _ci.centos.org: https://ci.centos.org/
+.. _ci.centos.org: https://ci.centos.org
+.. _review.rdoproject.org: https://review.rdoproject.org
 
-Using Jenkins Job Builder
--------------------------
-Jenkins job builder makes it easier to develop, maintain and version jobs.
+ci.centos.org: Pure jenkins and JJB on external bare metal
+----------------------------------------------------------
+The configuration for the jobs that leverage WeIRDO on ci.centos.org to test
+RDO trunk repositories can be found in the `rdo-infra/ci-config`_ repository.
 
-To install it::
+The WeIRDO jobs themselves and their results are publicly available on
+https://ci.centos.org/view/rdo/view/promotion-pipeline/
 
-    pip install jenkins-job-builder
+ci.centos.org provides an API, called Duffy_, to manage ephemeral bare metal
+nodes to run jobs on. As such, the jobs that run on this environment have
+particular requirements and are documented in the `rdo-infra/ci-config`_
+repository.
 
-Create your ``config.ini`` from the ``config.ini.sample`` file, according to
-your Jenkins configuration, then create/update the jobs, a bit like this::
+In this use case, a task is executed before WeIRDO runs to request a bare metal
+node and an inventory is created with that node in it. After that, WeIRDO runs
+with the generated inventory file, logs are collected and uploaded to
+`ci.centos.org/artifacts`_ and the node is destroyed.
 
-    git clone https://github.com/redhat-openstack/weirdo.git
-    cd weirdo/jenkins
-    cp config.ini.sample config.ini
-    # Edit config.ini to use your jenkins instance and credentials
-    vi config.ini
-    jenkins-jobs --conf config.ini update jobs
+.. _rdo-infra/ci-config: https://github.com/rdo-infra/ci-config
+.. _Duffy: https://wiki.centos.org/QaWiki/CI/Duffy
+.. _ci.centos.org/artifacts: https://ci.centos.org/artifacts/rdo/
 
-Jenkins plugins
----------------
-There are a number of Jenkins plugins that are required or otherwise nice to
-have for best results and to run these jobs with full functionality, here's a
-list:
+Troubleshooting ci.centos.org jobs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A logs.html file will be saved as an artifact of the job. This logs.html file
+is actually just a redirection to the location where the logs are located for
+this particular job.
 
-**Required**
+review.rdoproject.org: JJB with Gerrit, Zuul and Nodepool virtual machines
+--------------------------------------------------------------------------
+review.rdoproject.org is an environment driven by Gerrit, Zuul and Jenkins and
+jobs run on ephemeral jenkins slaves provided by Nodepool, it is a
+`software factory`_ instance that attempts to provide the same experience as
+the one provided by openstack-infra_ for their continuous integration ecosystem.
 
-* ShiningPanda_: Required - For python helpers, virtual environment, etc.
-* `GIT plugin`_: For cloning repositories and checking out revisions
-* `Gerrit Trigger`_: For watching gerrit reviews patchsets and trigger gate
-  jobs
+The configuration for the different components can be found in the config_
+repository.
 
-**Nice to have**
+In this use case, nodepool takes care of the node provisioning and destruction
+before and after the job and the jenkins slave is effectively "localhost".
+To run WeIRDO on localhost, we create a minimal inventory file with localhost
+as the target and pre-install some dependencies beforehand. Once the job is
+over, artifacts and logs are uploaded to Swift.
 
-* `OWASP Markup Formatter Plugin`_: For HTML markup in job descriptions
-  (Enable "*Safe HTML*" Markup Formatter in Manage Jenkins -> Configure Global
-  security)
-* AnsiColor_: For colorized output in Jenkins console
-* Timestamper_: For timestamps in Jenkins console
+.. _software factory: http://softwarefactory-project.io/docs/intro.html
+.. _openstack-infra: http://docs.openstack.org/infra/system-config/
+.. _config: https://review.rdoproject.org/r/gitweb?p=config.git;a=summary
 
-.. _ShiningPanda: https://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin
-.. _GIT plugin: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
-.. _Gerrit Trigger: https://wiki.jenkins-ci.org/display/JENKINS/Gerrit+Trigger
-.. _OWASP Markup Formatter Plugin: https://wiki.jenkins-ci.org/display/JENKINS/OWASP+Markup+Formatter+Plugin
-.. _AnsiColor: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
-.. _Timestamper: https://wiki.jenkins-ci.org/display/JENKINS/Timestamper
-
-Other required configuration
-----------------------------
-There's some required Jenkins system and plugin configuration to do which is
-not provided by JJB.
-
-Gerrit
-~~~~~~
-The Gerrit Trigger Plugin requires a Gerrit server to be configured in order to
-allow the Jenkins instance to listen to the GerritHub event stream.
-
-This is done in ``Manage Jenkins`` -> ``Gerrit Trigger`` ->
-``Add new server``::
-
-    name: rdo-ci-centos # This name is used in the JJB files, it's important.
-    hostname: review.gerrithub.io
-    frontend url: https://review.gerrithub.io/
-    ssh port: 29418
-    username: <your gerrithub username>
-    email: <your email>
-    ssh keyfile: <path to your ssh keyfile>
-
-The remainder of the defaults should be good or up to your discretion.
-
-SSH Key
-~~~~~~~
-The Git SCM plugin expects a SSH key to clone the WeIRDO repository from
-GerritHub, you need to configure one.
-
-This is done in ``Manage Jenkins`` -> ``Manage Credentials`` ->
-``Add Credentials`` -> ``SSH username with private key``::
-
-    name: rdo-ci-centos # This name is used in the JJB files, it's important.
-    private key: <your private key as file, text, etc>
-
-    ADVANCED:
-    ID: aeb3af4f-6985-4c8f-8261-ec37cacad10b # This ID is used in the JJB files, it's important.
-
-Python version
-~~~~~~~~~~~~~~
-The ShiningPanda plugin expects to have a Python binary called
-``system-CPython-2.7``. You may need to configure it if it's not there by
-default.
-
-This is done in ``Manage Jenkins`` -> ``Configure System`` ->
-``Python`` -> ``Python Installations`` -> ``Add Python``::
-
-    name: System-CPython-2.7 # This name is used in the JJB files, it's important.
-    home or executable: /usr/bin/python2.7
-
-Jenkins slave: Label
-~~~~~~~~~~~~~~~~~~~~
-The jobs are set to run on any slave/node with the label ``rdo``. You need to
-make sure this is configured on the nodes you want the jobs to run on.
-
-This is done in ``Managed Jenkins`` -> ``Managed Nodes`` -> <*node*> ->
-``Configure``::
-
-    labels: rdo
-
-Jenkins slave: CICO environment variables
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This is **only** required when running jobs on the ci.centos.org
-infrastructure. WeIRDO leverages python-cicoclient_ which provides an ansible
-module to consume the ephemeral bare metal provisioning infrastructure.
-
-You need to set your ci.centos.org API key as well as the path to the SSH key
-used when connecting to the nodes as environment variables on your slave
-node(s).
-
-This is done in ``Managed Jenkins`` -> ``Managed Nodes`` -> <*node*> ->
-``Configure`` -> ``Node properties`` -> ``Environment variables`` -> ``Add``::
-
-    name: CICO_API_KEY
-    value: <api key>
-
-    name: CICO_SSH_KEY
-    value: <path to private key>
-
-.. _python-cicoclient: http://python-cicoclient.readthedocs.org/en/latest/
+Troubleshooting review.rdoproject.org jobs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+WeIRDO runs from gate jobs in review.rdoproject.org's Gerrit. Clicking on a
+Job in a Jenkins comment in a review will lead you to the Jenkins job result
+and console.
+To access the job logs, click on the console log and the link to the logs will
+be available at the very bottom of the log, provided by zuul-swift-uploader.
