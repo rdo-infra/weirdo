@@ -16,6 +16,29 @@ import sys
 import os
 import shlex
 import sphinx_rtd_theme
+from git import Repo
+
+# WeIRDO documentation requires it's roles to be built.
+# If on readthedocs, fetch those roles before attempting to build the
+# documentation. This is sort of a hack because readthedocs doesn't use tox
+# to build docs (because tox would fetch those roles prior to building docs)
+roles = {
+    'playbooks/roles/common': 'https://github.com/rdo-infra/ansible-role-weirdo-common.git',
+    'playbooks/roles/packstack': 'https://github.com/rdo-infra/ansible-role-weirdo-packstack.git',
+    'playbooks/roles/puppet-openstack': 'https://github.com/rdo-infra/ansible-role-weirdo-puppet-openstack.git'
+}
+# Fetch the root of the docs folder
+cwd = os.path.dirname(os.path.realpath(__file__))
+# Move one step backwards (cd ..) for the root of the repository
+cwd = '/'.join(cwd.split('/')[:-1])
+
+# http://read-the-docs.readthedocs.io/en/latest/faq.html#how-do-i-change-behavior-for-read-the-docs
+readthedocs = os.environ.get('READTHEDOCS') == 'True'
+if readthedocs:
+    for path, repository in roles.items():
+        full_path = os.path.join(cwd, path)
+        if not os.path.exists(full_path):
+            Repo.clone_from(repository, os.path.join(cwd, path))
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
