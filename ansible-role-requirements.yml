@@ -6,10 +6,6 @@
   src: https://github.com/redhat-openstack/ansible-role-weirdo-puppet-openstack
   scm: git
   version: master
-- name: kolla
-  src: https://github.com/redhat-openstack/ansible-role-weirdo-kolla
-  scm: git
-  version: master
 - name: common
   src: https://github.com/redhat-openstack/ansible-role-weirdo-common
   scm: git
