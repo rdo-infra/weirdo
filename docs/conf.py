@@ -16,6 +16,26 @@ import sys
 import os
 import shlex
 import sphinx_rtd_theme
+from git import Repo
+
+# WeIRDO documentation requires it's roles to be built.
+# If only using build_sphinx, the required roles might not have been installed
+# (i.e, from tox' ansible-galaxy install)
+# Make sure the roles are at a minimum always there.
+roles = {
+    'playbooks/roles/common': 'https://github.com/rdo-infra/ansible-role-weirdo-common.git',
+    'playbooks/roles/packstack': 'https://github.com/rdo-infra/ansible-role-weirdo-packstack.git',
+    'playbooks/roles/puppet-openstack': 'https://github.com/rdo-infra/ansible-role-weirdo-puppet-openstack.git'
+}
+# Fetch the root of the docs folder
+cwd = os.path.dirname(os.path.realpath(__file__))
+# Move one step backwards (cd ..) for the root of the repository
+cwd = '/'.join(cwd.split('/')[:-1])
+
+for path, repository in roles.items():
+    full_path = os.path.join(cwd, path)
+    if not os.path.exists(full_path):
+        Repo.clone_from(repository, os.path.join(cwd, path))
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
