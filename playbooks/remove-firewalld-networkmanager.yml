@@ -26,6 +26,7 @@
       with_items:
         - firewalld
         - NetworkManager
+      ignore_errors: "yes"
 
     - name: Remove services
       package:
@@ -34,6 +35,7 @@
       with_items:
         - firewalld
         - NetworkManager
+      ignore_errors: "yes"
 
     - name: Restart networking
       service:
