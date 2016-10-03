@@ -1,5 +1,5 @@
-# UUID          Group Name
-False 	Non-Interactive Users
-62db9f9d9c87a3ccae40a5bf9ad52a18234f8494       	rdo-infra/weirdo-core
-4177e5526e4e62c131d79af2acfcc1ae5b466e90        	rdo-infra/weirdo-ptl
-global:Registered-Users		Registered Users
+# UUID                                  	Group Name
+#
+4177e5526e4e62c131d79af2acfcc1ae5b466e90	rdo-infra/weirdo-ptl
+62db9f9d9c87a3ccae40a5bf9ad52a18234f8494	rdo-infra/weirdo-core
+global:Registered-Users                 	Registered Users
