@@ -1,12 +1,16 @@
 - name: packstack
-  src: https://github.com/redhat-openstack/ansible-role-weirdo-packstack
+  src: https://github.com/rdo-infra/ansible-role-weirdo-packstack
   scm: git
   version: master
 - name: puppet-openstack
-  src: https://github.com/redhat-openstack/ansible-role-weirdo-puppet-openstack
+  src: https://github.com/rdo-infra/ansible-role-weirdo-puppet-openstack
   scm: git
   version: master
 - name: common
-  src: https://github.com/redhat-openstack/ansible-role-weirdo-common
+  src: https://github.com/rdo-infra/ansible-role-weirdo-common
+  scm: git
+  version: master
+- name: logs
+  src: https://github.com/rdo-infra/ansible-role-weirdo-logs
   scm: git
   version: master
