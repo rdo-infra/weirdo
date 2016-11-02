@@ -17,6 +17,20 @@
 - name: Run puppet-openstack-integration scenario001 tests
   hosts: openstack_nodes
   force_handlers: True
-  roles:
-    - { role: "puppet-openstack", test: "scenario001" }
-    - { role: "common", action: "logs" }
+  tasks:
+    - include_role:
+      name: "logs"
+      tasks_from: "bootstrap.yml"
+
+    - block:
+      - include_role:
+        name: "puppet-openstack"
+        vars:
+          test: "scenario001"
+      rescue:
+        - debug:
+            msg: "Failure detected when testing puppet-openstack-scenario001"
+      always:
+        - include_role:
+          name: "logs"
+          tasks_from: "recover.yml"
