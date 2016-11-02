@@ -17,6 +17,20 @@
 - name: Run packstack scenario002 tests
   hosts: openstack_nodes
   force_handlers: True
-  roles:
-    - { role: "packstack", test: "scenario002" }
-    - { role: "common", action: "logs" }
+  tasks:
+    - include_role:
+        name: "logs"
+        tasks_from: "bootstrap"
+
+    - block:
+      - include_role:
+          name: "packstack"
+        vars:
+          test: "scenario002"
+      rescue:
+        - debug:
+            msg: "Failure detected when testing packstack-scenario002"
+      always:
+        - include_role:
+            name: "logs"
+            tasks_from: "recover"

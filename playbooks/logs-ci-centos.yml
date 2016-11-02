@@ -15,6 +15,7 @@
 #
 
 # Standalone version of the logs.yml tasks from ansible-role-ci-centos
+# We need to upload logs to a predictable location.
 - name: Recover logs from a ci.centos.org job
   hosts: openstack_nodes
   vars:
@@ -25,20 +26,20 @@
     rsync_server: "rdo@artifacts.ci.centos.org::rdo"
     rsync_password: "{{ api_key | regex_replace('^(.{13}).*', '\\1') }}"
     log_root: "/var/log/weirdo"
-    log_destination: "{{ log_root }}/{{ job_name }}/{{ build_number }}"
   tasks:
     - name: Fetch and gzip the console log
       shell: |
         URL="{{ build_url }}/consoleText";
-        curl $URL | gzip > {{ log_destination }}/console.txt.gz
+        curl $URL | gzip > {{ log_root }}/console.txt.gz
       args:
-        creates: "{{ log_destination }}/console.txt.gz"
+        creates: "{{ log_root }}/console.txt.gz"
       ignore_errors: True
 
     - name: Upload logs to the artifact server
       environment:
         RSYNC_PASSWORD: "{{ rsync_password }}"
       shell: |
-        rsync -avzR {{ log_root }}/./{{ job_name }}/{{ build_number }} \
-        {{ rsync_server }} --stats
+        rsync -avzR {{ log_root }}/./ \
+        {{ rsync_server }}/{{ job_name }}/{{ build_number }} \
+        --stats
       ignore_errors: True
