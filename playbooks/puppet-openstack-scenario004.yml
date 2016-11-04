@@ -14,6 +14,8 @@
 #   under the License.
 #
 
+- include: host-preparation.yml
+
 - name: Run puppet-openstack-integration scenario004 tests
   hosts: openstack_nodes
   force_handlers: True
