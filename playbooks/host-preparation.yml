@@ -41,3 +41,32 @@
       service:
         name: "network"
         state: "restarted"
+
+# Ensure tuned is installed and that we're using an optimal profile
+# ... We're not interested in power savings
+- name: Set up tuned to ensure optimal performance
+  hosts: openstack_nodes
+  tasks:
+    - name: Ensure tuned is installed
+      package:
+        name: "tuned"
+        state: "present"
+
+    - name: Ensure tuned is enabled and started
+      service:
+        name: "tuned"
+        enabled: "yes"
+        state: "started"
+
+    - name: Retrieve current tuned profile
+      command: tuned-adm active
+      register: tuned
+      changed_when: False
+
+    - name: Print current tuned profile
+      debug:
+        msg: "{{ tuned.stdout }}"
+
+    - name: Change tuned profile to throughput-performance
+      command: tuned-adm profile throughput-performance
+      when: "{{ 'throughput-performance' not in tuned.stdout }}"
