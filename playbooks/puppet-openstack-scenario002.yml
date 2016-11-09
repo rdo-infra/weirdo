@@ -20,17 +20,14 @@
   hosts: openstack_nodes
   force_handlers: True
   tasks:
-    - include_role:
-        name: "logs"
-        tasks_from: "bootstrap"
-
     - block:
       - include_role:
           name: "puppet-openstack"
         vars:
           test: "scenario002"
       rescue:
-        - debug:
+        - name: Failure detected when testing puppet-openstack-scenario002
+          debug:
             msg: "Failure detected when testing puppet-openstack-scenario002"
       always:
         - include_role:

@@ -70,3 +70,18 @@
     - name: Change tuned profile to throughput-performance
       command: tuned-adm profile throughput-performance
       when: "{{ 'throughput-performance' not in tuned.stdout }}"
+
+- name: Set up common dependencies across all roles
+  hosts: openstack_nodes
+  tasks:
+    - block:
+      - include_role:
+          name: "logs"
+          tasks_from: "bootstrap"
+
+      - include_role:
+          name: "common"
+      rescue:
+        - name: Failure detected when setting up common dependencies
+          fail:
+            msg: "Failure detected when setting up common dependencies"
