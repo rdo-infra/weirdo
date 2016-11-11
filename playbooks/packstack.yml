@@ -22,19 +22,23 @@
     tests: ['scenario001', 'scenario002', 'scenario003']
   tasks:
     - block:
-      - name: Validate that test is defined and available
-        fail:
-          msg: "The 'test' variable needs to be set to one of: {{ tests }}"
-        when: ( test is undefined ) or
-              ( test not in tests )
+        - name: Validate that test is defined and available
+          fail:
+            msg: "The 'test' variable needs to be set to one of: {{ tests }}"
+          when: ( test is undefined ) or
+                ( test not in tests )
 
-      - include_role:
-          name: "packstack"
-      rescue:
-        - name: Failure detected when testing packstack
-          debug:
-            msg: "Failure detected when testing packstack"
-      always:
+        - include_role:
+            name: "common"
+        - include_role:
+            name: "packstack"
         - include_role:
             name: "logs"
             tasks_from: "recover"
+      rescue:
+        - include_role:
+            name: "logs"
+            tasks_from: "recover"
+        - name: Failure detected when testing packstack
+          fail:
+            msg: "Failure detected when testing packstack"

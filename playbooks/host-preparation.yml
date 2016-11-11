@@ -78,9 +78,6 @@
       - include_role:
           name: "logs"
           tasks_from: "bootstrap"
-
-      - include_role:
-          name: "common"
       rescue:
         - name: Failure detected when setting up common dependencies
           fail:

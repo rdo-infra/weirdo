@@ -21,15 +21,19 @@
   force_handlers: True
   tasks:
     - block:
-      - include_role:
-          name: "puppet-openstack"
-        vars:
-          test: "scenario003"
-      rescue:
-        - name: Failure detected when testing puppet-openstack-scenario003
-          debug:
-            msg: "Failure detected when testing puppet-openstack-scenario003"
-      always:
+        - include_role:
+            name: "common"
+        - include_role:
+            name: "puppet-openstack"
+          vars:
+            test: "scenario003"
         - include_role:
             name: "logs"
             tasks_from: "recover"
+      rescue:
+        - include_role:
+            name: "logs"
+            tasks_from: "recover"
+        - name: Failure detected when testing puppet-openstack-scenario003
+          fail:
+            msg: "Failure detected when testing puppet-openstack-scenario003"

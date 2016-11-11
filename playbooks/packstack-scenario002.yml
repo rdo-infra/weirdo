@@ -21,15 +21,19 @@
   force_handlers: True
   tasks:
     - block:
-      - include_role:
-          name: "packstack"
-        vars:
-          test: "scenario002"
-      rescue:
-        - name: Failure detected when testing packstack-scenario002
-          debug:
-            msg: "Failure detected when testing packstack-scenario002"
-      always:
+        - include_role:
+            name: "common"
+        - include_role:
+            name: "packstack"
+          vars:
+            test: "scenario002"
         - include_role:
             name: "logs"
             tasks_from: "recover"
+      rescue:
+        - include_role:
+            name: "logs"
+            tasks_from: "recover"
+        - name: Failure detected when testing packstack-scenario002
+          fail:
+            msg: "Failure detected when testing packstack-scenario002"

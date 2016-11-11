@@ -22,19 +22,23 @@
     tests: ['scenario001', 'scenario002', 'scenario003', 'scenario004']
   tasks:
     - block:
-      - name: Validate that test is defined and available
-        fail:
-          msg: "The 'test' variable needs to be set to one of: {{ tests }}"
-        when: ( test is undefined ) or
-              ( test not in tests )
+        - name: Validate that test is defined and available
+          fail:
+            msg: "The 'test' variable needs to be set to one of: {{ tests }}"
+          when: ( test is undefined ) or
+                ( test not in tests )
 
-      - include_role:
-          name: "puppet-openstack"
-      rescue:
-        - name: Failure detected when testing puppet-openstack-integration
-          debug:
-            msg: "Failure detected when testing puppet-openstack-integration"
-      always:
+        - include_role:
+            name: "common"
+        - include_role:
+            name: "puppet-openstack"
         - include_role:
             name: "logs"
             tasks_from: "recover"
+      rescue:
+        - include_role:
+            name: "logs"
+            tasks_from: "recover"
+        - name: Failure detected when testing puppet-openstack-integration
+          fail:
+            msg: "Failure detected when testing puppet-openstack-integration"
