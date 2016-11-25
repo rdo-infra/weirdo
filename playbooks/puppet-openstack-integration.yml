@@ -28,6 +28,17 @@
           when: ( test is undefined ) or
                 ( test not in tests )
 
+        # This needs to be managed until ocata is EOL :(
+        - name: If running scenario004, validate that we're running >= Ocata
+          fail:
+            msg: "scenario004 can only be run against >= Ocata"
+          when:
+            - test == "scenario004"
+            - 'master' not in openstack_release
+            - 'ocata' not in openstack_release
+            - 'pike' not in openstack_release
+            - 'queens' not in openstack_release
+
         - include_role:
             name: "puppet-openstack"
         - include_role:

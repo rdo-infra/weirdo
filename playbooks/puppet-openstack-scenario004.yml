@@ -20,6 +20,16 @@
   hosts: openstack_nodes
   force_handlers: True
   tasks:
+    # This needs to be managed until ocata is EOL :(
+    - name: Validate that we're running >= Ocata
+      fail:
+        msg: "scenario004 can only be run against >= Ocata"
+      when:
+        - 'master' not in openstack_release
+        - 'ocata' not in openstack_release
+        - 'pike' not in openstack_release
+        - 'queens' not in openstack_release
+
     - block:
         - include_role:
             name: "puppet-openstack"
