@@ -1,3 +1,7 @@
+- name: kolla
+  src: https://github.com/rdo-infra/ansible-role-weirdo-kolla
+  scm: git
+  version: master
 - name: packstack
   src: https://github.com/rdo-infra/ansible-role-weirdo-packstack
   scm: git
