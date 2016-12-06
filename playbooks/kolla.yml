@@ -28,8 +28,8 @@
           when: ( test is undefined ) or
                 ( test not in tests )
 
-        - debug:
-            msg: "This is no-op for now"
+        - include_role:
+            name: "kolla"
         - include_role:
             name: "logs"
             tasks_from: "recover"

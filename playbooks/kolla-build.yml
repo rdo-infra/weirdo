@@ -21,8 +21,10 @@
   force_handlers: True
   tasks:
     - block:
-        - debug:
-            msg: "This is no-op for now"
+        - include_role:
+            name: "kolla"
+          vars:
+            test: "build"
         - include_role:
             name: "logs"
             tasks_from: "recover"
