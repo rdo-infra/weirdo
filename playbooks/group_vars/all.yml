@@ -1,0 +1,6 @@
+weirdo_extra_roles: "{{ playbook_dir }}/tmp/extra-roles"
+kolla_ansible_venv: "{{ playbook_dir }}/tmp/kolla-ansible"
+kolla_ansible_genpwd: "{{ kolla_ansible_venv }}/bin/kolla-genpwd"
+kolla_ansible_passwords: "{{ kolla_ansible_venv }}/share/kolla/etc_examples/kolla/passwords.yml"
+kolla_ansible_vars: "{{ kolla_ansible_venv }}/share/kolla/ansible/group_vars/all.yml"
+kolla_ansible_roles: "{{ kolla_ansible_venv }}/share/kolla/ansible/roles"

@@ -1,0 +1,51 @@
+---
+#   Copyright Red Hat, Inc. All Rights Reserved.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License"); you may
+#   not use this file except in compliance with the License. You may obtain
+#   a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#   WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#   License for the specific language governing permissions and limitations
+#   under the License.
+#
+
+# NOTE #1 (dmsimard):
+# kolla-ansible abstracts the ansible-playbook command with the kolla-ansible
+# tool, so running kolla-ansible as a command task would hide all the tasks
+# from the playbook run inside the one task.
+# Instead, we setup kolla-ansible for the sole purpose of including it's roles
+# natively so that we have task-level granularity.
+
+# NOTE #2 (dmsimard):
+# This setup playbook *needs* to run as a separate playbook run
+# tl;dr, you can't setup a role and include it in the same playbook run.
+# For more details, see https://github.com/ansible/ansible/issues/19438
+
+- name: Setup Kolla-Ansible
+  hosts: localhost
+  tasks:
+    # https://github.com/kokosing/docker-release/issues/3
+    - name: Initialize virtual environment with up-to-date setuptools
+      pip:
+        name: "setuptools"
+        state: "latest"
+        editable: "no"
+        virtualenv: "{{ kolla_ansible_venv }}"
+
+    - name: Install Kolla-Ansible
+      pip:
+        name: "git+https://git.openstack.org/openstack/kolla-ansible"
+        state: "latest"
+        editable: "no"
+        virtualenv: "{{ kolla_ansible_venv }}"
+
+    - name: Setup kolla-ansible roles in the default Ansible role path
+      file:
+        src: "{{ kolla_ansible_roles }}/"
+        dest: "{{ weirdo_extra_roles }}"
+        state: "link"
