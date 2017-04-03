@@ -27,6 +27,7 @@
         - firewalld
         - NetworkManager
       ignore_errors: "yes"
+      register: stopped_services
 
     - name: Remove services
       package:
@@ -41,6 +42,7 @@
       service:
         name: "network"
         state: "restarted"
+      when: stopped_services | succeeded
 
 # Ensure tuned is installed and that we're using an optimal profile
 # ... We're not interested in power savings
