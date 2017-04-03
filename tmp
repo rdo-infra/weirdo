@@ -1,0 +1,22 @@
+tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_too_many_objects[id-3a387039-697a-44fc-a9c0-935de31f426b,smoke]
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Captured traceback:
+~~~~~~~~~~~~~~~~~~~
+    Traceback (most recent call last):
+      File "/tmp/openstack/tempest/tempest/api/object_storage/test_container_quotas.py", line 47, in tearDown
+        self.delete_containers()
+      File "/tmp/openstack/tempest/tempest/api/object_storage/base.py", line 138, in delete_containers
+        delete_containers(cls.containers, container_client, object_client)
+      File "/tmp/openstack/tempest/tempest/api/object_storage/base.py", line 55, in delete_containers
+        container_client.delete_container(cont)
+      File "/tmp/openstack/tempest/tempest/services/object_storage/container_client.py", line 53, in delete_container
+        resp, body = self.delete(url)
+      File "/tmp/openstack/tempest/tempest/lib/common/rest_client.py", line 306, in delete
+        return self.request('DELETE', url, extra_headers, headers, body)
+      File "/tmp/openstack/tempest/tempest/lib/common/rest_client.py", line 663, in request
+        self._error_checker(resp, resp_body)
+      File "/tmp/openstack/tempest/tempest/lib/common/rest_client.py", line 830, in _error_checker
+        resp=resp)
+    tempest.lib.exceptions.UnexpectedResponseCode: Unexpected response code received
+    Details: 503
