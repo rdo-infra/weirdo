@@ -1,3 +1,4 @@
 pbr>=1.6
 ansible==2.2.1.0
 ara>=0.5.0
+dlrnapi_client
