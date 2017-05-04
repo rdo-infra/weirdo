@@ -22,6 +22,30 @@
       "revId": "85873ca457d406d16121049de8bd02d4038b0edb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa201ad_5ad50242",
+        "filename": "playbooks/dlrn-api-report.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2017-05-04T07:51:43Z",
+      "side": 1,
+      "message": "Yep, in that case the call will fail due to some missing parameter (probably invalid url or password).",
+      "parentUuid": "baa201ad_d769cb26",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "85873ca457d406d16121049de8bd02d4038b0edb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
