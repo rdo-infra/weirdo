@@ -17,7 +17,7 @@
 # Playbook to report the result of a WeIRDO execution on a DLRN API server
 
 - name: Report result using the DLRN API
-  hosts: openstack_nodes
+  hosts: localhost
   vars:
     dlrn_user: "{{ lookup('env', 'DLRNAPI_USER') }}"
     dlrn_pass: "{{ lookup('env', 'DLRNAPI_PASSWD') }}"
