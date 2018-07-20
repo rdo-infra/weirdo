@@ -1,0 +1,4 @@
+- project:
+    check:
+      jobs:
+        - legacy-weirdo-integration-master-puppet-scenario-py3
