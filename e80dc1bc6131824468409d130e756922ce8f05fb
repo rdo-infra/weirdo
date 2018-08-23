@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_470e7a35",
+        "filename": "playbooks/puppet-openstack-integration.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-08-23T05:36:10Z",
+      "side": 1,
+      "message": "we can clean up this now as newton jobs are not there, if still there then check can be openstack_release \u003d\u003d newton",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 42
+      },
+      "revId": "e80dc1bc6131824468409d130e756922ce8f05fb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
