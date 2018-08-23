@@ -38,6 +38,7 @@
             - openstack_release != "ocata"
             - openstack_release != "pike"
             - openstack_release != "queens"
+            - openstack_release != "rocky"
 
         - include_role:
             name: "puppet-openstack"
