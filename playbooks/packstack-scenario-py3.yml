@@ -25,6 +25,8 @@
             name: "packstack"
           vars:
             test: "scenario-py3"
+            nested_virtualization: "false"
+            selinux_enforcing: "false"
         - include_role:
             name: "logs"
             tasks_from: "recover"
