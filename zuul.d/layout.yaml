@@ -1,0 +1,7 @@
+- project:
+    check:
+      jobs:
+        - legacy-weirdo-integration-master-packstack-scenario-py3:
+            voting: false
+        - legacy-weirdo-integration-master-puppet-scenario-py3:
+            voting: false
