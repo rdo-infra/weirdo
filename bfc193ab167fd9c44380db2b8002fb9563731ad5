@@ -1,0 +1,8 @@
+Code-Review+2: David Moreau Simard <dms@redhat.com>
+Workflow+1: David Moreau Simard <dms@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Thu, 03 Jan 2019 20:10:32 +0000
+Reviewed-on: https://review.rdoproject.org/r/18040
+Project: rdo-infra/weirdo
+Branch: refs/heads/master
