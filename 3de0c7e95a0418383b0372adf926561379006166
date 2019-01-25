@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ad0253b_ece7b810",
+        "filename": "playbooks/puppet-openstack-scenario001.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2019-01-25T09:06:56Z",
+      "side": 1,
+      "message": "if we run weirdo from a cento",
+      "range": {
+        "startLine": 28,
+        "startChar": 42,
+        "endLine": 28,
+        "endChar": 62
+      },
+      "revId": "3de0c7e95a0418383b0372adf926561379006166",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
