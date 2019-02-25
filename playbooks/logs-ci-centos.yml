@@ -23,7 +23,7 @@
     build_url: "{{ lookup('env', 'BUILD_URL') }}"
     build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
     job_name: "{{ lookup('env', 'JOB_NAME') }}"
-    rsync_server: "rdo@artifacts.ci.centos.org::rdo"
+    rsync_server: "rdo@centos.logs.rdoproject.org::rdo"
     rsync_password: "{{ api_key | regex_replace('^(.{13}).*', '\\1') }}"
     log_root: "/var/log/weirdo"
   tasks:
