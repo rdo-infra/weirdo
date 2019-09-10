@@ -53,7 +53,7 @@ To run WeIRDO on localhost, we create a minimal inventory file with localhost
 as the target and pre-install some dependencies beforehand. Once the job is
 over, artifacts and logs are uploaded to Swift.
 
-.. _software factory: http://softwarefactory-project.io/docs/intro.html
+.. _software factory: http://softwarefactory-project.io/docs
 .. _openstack-infra: http://docs.openstack.org/infra/system-config/
 .. _config: https://review.rdoproject.org/r/gitweb?p=config.git;a=summary
 
