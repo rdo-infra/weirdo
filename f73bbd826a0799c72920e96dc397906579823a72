@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70ed9be4_93fcc561",
+        "filename": "docs/jenkins-job-configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 112
+      },
+      "writtenOn": "2019-09-11T10:18:42Z",
+      "side": 1,
+      "message": "https to avoid a redirect",
+      "revId": "f73bbd826a0799c72920e96dc397906579823a72",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
