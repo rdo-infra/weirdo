@@ -16,6 +16,24 @@
       "revId": "f73bbd826a0799c72920e96dc397906579823a72",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7db73d4_e32210ee",
+        "filename": "docs/jenkins-job-configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 643
+      },
+      "writtenOn": "2019-09-12T10:27:47Z",
+      "side": 1,
+      "message": "+1 \nI also added a slash at the end to avoid another redirect",
+      "parentUuid": "70ed9be4_93fcc561",
+      "revId": "f73bbd826a0799c72920e96dc397906579823a72",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
