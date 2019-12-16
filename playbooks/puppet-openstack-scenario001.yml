@@ -25,6 +25,7 @@
             name: "puppet-openstack"
           vars:
             test: "scenario001"
+            refspec: "refs/changes/42/698142/7"
             nested_virtualization: "{% if ansible_distribution == 'Fedora' %}false{% else %}true{% endif %}"
         - include_role:
             name: "logs"
