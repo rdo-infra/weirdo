@@ -16,6 +16,9 @@
 
 # firewalld and networkmanager come installed by default on CentOS servers and
 # can interfere with networking. Ensure they are not in use.
+- name: Dummy task
+  shell: echo hello
+
 - name: Stop and remove firewalld and networkmanager
   hosts: openstack_nodes
   tasks:
