@@ -1,0 +1,8 @@
+- project:
+    check:
+      jobs:
+        - weirdo-integration-master-packstack-scenario001-centos8
+        - weirdo-integration-rocky-packstack-scenario002
+        - weirdo-integration-queens-puppet-scenario001
+        - weirdo-ansible-lint
+        - weirdo-docs
