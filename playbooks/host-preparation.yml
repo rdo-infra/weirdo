@@ -47,7 +47,7 @@
       service:
         name: "network"
         state: "restarted"
-      when: stopped_services | succeeded
+      when: stopped_services is succeeded
 
 # Ensure tuned is installed and that we're using an optimal profile
 # ... We're not interested in power savings
