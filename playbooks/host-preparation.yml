@@ -54,6 +54,13 @@
 - name: Set up tuned to ensure optimal performance
   hosts: openstack_nodes
   tasks:
+    - name: Check repo config
+      shell: "cat /etc/yum.repos.d/*"
+      register: repos
+
+    - name: Display repo configs
+      debug: msg="{{ repos.stdout }}"
+
     - name: Ensure tuned is installed
       package:
         name: "tuned"
