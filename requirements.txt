@@ -1,5 +1,5 @@
 pbr>=1.6
-ansible==2.9.16
+ansible==2.10.0
 ara<1.0.0
 pyfakefs<4.0.0
 dlrnapi_client
