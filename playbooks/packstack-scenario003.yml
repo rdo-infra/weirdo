@@ -25,7 +25,7 @@
             name: "packstack"
           vars:
             test: "scenario003"
-            selinux_enforcing: "{% if ansible_distribution == 'CentOS' and ansible_distribution_major_version|int < 8 %}true{% else %}false{% endif %}"
+            selinux_enforcing: "false"
         - include_role:
             name: "logs"
             tasks_from: "recover"
