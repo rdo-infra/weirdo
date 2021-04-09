@@ -1,0 +1,10 @@
+Code-Review+1: Julie Pichon <jpichon@redhat.com>
+Code-Review+2: Alan Pevec <alan.pevec@redhat.com>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Fri, 09 Apr 2021 06:56:05 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/weirdo/+/33168
+Project: rdo-infra/weirdo
+Branch: refs/heads/master
