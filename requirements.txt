@@ -1,10 +1,4 @@
 pbr>=1.6
-#NOTE: alembic and SQLAlchemy are ara requirements,
-#      pinned to avoid pip resolver issues. Remove
-#      once we move to ara > 1.0.0
-alembic<1.5.0
-SQLAlchemy<1.3.0
 ansible==2.9.16
-ara<1.0.0
-pyfakefs<4.0.0
+ara[server]
 dlrnapi_client
