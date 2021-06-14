@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9521d38e_f540c67c",
+        "filename": "playbooks/ansible.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2021-06-14T13:40:04Z",
+      "side": 1,
+      "message": "ara\u003e1.0 doesn\u0027t ship py2, only py3 so we could clean up the py2.7 paths.",
+      "range": {
+        "startLine": 2,
+        "startChar": 37,
+        "endLine": 2,
+        "endChar": 90
+      },
+      "revId": "2fca101026acaeef27697e2b87dfc41124e04725",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "426925c9_38695303",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2021-06-14T13:40:04Z",
+      "side": 1,
+      "message": "pyfakefs was a dependency for ara 0.16 as well",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 14
+      },
+      "revId": "2fca101026acaeef27697e2b87dfc41124e04725",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
