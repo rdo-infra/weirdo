@@ -24,12 +24,6 @@
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "8"
       changed_when: False
 
-      # https://bugzilla.redhat.com/show_bug.cgi?id=1961558
-    - name: Temporary exclude edk2-ovmf package which has issue, remove once libvirt is released with fix
-      shell: "sudo dnf config-manager --setopt appstream.exclude=edk2-ovmf-20200602gitca407c7246bf-5* --save"
-      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "8"
-      changed_when: False
-
     - name: Stop services
       service:
         name: "{{ item }}"
