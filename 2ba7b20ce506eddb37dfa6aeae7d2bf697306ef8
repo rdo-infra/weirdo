@@ -1,0 +1,10 @@
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Code-Review+1: Joel Capitao <jcapitao@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Workflow+1: Javier Peña <jpena@redhat.com>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Wed, 16 Jun 2021 10:15:49 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/weirdo/+/34092
+Project: rdo-infra/weirdo
+Branch: refs/heads/master
