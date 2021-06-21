@@ -14,32 +14,58 @@
 #   under the License.
 #
 
-# Standalone version of the logs.yml tasks from ansible-role-ci-centos
-# We need to upload logs to a predictable location.
-- name: Recover logs from a ci.centos.org job
+- name: Collect logs from cico node
   hosts: openstack_nodes
+  gather_facts: no
   vars:
-    api_key: "{{ lookup('env', 'CICO_API_KEY') }}"
-    build_url: "{{ lookup('env', 'BUILD_URL') }}"
-    build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
-    job_name: "{{ lookup('env', 'JOB_NAME') }}"
-    rsync_server: "rdo@artifacts.ci.centos.org::rdo"
-    rsync_password: "{{ api_key | regex_replace('^(.{13}).*', '\\1') }}"
-    log_root: "/var/log/weirdo"
+    workspace: "{{ lookup('env', 'WORKSPACE') }}"
   tasks:
+    - synchronize:
+        mode: pull
+        src: "/var/log/weirdo/./"
+        dest: "{{ workspace }}/logs/"
+        recursive: yes
+        dirs: no
+
+- name: Send logs to the log server
+  hosts: logserver
+  gather_facts: no
+  vars:
+    workspace: "{{ lookup('env', 'WORKSPACE') }}"
+    destination: "{{ lookup('env', 'DESTINATION') }}"
+    build_url: "{{ lookup('env', 'BUILD_URL') }}"
+    log_display_url: "{{ lookup('env', 'LOG_DISPLAY_URL') }}"
+  tasks:
+    - name: Create log destination directory
+      file:
+        path: "{{ destination }}"
+        state: directory
+        recurse: yes
+
+    - name: Upload logs to log server
+      synchronize:
+        src: "{{ workspace }}/logs"
+        dest: "{{ destination }}/"
+        recursive: yes
+        dirs: no
+
     - name: Fetch and gzip the console log
       shell: |
-        URL="{{ build_url }}/consoleText";
-        curl $URL | gzip > {{ log_root }}/console.txt.gz
+        curl "{{ build_url }}/consoleText" | gzip > {{ destination }}/console.txt.gz
       args:
-        creates: "{{ log_root }}/console.txt.gz"
+        creates: "{{ destination }}/console.txt.gz"
       ignore_errors: True
 
-    - name: Upload logs to the artifact server
-      environment:
-        RSYNC_PASSWORD: "{{ rsync_password }}"
-      shell: |
-        rsync -avzR {{ log_root }}/./ \
-        {{ rsync_server }}/{{ job_name }}/{{ build_number }} \
-        --stats
-      ignore_errors: True
+    - name: Upload ARA report
+      synchronize:
+        src: "{{ workspace }}/ara"
+        dest: "{{ destination }}/"
+
+    - name: Upload ARA database
+      synchronize:
+        src: "{{ workspace }}/ara-database"
+        dest: "{{ destination }}/"
+
+    - name: All collected logs are available following the URL below
+      debug:
+        var: log_display_url
