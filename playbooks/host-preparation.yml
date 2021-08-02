@@ -82,7 +82,7 @@
 
     - name: Change tuned profile to throughput-performance
       command: tuned-adm profile throughput-performance
-      when: "{{ 'throughput-performance' not in tuned.stdout }}"
+      when: "'throughput-performance' not in tuned.stdout"
 
 - name: Set up common dependencies across all roles
   hosts: openstack_nodes
