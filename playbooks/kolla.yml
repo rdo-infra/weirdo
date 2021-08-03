@@ -14,7 +14,7 @@
 #   under the License.
 #
 
-- include: host-preparation.yml
+- import_playbook: host-preparation.yml
 
 - name: Retrieve and run Kolla tests
   hosts: openstack_nodes
