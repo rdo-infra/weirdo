@@ -39,6 +39,7 @@
         - NetworkManager
       ignore_errors: "yes"
       register: stopped_services
+      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "8"
 
     - name: Remove services
       package:
@@ -48,6 +49,7 @@
         - firewalld
         - NetworkManager
       ignore_errors: "yes"
+      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "8"
 
     - name: Restart networking
       service:
