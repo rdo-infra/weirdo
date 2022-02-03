@@ -63,8 +63,11 @@
   hosts: openstack_nodes
   tasks:
     - name: Ensure tuned is installed
+      # amoralej - we need to add subscription-manager after bz#2029405
       package:
-        name: "tuned"
+        name:
+          - tuned
+          - subscription-manager
         state: "present"
 
     - name: Ensure tuned is enabled and started
