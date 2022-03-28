@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "37e9601d29f4dcee9e29b3aedd04ba26a88f26a9",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "090921f1_33eb0028",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-03-28T11:53:01Z",
+      "side": 1,
+      "message": "Merging this manually to unblock jobs as the error in the failed job is unrelated",
+      "revId": "37e9601d29f4dcee9e29b3aedd04ba26a88f26a9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
