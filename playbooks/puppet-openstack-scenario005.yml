@@ -16,20 +16,16 @@
 
 - import_playbook: host-preparation.yml
 
-- name: Retrieve and run puppet-openstack-integration tests
+- name: Run puppet-openstack-integration scenario005 tests
   hosts: openstack_nodes
-  vars:
-    tests: ['scenario001', 'scenario002', 'scenario003', 'scenario004', 'scenario005']
+  force_handlers: True
   tasks:
     - block:
-        - name: Validate that test is defined and available
-          fail:
-            msg: "The 'test' variable needs to be set to one of: {{ tests }}"
-          when: ( test is undefined ) or
-                ( test not in tests )
-
         - include_role:
             name: "puppet-openstack"
+          vars:
+            test: "scenario005"
+            nested_virtualization: "{% if ansible_distribution == 'Fedora' %}false{% else %}true{% endif %}"
         - include_role:
             name: "logs"
             tasks_from: "recover"
@@ -37,6 +33,6 @@
         - include_role:
             name: "logs"
             tasks_from: "recover"
-        - name: Failure detected when testing puppet-openstack-integration
+        - name: Failure detected when testing puppet-openstack-scenario005
           fail:
-            msg: "Failure detected when testing puppet-openstack-integration"
+            msg: "Failure detected when testing puppet-openstack-scenario005"
