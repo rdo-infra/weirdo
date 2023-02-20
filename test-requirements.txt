@@ -1,6 +1,6 @@
 sphinx
 sphinx-rtd-theme
-ansible==2.8.11
+ansible==7.0.0
 ansible-lint<=3.5.0
 graphviz
 GitPython
