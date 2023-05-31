@@ -18,3 +18,7 @@
   src: https://github.com/rdo-infra/ansible-role-weirdo-logs
   scm: git
   version: master
+- name: container-build
+  src: https://github.com/openstack-k8s-operators/ci-framework/
+  scm: git
+  version: main
