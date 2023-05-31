@@ -18,3 +18,7 @@
   src: https://github.com/rdo-infra/ansible-role-weirdo-logs
   scm: git
   version: master
+- name: openstack-ansible
+  src: https://github.com/jcapiitao/ansible-role-weirdo-openstack-ansible
+  scm: git
+  version: master
