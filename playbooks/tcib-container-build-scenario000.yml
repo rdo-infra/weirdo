@@ -1,0 +1,44 @@
+---
+#   Copyright Red Hat, Inc. All Rights Reserved.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License"); you may
+#   not use this file except in compliance with the License. You may obtain
+#   a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#   WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#   License for the specific language governing permissions and limitations
+#   under the License.
+#
+
+- import_playbook: host-preparation.yml
+
+- name: Build the container images with tcib
+  hosts: openstack_nodes
+  force_handlers: True
+  tasks:
+    - block:
+        - include_role:
+            name: "common"
+        - include_role:
+            name: "build_containers"
+          vars:
+            cifmw_build_containers_basedir: "/var/log/weirdo-project"
+            cifmw_build_containers_containers_base_image: quay.io/centos/centos:stream9
+            cifmw_build_containers_image_tag: "trunk-{{ openstack_release }}"
+            cifmw_build_containers_openstack_release: "{{ openstack_release }}"
+            cifmw_build_containers_registry_namespace: "trunk-{{ openstack_release }}"
+            cifmw_build_containers_repo_dir: "/etc/yum.repos.d"
+        - include_role:
+            name: "logs"
+            tasks_from: "recover"
+      rescue:
+        - include_role:
+            name: "logs"
+            tasks_from: "recover"
+        - name: Failure detected when testing openstack-ansible
+          fail:
+            msg: "Failure detected when testing openstack-ansible"
