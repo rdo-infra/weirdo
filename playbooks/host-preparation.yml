@@ -29,6 +29,12 @@
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "9"
       changed_when: False
 
+    # libvirt-9.10.0-1 is broken https://issues.redhat.com/browse/RHEL-20609
+    - name: Temporary exclude libvirt-9.10.0-1
+      shell: "sudo dnf config-manager --setopt appstream.exclude=libvirt*9.10.0* --save"
+      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "9"
+      changed_when: False
+
     - name: Ensure network-scripts installed in CentOS8 as we removing NetworkManager
       package:
         name: "network-scripts"
