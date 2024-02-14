@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd03f65_fea93a09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-02-14T13:58:34Z",
+      "side": 1,
+      "message": "Still old compose http://mirror.regionone.vexxhost-nodepool-tripleo.rdoproject.org/centos-stream/9-stream/COMPOSE_ID",
+      "revId": "318b1bb66c4684ad928bbaca236e6454aafd6fd3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
