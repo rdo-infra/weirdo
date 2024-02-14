@@ -33,6 +33,23 @@
       "message": "recheck",
       "revId": "318b1bb66c4684ad928bbaca236e6454aafd6fd3",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b1844ed_0da90f96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-02-14T17:39:17Z",
+      "side": 1,
+      "message": "there is an on-going issue with last CS9 mirror content see https://lists.centos.org/pipermail/centos-devel/2024-February/165547.html",
+      "revId": "318b1bb66c4684ad928bbaca236e6454aafd6fd3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
