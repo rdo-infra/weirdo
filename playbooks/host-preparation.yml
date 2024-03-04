@@ -29,12 +29,6 @@
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "9"
       changed_when: False
 
-    # mariadb-10.11 is broken https://issues.redhat.com/browse/RDO-241
-    - name: Temporary disable mariadb module
-      shell: "sudo dnf module disable -y mariadb"
-      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "9"
-      changed_when: False
-
     - name: Ensure network-scripts installed in CentOS8 as we removing NetworkManager
       package:
         name: "network-scripts"
