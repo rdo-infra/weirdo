@@ -51,6 +51,23 @@
       "parentUuid": "cabcdd6a_fa1e9fec",
       "revId": "b01b9c3e7e6a81c64ff185117ba1ff4811e37e7c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02995972_7adddc3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-03-05T16:39:44Z",
+      "side": 1,
+      "message": "we can abandon this patch",
+      "revId": "b01b9c3e7e6a81c64ff185117ba1ff4811e37e7c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
