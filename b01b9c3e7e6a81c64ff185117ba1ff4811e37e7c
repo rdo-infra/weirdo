@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cabcdd6a_fa1e9fec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-03-05T14:11:47Z",
+      "side": 1,
+      "message": "We need https://review.rdoproject.org/r/c/rdoinfo/+/51942 and https://softwarefactory-project.io/r/c/rdopkg/+/30963 to be merged to fix weirdo-integration-yoga-puppet-scenario003-centos8 failure\n\nor we can set it as non-voting to unblock",
+      "revId": "b01b9c3e7e6a81c64ff185117ba1ff4811e37e7c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
