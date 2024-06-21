@@ -23,6 +23,9 @@
     - block:
         - include_role:
             name: "common"
+        - name: Deploy local registry
+          ansible.builtin.include_role:
+            name: registry_deploy
         - include_role:
             name: "build_containers"
           vars:
