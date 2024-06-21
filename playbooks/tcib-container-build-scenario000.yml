@@ -21,9 +21,19 @@
   force_handlers: True
   tasks:
     - block:
-        - include_role:
+        - ansible.builtin.include_role:
             name: "common"
-        - include_role:
+
+        - name: Deploy local registry
+          ansible.builtin.include_role:
+            name: "registry_deploy"
+          vars:
+            cifmw_rp_registry_ip: "{{ ansible_default_ipv4.address }}"
+            cifmw_rp_registry_port: "5001"
+            cifmw_rp_registry_image: "docker.io/library/registry:2"
+
+        - name: Build the containers
+          ansible.builtin.include_role:
             name: "build_containers"
           vars:
             cifmw_build_containers_basedir: "/var/log/weirdo-project"
@@ -32,13 +42,29 @@
             cifmw_build_containers_openstack_release: "{{ openstack_release }}"
             cifmw_build_containers_registry_namespace: "trunk-{{ openstack_release }}"
             cifmw_build_containers_repo_dir: "/etc/yum.repos.d"
-        - include_role:
+
+        - name: Get the containers list from container registry
+          ansible.builtin.uri:
+            url: "http://{{ cifmw_rp_registry_ip }}:{{ cifmw_rp_registry_port }}/v2/_catalog"
+            return_content: true
+          register: cp_imgs
+
+        - name: Add the container list to file
+          ansible.builtin.copy:
+            content: "{{ cp_imgs.content }}"
+            dest: "/var/log/weirdo-project/local_registry.log"
+            mode: "0644"
+
+        - name: Recover the logs
+          ansible.builtin.include_role:
             name: "logs"
             tasks_from: "recover"
       rescue:
-        - include_role:
+        - name: Recover the logs
+          ansible.builtin.include_role:
             name: "logs"
             tasks_from: "recover"
+
         - name: Failure detected when testing openstack-ansible
           fail:
             msg: "Failure detected when testing openstack-ansible"
