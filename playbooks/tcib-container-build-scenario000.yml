@@ -21,9 +21,39 @@
   force_handlers: True
   tasks:
     - block:
-        - include_role:
+        - ansible.builtin.include_role:
             name: "common"
-        - include_role:
+
+        - name: Install podman
+          ansible.builtin.import_playbook: crc/podman.yaml
+          ignore_errors: yes
+
+        - name: Install podman
+          ansible.builtin.import_playbook: playbooks/crc/podman.yaml
+          ignore_errors: yes
+
+        - name: Install podman
+          ansible.builtin.import_playbook: >-
+                {{
+                    [
+                      ansible_user_dir,
+                      zuul.projects['review.rdoproject.org/config'].src_dir,
+                      'playbooks',
+                      'crc',
+                      'podman.yaml',
+                    ] | ansible.builtin.path_join
+                }}
+          ignore_errors: yes
+
+        - name: Deploy local registry
+          ansible.builtin.include_role:
+            name: "registry_deploy"
+          vars:
+            cifmw_rp_registry_ip: "{{ ansible_default_ipv4.address }}"
+            cifmw_rp_registry_port: "5001"
+
+        - name: Build the containers
+          ansible.builtin.include_role:
             name: "build_containers"
           vars:
             cifmw_build_containers_basedir: "/var/log/weirdo-project"
@@ -32,13 +62,17 @@
             cifmw_build_containers_openstack_release: "{{ openstack_release }}"
             cifmw_build_containers_registry_namespace: "trunk-{{ openstack_release }}"
             cifmw_build_containers_repo_dir: "/etc/yum.repos.d"
-        - include_role:
+
+        - name: Recover the logs
+          ansible.builtin.include_role:
             name: "logs"
             tasks_from: "recover"
       rescue:
-        - include_role:
+        - name: Recover the logs
+          ansible.builtin.include_role:
             name: "logs"
             tasks_from: "recover"
+
         - name: Failure detected when testing openstack-ansible
           fail:
             msg: "Failure detected when testing openstack-ansible"

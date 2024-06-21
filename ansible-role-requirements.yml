@@ -22,3 +22,7 @@
   src: https://github.com/openstack-k8s-operators/ci-framework/
   scm: git
   version: main
+- name: registry_deploy
+  src: https://github.com/openstack-k8s-operators/ci-framework/registry_deploy
+  scm: git
+  version: main
