@@ -21,24 +21,59 @@
   force_handlers: True
   tasks:
     - block:
-        - include_role:
+        - ansible.builtin.include_role:
             name: "common"
-        - include_role:
+
+        - name: Set content registry ip and port
+          ansible.builtin.set_fact:
+            registry_ip_address: "{{ container_provider_registry_ip_address|default(ansible_default_ipv4.address) }}"
+            registry_port: "{{ container_provider_registry_port|default(5001) }}"
+
+        - name: Deploy local registry
+          ansible.builtin.include_role:
+            name: "registry_deploy"
+          vars:
+            cifmw_rp_registry_ip: "{{ registry_ip_address }}"
+            cifmw_rp_registry_port: "{{ registry_port }}"
+            cifmw_rp_registry_image: "docker.io/library/registry:2"
+
+        - name: Build the containers
+          ansible.builtin.include_role:
             name: "build_containers"
           vars:
+            cifmw_build_containers_authfile_path: null
             cifmw_build_containers_basedir: "/var/log/weirdo-project"
-            cifmw_build_containers_containers_base_image: quay.io/centos/centos:stream9
+            cifmw_build_containers_containers_base_image: "quay.io/centos/centos:stream9"
             cifmw_build_containers_image_tag: "trunk-{{ openstack_release }}"
             cifmw_build_containers_openstack_release: "{{ openstack_release }}"
-            cifmw_build_containers_registry_namespace: "trunk-{{ openstack_release }}"
+            cifmw_build_containers_buildah_push: false
+            cifmw_build_containers_push_containers: true
+            cifmw_build_containers_push_registry: "{{ registry_ip_address }}:{{ registry_port }}"
+            cifmw_build_containers_registry_namespace: "openstack"
             cifmw_build_containers_repo_dir: "/etc/yum.repos.d"
-        - include_role:
+
+        - name: Get the containers list from container registry
+          ansible.builtin.uri:
+            url: "http://{{ registry_ip_address }}:{{ registry_port }}/v2/_catalog"
+            return_content: true
+          register: cp_imgs
+
+        - name: Add the container list to file
+          ansible.builtin.copy:
+            content: "{{ cp_imgs.content }}"
+            dest: "/var/log/weirdo-project/local_registry.log"
+            mode: "0644"
+
+        - name: Recover the logs
+          ansible.builtin.include_role:
             name: "logs"
             tasks_from: "recover"
       rescue:
-        - include_role:
+        - name: Recover the logs
+          ansible.builtin.include_role:
             name: "logs"
             tasks_from: "recover"
-        - name: Failure detected when testing openstack-ansible
+
+        - name: Failure detected when building images with TCIB
           fail:
             msg: "Failure detected when testing openstack-ansible"
