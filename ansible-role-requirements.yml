@@ -1,24 +1,29 @@
-- name: kolla
-  src: https://github.com/rdo-infra/ansible-role-weirdo-kolla
-  scm: git
-  version: master
-- name: packstack
-  src: https://github.com/rdo-infra/ansible-role-weirdo-packstack
-  scm: git
-  version: master
-- name: puppet-openstack
-  src: https://github.com/rdo-infra/ansible-role-weirdo-puppet-openstack
-  scm: git
-  version: master
-- name: common
-  src: https://github.com/rdo-infra/ansible-role-weirdo-common
-  scm: git
-  version: master
-- name: logs
-  src: https://github.com/rdo-infra/ansible-role-weirdo-logs
-  scm: git
-  version: master
-- name: container-build
-  src: https://github.com/openstack-k8s-operators/ci-framework/
-  scm: git
-  version: main
+roles:
+  - name: kolla
+    src: https://github.com/rdo-infra/ansible-role-weirdo-kolla
+    scm: git
+    version: master
+  - name: packstack
+    src: https://github.com/rdo-infra/ansible-role-weirdo-packstack
+    scm: git
+    version: master
+  - name: puppet-openstack
+    src: https://github.com/rdo-infra/ansible-role-weirdo-puppet-openstack
+    scm: git
+    version: master
+  - name: common
+    src: https://github.com/rdo-infra/ansible-role-weirdo-common
+    scm: git
+    version: master
+  - name: logs
+    src: https://github.com/rdo-infra/ansible-role-weirdo-logs
+    scm: git
+    version: master
+  - name: ci-framework
+    src: https://github.com/openstack-k8s-operators/ci-framework
+    scm: git
+    version: main
+
+
+collections:
+  - containers.podman
