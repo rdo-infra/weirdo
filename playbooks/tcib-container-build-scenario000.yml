@@ -30,6 +30,7 @@
             registry_port: "{{ content_provider_registry_port|default(5001) }}"
             containers_org: "{{ content_provider_containers_org|default('openstack') }}"
             containers_image_tag: "{{ content_provider_containers_image_tag|default('latest') }}"
+            containers_image_excludes: "{{ content_provider_containers_excludes|default({}) }}"
 
         - name: Deploy local registry
           ansible.builtin.include_role:
@@ -53,6 +54,7 @@
             cifmw_build_containers_push_registry: "{{ registry_ip_address }}:{{ registry_port }}"
             cifmw_build_containers_registry_namespace: "{{ containers_org }}"
             cifmw_build_containers_repo_dir: "/etc/yum.repos.d"
+            cifmw_build_containers_exclude_containers: "{{ containers_image_excludes }}"
 
         - name: Get the containers list from container registry
           ansible.builtin.uri:
